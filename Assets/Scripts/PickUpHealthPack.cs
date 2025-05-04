@@ -1,23 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-
-
-public class PickUpBullets : MonoBehaviour
+public class PickUpHealthPack : MonoBehaviour
 {
-    private TotalBullets total;
+    //[SerializeField] private PlayerVida vidaTotal;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerShoot bullets = collision.GetComponent<PlayerShoot>();
-            if (bullets != null)
+            PlayerVida vida = collision.GetComponent<PlayerVida>();
+            if (vida != null && vida.vida < 4)
             {
-                bullets.AddBullet();
+                vida.AddHead();
 
                 gameObject.SetActive(false);
             }

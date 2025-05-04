@@ -31,11 +31,22 @@ public class PlayerShoot : MonoBehaviour
             Shot();
             
         }
+        if (Input.GetKeyDown(KeyCode.R) && totalBullets > 0)
+            ReloadBullets();
     }
 
-    public void reloadBullet()
+    public void AddBullet()
     {
         totalBullets += 8;
+    }
+
+    public void ReloadBullets()
+    {
+        while (bullets < 8 && totalBullets > 0)
+        {
+            bullets++;
+            totalBullets--;
+        }
     }
 
     private void Shot()
