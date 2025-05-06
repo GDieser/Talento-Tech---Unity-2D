@@ -51,6 +51,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Shot()
     {
+
         Instantiate(bullet, controlShoot.position, controlShoot.rotation);
         bullets--;
         currentCoolDown = coolDown;

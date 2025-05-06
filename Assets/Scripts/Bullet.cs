@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float velocity;
     [SerializeField] private int damage;
 
+
     private void Update()
     {
         transform.Translate(Vector2.up * velocity * Time.deltaTime);
