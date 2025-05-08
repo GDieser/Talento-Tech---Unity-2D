@@ -13,6 +13,7 @@ public class ZombieScript : MonoBehaviour
 
     private PlayerVida vida;
     [SerializeField] private int life = 2;
+    [SerializeField] private ParticleSystem particulas;
 
     private bool enMov;
     //private bool attack;
@@ -141,6 +142,7 @@ public class ZombieScript : MonoBehaviour
     public void Damage(int damage)
     {
         life -= damage;
+        particulas.Play();
         if (life <= 0)
         {
             StopAllCoroutines(); // Por si hay otras corrutinas de ataque o movimiento activas
