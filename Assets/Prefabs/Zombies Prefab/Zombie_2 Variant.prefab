@@ -194,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 881738737535900976, guid: 572487ac266f7a841964e1b7a6ca1f2f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.272
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 881738737535900976, guid: 572487ac266f7a841964e1b7a6ca1f2f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -235,6 +235,10 @@ PrefabInstance:
     - target: {fileID: 881738737535900979, guid: 572487ac266f7a841964e1b7a6ca1f2f, type: 3}
       propertyPath: m_Name
       value: Particulas
+      objectReference: {fileID: 0}
+    - target: {fileID: 881738737535900990, guid: 572487ac266f7a841964e1b7a6ca1f2f, type: 3}
+      propertyPath: lengthInSec
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 572487ac266f7a841964e1b7a6ca1f2f, type: 3}

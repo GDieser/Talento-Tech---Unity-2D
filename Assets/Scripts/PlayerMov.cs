@@ -14,6 +14,8 @@ public class PlayerMov : MonoBehaviour
     public float tiempoSEspera = 0;
     public Light2D linterna;
 
+    [SerializeField] private AudioClip flashLight;
+
 
     //Velocidad
     [SerializeField] private float speed;
@@ -75,6 +77,7 @@ public class PlayerMov : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             linterna.enabled = !linterna.enabled;
+            SoundController.instance.PlaySound(flashLight, 0.8f);
         }        
 
     }

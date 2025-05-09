@@ -14,6 +14,7 @@ public class ZombieScript : MonoBehaviour
     private PlayerVida vida;
     [SerializeField] private int life = 2;
     [SerializeField] private ParticleSystem particulas;
+    
 
     private bool enMov;
     //private bool attack;
@@ -30,6 +31,7 @@ public class ZombieScript : MonoBehaviour
         //playerVivo = true;
         rb = this.GetComponent<Rigidbody2D>();
         Animator = this.GetComponent<Animator>();
+        
     }
     private void Update()
     {

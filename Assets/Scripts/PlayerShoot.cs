@@ -15,24 +15,55 @@ public class PlayerShoot : MonoBehaviour
 
     [SerializeField] private TotalBullets total;
 
+    [SerializeField]private AudioClip audioShoot;
+    [SerializeField] private AudioClip audioReload;
+    [SerializeField] private AudioClip audioReloadClick;
+    [SerializeField] private AudioClip audioNoBullets;
+
     private void Start()
     {
-        
+        //audioSource = this.GetComponent<AudioSource>();
     }
     private void Update()
     {
         total.setBullets(bullets);
         total.setTotalBullets(totalBullets);
         CoolDown();
+        ClickShoot();
+        ReloadGun();
 
+    }
+
+    public void ClickShoot()
+    {
         if (Input.GetButtonDown("Fire1") && bullets > 0 && currentCoolDown == 0)
         {
             //Acá Dispara
-            Shot();
-            
+            Shoot();
+            SoundController.instance.PlaySound(audioShoot, 0.5f);
+
         }
-        if (Input.GetKeyDown(KeyCode.R) && totalBullets > 0)
-            ReloadBullets();
+        else if(Input.GetButtonDown("Fire1") && currentCoolDown == 0)
+        {
+            SoundController.instance.PlaySound(audioNoBullets, 0.8f);
+        }
+    }
+
+    public void ReloadGun()
+    {
+        if (Input.GetKeyDown(KeyCode.R) || (bullets == 0 && totalBullets > 0))
+        {
+            if(totalBullets > 0)
+            {
+                ReloadBulletsGun();
+                SoundController.instance.PlaySound(audioReload, 0.8f);
+            }
+            else
+            {
+                SoundController.instance.PlaySound(audioReloadClick, 0.8f);
+            }
+        }
+
     }
 
     public void AddBullet()
@@ -40,7 +71,7 @@ public class PlayerShoot : MonoBehaviour
         totalBullets += 8;
     }
 
-    public void ReloadBullets()
+    public void ReloadBulletsGun()
     {
         while (bullets < 8 && totalBullets > 0)
         {
@@ -49,7 +80,7 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    private void Shot()
+    private void Shoot()
     {
 
         Instantiate(bullet, controlShoot.position, controlShoot.rotation);

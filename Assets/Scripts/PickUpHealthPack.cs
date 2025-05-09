@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpHealthPack : MonoBehaviour
 {
-    //[SerializeField] private PlayerVida vidaTotal;
+    [SerializeField] private AudioClip audioHealth;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +14,7 @@ public class PickUpHealthPack : MonoBehaviour
             if (vida != null && vida.vida < 4)
             {
                 vida.AddHead();
-
+                SoundController.instance.PlaySound(audioHealth, 0.8f);
                 gameObject.SetActive(false);
             }
         }
