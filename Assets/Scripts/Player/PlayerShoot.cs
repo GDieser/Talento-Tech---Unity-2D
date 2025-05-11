@@ -20,9 +20,17 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private AudioClip audioReloadClick;
     [SerializeField] private AudioClip audioNoBullets;
 
+
+    private Animator animator;
+
     private void Start()
     {
         //audioSource = this.GetComponent<AudioSource>();
+        if (animator == null)
+        {
+            //Me direcciona al nimator del player
+            animator = GetComponentInChildren<Animator>();
+        }
     }
     private void Update()
     {
@@ -41,26 +49,32 @@ public class PlayerShoot : MonoBehaviour
             //Acá Dispara
             Shoot();
             SoundController.instance.PlaySound(audioShoot, 0.5f);
+            animator.SetTrigger("Shoot");
 
         }
         else if(Input.GetButtonDown("Fire1") && currentCoolDown == 0)
         {
             SoundController.instance.PlaySound(audioNoBullets, 0.8f);
+            animator.SetTrigger("Shoot");
         }
+        
+
     }
 
     public void ReloadGun()
     {
         if (Input.GetKeyDown(KeyCode.R) || (bullets == 0 && totalBullets > 0))
         {
-            if(totalBullets > 0)
+            if(totalBullets > 0 && bullets < 8)
             {
                 ReloadBulletsGun();
                 SoundController.instance.PlaySound(audioReload, 0.8f);
+                animator.SetTrigger("Reload");
             }
             else
             {
                 SoundController.instance.PlaySound(audioReloadClick, 0.8f);
+                
             }
         }
 

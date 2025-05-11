@@ -121,6 +121,15 @@ public class ZombieScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Melee"))
+        {
+            Vector2 rebote = new Vector2().normalized;
+            rb.AddForce(rebote * 6f, ForceMode2D.Impulse);
+        }
+    }
+
     private IEnumerator FinAtaque()
     {
         // Espera a que termine la animación actual de ataque
