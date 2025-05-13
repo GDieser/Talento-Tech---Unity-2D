@@ -65,7 +65,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4449356142549365052, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
       propertyPath: m_Name
-      value: Zombie_2 Variant
+      value: Zombie_2 Variant(TEST)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449356142549365053, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: life
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449356142549365053, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: IsTest
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4449356142549365053, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
       propertyPath: player
@@ -73,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4449356142549365053, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
       propertyPath: moveSpeed
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4449356142549365053, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
       propertyPath: detectionRange

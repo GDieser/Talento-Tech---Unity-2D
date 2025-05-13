@@ -9,9 +9,12 @@ public class SpawnZombies : MonoBehaviour
 
     [SerializeField] private GameObject zombie;
     [SerializeField] private Transform player;
+
+
     [SerializeField] private Transform Spawn1;
 
-    [SerializeField] private int total = 1;
+    private int totalZombies = 5;
+    private float tiempo = 0;
     private System.Random random = new System.Random();
 
 
@@ -23,25 +26,50 @@ public class SpawnZombies : MonoBehaviour
 
     void Update()
     {
-        while (total > 0)
+        if(totalZombies != 0)
         {
-            SpawnZombie();
-            total--;
+            SpawnZombie(totalZombies);
         }
+
+        CoolDownZombies();
+        
+        
     }
 
-    private void SpawnZombie()
+    public void SpawnZombie(int total)
     {
-        for (int i = 0; i < 5; i++)
-        {
-            int x = random.Next(-25, 25);
-            int y = random.Next(-16, 10);
+        Debug.Log("total spawn " + total);
 
-            GameObject newZombie = Instantiate(zombie, new Vector2(x, y), Spawn1.rotation);
+        for (int i = 0; i < total; i++)
+        {
+            int x = random.Next(-21, 21);
+            int y = random.Next(-21, 21);
+
+            GameObject newZombie = Instantiate(zombie, new Vector2(x, y), Quaternion.identity);
 
             ZombieScript zombieSc = newZombie.GetComponent<ZombieScript>();
+
+
             zombieSc.player = player;
 
+        }
+
+        totalZombies = 0;
+
+    }
+
+    private void CoolDownZombies()
+    {
+        
+        if(tiempo < 2)
+        {
+            Debug.Log(tiempo);
+            tiempo += Time.deltaTime;
+        }
+        else
+        {
+            tiempo = 0;
+            totalZombies = 1;
         }
 
     }

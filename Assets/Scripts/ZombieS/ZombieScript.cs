@@ -12,9 +12,13 @@ public class ZombieScript : MonoBehaviour
     private Animator Animator;
 
     private PlayerVida vida;
+    
     [SerializeField] private int life = 2;
     [SerializeField] private ParticleSystem particulas;
-    
+    [SerializeField] private bool IsTest;
+
+    //SpawnZombies spawnZombies = FindObjectOfType<SpawnZombies>();
+
 
     private bool enMov;
     //private bool attack;
@@ -31,6 +35,7 @@ public class ZombieScript : MonoBehaviour
         //playerVivo = true;
         rb = this.GetComponent<Rigidbody2D>();
         Animator = this.GetComponent<Animator>();
+
         
     }
     private void Update()
@@ -125,8 +130,7 @@ public class ZombieScript : MonoBehaviour
     {
         if(collision.CompareTag("Melee"))
         {
-            Vector2 rebote = new Vector2().normalized;
-            rb.AddForce(rebote * 6f, ForceMode2D.Impulse);
+            
         }
     }
 
@@ -160,10 +164,20 @@ public class ZombieScript : MonoBehaviour
 
             Animator.Play("Death"); // Forzar animación inmediatamente
 
-            //Animator.SetBool("Idle", false);
-            Animator.SetBool("Walk", false);
-            Animator.SetBool("Attack", false);
-            StartCoroutine(Morir());
+            if(!IsTest)
+            {
+                //Animator.SetBool("Idle", false);
+                Animator.SetBool("Walk", false);
+                Animator.SetBool("Attack", false);
+                StartCoroutine(Morir());
+            }
+            else
+            {
+                Debug.Log("Aca");
+                
+                Destroy(gameObject);
+                
+            }
         }
     }
 

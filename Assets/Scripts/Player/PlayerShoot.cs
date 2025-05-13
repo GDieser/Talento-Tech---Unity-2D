@@ -68,12 +68,12 @@ public class PlayerShoot : MonoBehaviour
             if(totalBullets > 0 && bullets < 8)
             {
                 ReloadBulletsGun();
-                SoundController.instance.PlaySound(audioReload, 0.8f);
+                SoundController.instance.PlaySound(audioReload, 0.4f);
                 animator.SetTrigger("Reload");
             }
             else
             {
-                SoundController.instance.PlaySound(audioReloadClick, 0.8f);
+                SoundController.instance.PlaySound(audioReloadClick, 0.4f);
                 
             }
         }
