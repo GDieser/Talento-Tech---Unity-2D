@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4449356142549365050}
   - component: {fileID: 4449356142549365053}
   - component: {fileID: 4449356142549365030}
-  - component: {fileID: 4449356142549365031}
+  - component: {fileID: 685119400654359361}
   m_Layer: 0
   m_Name: Zombie_2 Variant
   m_TagString: Zombie
@@ -143,6 +143,7 @@ MonoBehaviour:
   moveSpeed: 0.5
   life: 2
   particulas: {fileID: 4449356144440101678}
+  IsTest: 0
   detectionRange: 2
 --- !u!95 &4449356142549365030
 Animator:
@@ -165,7 +166,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4449356142549365031
+--- !u!114 &685119400654359361
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +175,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4449356142549365052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 316c10aba29ce0141a02e9f64b444f65, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e2f937dbbe644a4c80ace9d737a22bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cursorTexture: {fileID: 2800000, guid: 5508dbe97247b54418a4810827ed7f1d, type: 3}
