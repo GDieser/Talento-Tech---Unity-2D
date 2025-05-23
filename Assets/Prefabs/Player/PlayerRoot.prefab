@@ -44,8 +44,9 @@ GameObject:
   - component: {fileID: 5363211474472009764}
   - component: {fileID: 5363211474472009769}
   - component: {fileID: 5363211474472009766}
-  - component: {fileID: 5363211474472009765}
   - component: {fileID: 5363211474472009763}
+  - component: {fileID: 5363211474472009765}
+  - component: {fileID: 3340032629961814212}
   m_Layer: 0
   m_Name: PlayerRoot
   m_TagString: Player
@@ -122,7 +123,7 @@ MonoBehaviour:
   tiempoSEspera: 0
   linterna: {fileID: 5363211475645170160}
   flashLight: {fileID: 8300000, guid: 6c5573239e88d63438af5ca2c846ce39, type: 3}
-  speed: 30
+  speedCons: 30
 --- !u!114 &5363211474472009766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +138,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 4
   gameOver: {fileID: 0}
+--- !u!114 &5363211474472009763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5363211474472009770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0087e3592c0c77c4a9eb8d1877bf4764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5363211474472009765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +172,7 @@ MonoBehaviour:
   audioReload: {fileID: 8300000, guid: 9f85723958d30c445a26f929721a2066, type: 3}
   audioReloadClick: {fileID: 8300000, guid: 9f40166306baebe42b2920fbad9c26fa, type: 3}
   audioNoBullets: {fileID: 8300000, guid: 444755d6fa152824ca4297b3fe2d1eea, type: 3}
---- !u!114 &5363211474472009763
+--- !u!114 &3340032629961814212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,9 +181,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5363211474472009770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0087e3592c0c77c4a9eb8d1877bf4764, type: 3}
+  m_Script: {fileID: 11500000, guid: d5e9fad954d8b0445999f4db2285dc45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlShoot: {fileID: 0}
+  bullet: {fileID: 0}
+  bullets: 4
+  totalBullets: 0
+  coolDown: 0.5
+  total: {fileID: 0}
+  audioShoot: {fileID: 0}
+  audioReload: {fileID: 0}
+  audioReloadClick: {fileID: 0}
+  audioNoBullets: {fileID: 0}
 --- !u!1 &5363211474758837340
 GameObject:
   m_ObjectHideFlags: 0

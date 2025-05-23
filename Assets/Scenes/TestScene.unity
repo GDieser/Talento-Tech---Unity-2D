@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombie: {fileID: 2834789859293665274, guid: 12025971bde174741b78b2e234d00c55, type: 3}
   player: {fileID: 1512263605}
-  Spawn1: {fileID: 543741616}
+  Spawn: {fileID: 543741616}
 --- !u!114 &548350269 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6967460486099351236, guid: 7cf169d62b65c734ea6b86fde52468a8, type: 3}

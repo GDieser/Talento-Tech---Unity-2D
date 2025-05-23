@@ -8,6 +8,8 @@ TagManager:
   - Zombie
   - Building
   - Melee
+  - ZombieSpawn
+  - Rifle
   layers:
   - Default
   - TransparentFX

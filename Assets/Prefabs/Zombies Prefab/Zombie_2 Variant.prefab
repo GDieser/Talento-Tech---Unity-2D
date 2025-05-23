@@ -140,11 +140,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  moveSpeed: 0.5
   life: 2
   particulas: {fileID: 4449356144440101678}
   IsTest: 0
-  detectionRange: 2
 --- !u!95 &4449356142549365030
 Animator:
   serializedVersion: 5

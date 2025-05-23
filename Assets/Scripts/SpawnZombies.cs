@@ -11,9 +11,10 @@ public class SpawnZombies : MonoBehaviour
     [SerializeField] private Transform player;
 
 
-    [SerializeField] private Transform Spawn1;
+    [SerializeField] private float posX;
+    [SerializeField] private float posY;
 
-    private int totalZombies = 5;
+    private int totalZombies = 1;
     private float tiempo = 0;
     private System.Random random = new System.Random();
 
@@ -38,19 +39,17 @@ public class SpawnZombies : MonoBehaviour
 
     public void SpawnZombie(int total)
     {
-        Debug.Log("total spawn " + total);
+        //Debug.Log("total spawn " + total);
 
         for (int i = 0; i < total; i++)
         {
-            int x = random.Next(-21, 21);
-            int y = random.Next(-21, 21);
+            //int x = random.Next(-21, 21);
+            //int y = random.Next(-21, 21);
 
-            GameObject newZombie = Instantiate(zombie, new Vector2(x, y), Quaternion.identity);
+            GameObject newZombie = Instantiate(zombie, new Vector2(posX, posY), Quaternion.identity);
 
-            ZombieScript zombieSc = newZombie.GetComponent<ZombieScript>();
-
-
-            zombieSc.player = player;
+            StartCoroutine(DelayedInit(newZombie));
+            
 
         }
 
@@ -58,12 +57,21 @@ public class SpawnZombies : MonoBehaviour
 
     }
 
+    private IEnumerator DelayedInit(GameObject zombie)
+    {
+        yield return new WaitForFixedUpdate();
+
+        ZombieScriptSpawn zombieSc = zombie.GetComponent<ZombieScriptSpawn>();
+        if (zombieSc.player == null)
+            zombieSc.player = player;
+    }
+
     private void CoolDownZombies()
     {
         
         if(tiempo < 2)
         {
-            Debug.Log(tiempo);
+            //Debug.Log(tiempo);
             tiempo += Time.deltaTime;
         }
         else

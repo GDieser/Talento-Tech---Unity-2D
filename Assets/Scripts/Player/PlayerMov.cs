@@ -40,6 +40,7 @@ public class PlayerMov : MonoBehaviour
         MovX();
         LinternaOff();
         AttackMelee();
+        ChangeGun();
 
         if (!Sprint())
         {
@@ -63,6 +64,29 @@ public class PlayerMov : MonoBehaviour
         //rb.AddForce(mov * speed * Time.deltaTime);
         rb.velocity = (mov * speed * Time.fixedDeltaTime);
         //rb.velocity = mov * speed;
+    }
+
+    private void ChangeGun()
+    {
+        PlayerShotRevolver revolver = GetComponent<PlayerShotRevolver>();
+        PlayerShotRifle rifle = GetComponent<PlayerShotRifle>();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if(rifle.enabled == true)
+                rifle.enabled = false;
+
+            revolver.enabled = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            if((revolver.enabled == true) && rifle.active == true)
+            {
+                revolver.enabled = false;
+                rifle.enabled = true;
+            }
+            
+        }
     }
 
     private void AttackMelee()

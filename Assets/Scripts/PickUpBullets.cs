@@ -10,7 +10,11 @@ public class PickUpBullets : MonoBehaviour
 {
     private TotalBullets total;
 
-    [SerializeField] private AudioClip audio;
+    [SerializeField] private bool revolver;
+    [SerializeField] private bool rifle;
+    [SerializeField] private bool shotGun;
+
+    [SerializeField] private AudioClip audioBullets;
 
     private void Start()
     {
@@ -23,15 +27,29 @@ public class PickUpBullets : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-
-            PlayerShoot bullets = collision.GetComponent<PlayerShoot>();
-            if (bullets != null)
+            if(revolver)
             {
-                SoundController.instance.PlaySound(audio, 0.8f);
-                bullets.AddBullet();
+                PlayerShotRevolver bullets = collision.GetComponent<PlayerShotRevolver>();
+                if (bullets != null)
+                {
+                    SoundController.instance.PlaySound(audioBullets, 0.8f);
+                    bullets.AddBullet();
 
-                gameObject.SetActive(false);
+                    gameObject.SetActive(false);
+                }
             }
+            else if (rifle)
+            {
+                PlayerShotRevolver bullets = collision.GetComponent<PlayerShotRevolver>();
+                if (bullets != null)
+                {
+                    SoundController.instance.PlaySound(audioBullets, 0.8f);
+                    bullets.AddBullet();
+
+                    gameObject.SetActive(false);
+                }
+            }
+            
         }
     }
 }
