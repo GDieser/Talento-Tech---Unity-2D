@@ -33,18 +33,19 @@ public class PickUpBullets : MonoBehaviour
                 if (bullets != null)
                 {
                     SoundController.instance.PlaySound(audioBullets, 0.8f);
-                    bullets.AddBullet();
+                    bullets.AddBullet(8);
 
                     gameObject.SetActive(false);
                 }
             }
             else if (rifle)
             {
-                PlayerShotRevolver bullets = collision.GetComponent<PlayerShotRevolver>();
+                PlayerShotRifle bullets = collision.GetComponent<PlayerShotRifle>();
                 if (bullets != null)
                 {
+                    //Debug.Log("Carga");
                     SoundController.instance.PlaySound(audioBullets, 0.8f);
-                    bullets.AddBullet();
+                    bullets.AddBullet(30);
 
                     gameObject.SetActive(false);
                 }

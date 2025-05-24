@@ -81,9 +81,9 @@ public class PlayerShotRevolver : MonoBehaviour
 
     }
 
-    public void AddBullet()
+    public void AddBullet(int bullets)
     {
-        totalBullets += 8;
+        totalBullets += bullets;
     }
 
     public void ReloadBulletsGun()

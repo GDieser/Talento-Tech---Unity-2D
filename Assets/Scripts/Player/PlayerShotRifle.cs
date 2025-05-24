@@ -54,7 +54,7 @@ public class PlayerShotRifle : MonoBehaviour
             animator.SetTrigger("Shoot");
 
         }
-        else if (Input.GetButton("Fire1") && currentCoolDown == 0)
+        else if (Input.GetButtonDown("Fire1") && currentCoolDown == 0)
         {
             SoundController.instance.PlaySound(audioNoBullets, 0.8f);
             animator.SetTrigger("Shoot");
@@ -67,7 +67,7 @@ public class PlayerShotRifle : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) || (bullets == 0 && totalBullets > 0))
         {
-            if (totalBullets > 0 && bullets < 8)
+            if (totalBullets > 0 && bullets < 30)
             {
                 ReloadBulletsGun();
                 SoundController.instance.PlaySound(audioReload, 0.4f);
@@ -82,14 +82,14 @@ public class PlayerShotRifle : MonoBehaviour
 
     }
 
-    public void AddBullet()
+    public void AddBullet(int bullets)
     {
-        totalBullets += 8;
+        totalBullets += bullets;
     }
 
     public void ReloadBulletsGun()
     {
-        while (bullets < 8 && totalBullets > 0)
+        while (bullets < 30 && totalBullets > 0)
         {
             bullets++;
             totalBullets--;
