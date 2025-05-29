@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using System;
 
 public class ZombieScript : MonoBehaviour
 {
     public Transform player;
-    
-    
+
+
     private float moveSpeed = 0.5f;
     private float detectionRange = 2f;
 
@@ -16,7 +17,7 @@ public class ZombieScript : MonoBehaviour
     private Animator Animator;
 
     private PlayerVida vida;
-    
+
     [SerializeField] private int life = 2;
     [SerializeField] private ParticleSystem particulas;
     [SerializeField] private bool IsTest;
@@ -30,8 +31,23 @@ public class ZombieScript : MonoBehaviour
     private bool isColliding = false;
     //private bool death;
 
-    
+    [SerializeField] private AudioClip Alert1;
+    [SerializeField] private AudioClip Alert2;
+    [SerializeField] private AudioClip Alert3;
 
+    [SerializeField] private AudioClip Attack1;
+    [SerializeField] private AudioClip Attack2;
+    [SerializeField] private AudioClip Attack3;
+
+    [SerializeField] private AudioClip Impact1;
+    [SerializeField] private AudioClip Impact2;
+    [SerializeField] private AudioClip Impact3;
+
+    private AudioSource audio;
+
+    private bool IsAlert = false;
+
+    private System.Random random = new System.Random();
 
     private void Start()
     {
@@ -40,7 +56,7 @@ public class ZombieScript : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         Animator = this.GetComponent<Animator>();
 
-        
+
     }
     private void Update()
     {
@@ -55,6 +71,25 @@ public class ZombieScript : MonoBehaviour
 
         if (distanceToPlayer <= detectionRange)
         {
+            if(!IsAlert)
+            {
+                int rand = random.Next(1, 4);
+
+                if (rand == 1)
+                    SoundController.instance.PlaySound(Alert1, 0.8f);
+                else if (rand == 2)
+                    SoundController.instance.PlaySound(Alert2, 0.8f);
+                else if (rand == 3)
+                    SoundController.instance.PlaySound(Alert3, 0.8f);
+
+                IsAlert = true;
+            }
+
+            if((audio = GetComponent<AudioSource>()) != null )
+            {
+                audio.enabled = true;
+            }
+
             direction.Normalize();
             movement = direction;
 
@@ -84,20 +119,22 @@ public class ZombieScript : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Vector2 direccionDamage = new Vector2(transform.position.x, transform.position.y);
-            //Debug.Log("DAÑOOO");
+            int rand = random.Next(1, 6);
+
+            if (rand == 1)
+                SoundController.instance.PlaySound(Attack1, 0.8f);
+            else if (rand == 2)
+                SoundController.instance.PlaySound(Attack2, 0.8f);
+            else if (rand == 3)
+                SoundController.instance.PlaySound(Attack3, 0.8f);
 
             isAttacking = true;
-            //attack = true;
             Animator.SetBool("Attack", true);
 
             PlayerVida vida = collision.gameObject.GetComponent<PlayerVida>();
             vida.vida--;
 
             StartCoroutine(FinAtaque());
-
-            //vida.RecibeDamage( 1);
-            //playerVivo = !vida.muerto;
         }
 
     }
@@ -132,9 +169,9 @@ public class ZombieScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Melee"))
+        if (collision.CompareTag("Melee"))
         {
-            
+
         }
     }
 
@@ -160,17 +197,25 @@ public class ZombieScript : MonoBehaviour
 
     public void Damage(int damage)
     {
+        int rand = random.Next(1, 6);
+
+        if (rand == 1)
+            SoundController.instance.PlaySound(Impact1, 0.8f);
+        else if (rand == 2)
+            SoundController.instance.PlaySound(Impact2, 0.8f);
+        else if (rand == 3)
+            SoundController.instance.PlaySound(Impact3, 0.8f);
+
         life -= damage;
         particulas.Play();
         if (life <= 0)
         {
-            StopAllCoroutines(); // Por si hay otras corrutinas de ataque o movimiento activas
+            StopAllCoroutines();
 
-            Animator.Play("Death"); // Forzar animación inmediatamente
+            Animator.Play("Death");
 
-            if(!IsTest)
+            if (!IsTest)
             {
-                //Animator.SetBool("Idle", false);
                 Animator.SetBool("Walk", false);
                 Animator.SetBool("Attack", false);
                 StartCoroutine(Morir());
@@ -178,9 +223,9 @@ public class ZombieScript : MonoBehaviour
             else
             {
                 Debug.Log("Aca");
-                
+
                 Destroy(gameObject);
-                
+
             }
         }
     }
@@ -189,16 +234,12 @@ public class ZombieScript : MonoBehaviour
     {
         Animator.SetBool("Death", true);
 
-        // Desactivar comportamiento del enemigo, pero no su GameObject
-        rb.simulated = false; // Desactiva física
-        GetComponent<Collider2D>().enabled = false; // Desactiva colisión
-        this.enabled = false; // Desactiva este script
-        // Espera que termine la animación de muerte
+        rb.simulated = false; 
+        GetComponent<Collider2D>().enabled = false; 
+        this.enabled = false; 
+
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
 
-        
-
-        // El personaje queda en el último frame de la animación de muerte
     }
 
     void moveCharacter(Vector2 direction)

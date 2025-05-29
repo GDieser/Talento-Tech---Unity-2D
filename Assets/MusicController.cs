@@ -12,8 +12,20 @@ public class MusicController : MonoBehaviour
     [SerializeField] private AudioClip audioIntro;
     [SerializeField] private AudioClip MusicHorde;
 
+    [SerializeField] private AudioClip ZombieAmb1;
+    [SerializeField] private AudioClip ZombieAmb2;
+
+    [SerializeField] private AudioClip HordeTension1;
+    [SerializeField] private AudioClip HordeTension2;
+
     private float timer = 0;
+    private float timerFX = 0;
     public bool isHorde = false;
+
+    public bool isHordeTension1 = true;
+
+    public bool zombieAmb = false;
+    public static bool isFirtsZombieAmb = true;
 
     private static bool intro = true;
 
@@ -29,7 +41,25 @@ public class MusicController : MonoBehaviour
 
     private void Update()
     {
-        if(isHorde)
+        if (!isHorde)
+        {
+            if (TimerFX() || isFirtsZombieAmb)
+            {
+                if (zombieAmb)
+                {
+                    PlayFXSound(ZombieAmb2, 0.3f);
+                }
+                else
+                {
+                    PlayFXSound(ZombieAmb1, 0.3f);
+                    zombieAmb = true;
+                }
+                isFirtsZombieAmb = false;
+                timerFX=0;
+            }
+        }
+
+        if (isHorde)
         {
             ChangeMusic();
         }
@@ -37,9 +67,16 @@ public class MusicController : MonoBehaviour
 
     private void ChangeMusic()
     {
-        if(Timer())
+        if (isHordeTension1)
         {
-            PlaySound(MusicHorde, 0.4f);
+            PlayFXSound(HordeTension1, 0.3f);
+            PlayFXSound(HordeTension2, 0.4f);
+            isHordeTension1 = false;
+        }
+
+        if (Timer())
+        {
+            PlaySound(MusicHorde, 0.3f);
             isHorde = false;
         }
     }
@@ -67,11 +104,31 @@ public class MusicController : MonoBehaviour
         audioSource.PlayOneShot(audio);
     }
 
+    public void PlayFXSound(AudioClip audio, float volumen = 0.5f)
+    {
+        audioSource.volume = volumen;
+        audioSource.PlayOneShot(audio);
+    }
+
     private bool Timer()
     {
         if (timer < 20)
         {
             timer += Time.deltaTime;
+
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private bool TimerFX()
+    {
+        if (timerFX < 180)
+        {
+            timerFX += Time.deltaTime;
 
             return false;
         }

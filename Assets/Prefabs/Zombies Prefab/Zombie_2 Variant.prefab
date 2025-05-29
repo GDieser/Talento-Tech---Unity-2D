@@ -143,6 +143,15 @@ MonoBehaviour:
   life: 2
   particulas: {fileID: 4449356144440101678}
   IsTest: 0
+  Alert1: {fileID: 8300000, guid: a39b40512e0a53f4084600eb48cea555, type: 3}
+  Alert2: {fileID: 8300000, guid: 84fe4101efec5434d8dbf1e5826bbf69, type: 3}
+  Alert3: {fileID: 8300000, guid: 51a1a14a07ac88e44a1a991b15bcbd9a, type: 3}
+  Attack1: {fileID: 8300000, guid: 5284779de01f7e247ad08b096e24ef41, type: 3}
+  Attack2: {fileID: 8300000, guid: 9cca43e99e9761141bb56bad9dc2bb7f, type: 3}
+  Attack3: {fileID: 8300000, guid: 464b906f59099df49a0d47ca9d253a57, type: 3}
+  Impact1: {fileID: 8300000, guid: 06d5b9f3f76f85346bf790f3137adc08, type: 3}
+  Impact2: {fileID: 8300000, guid: 7e4b535ad4e51cf4394cb7eb0bc21be6, type: 3}
+  Impact3: {fileID: 8300000, guid: 592a03b4295ca5d4d94d8e410f9493eb, type: 3}
 --- !u!95 &4449356142549365030
 Animator:
   serializedVersion: 5

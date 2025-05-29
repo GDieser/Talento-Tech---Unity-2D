@@ -1,0 +1,19 @@
+[33m3454f25[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: commit: Agrega, sistema de horda, canva de inicio y final, fx de sonidos, musica, entre otros
+[33m0e29e6b[m HEAD@{1}: reset: moving to origin/main
+[33m746606a[m HEAD@{2}: reset: moving to HEAD~1
+[33m7b73876[m HEAD@{3}: commit: Agrega sistema de horda, efectos de sonidos a enemigos, player y ambiente
+[33m746606a[m HEAD@{4}: commit: Remover archivos .wav del repo y agregarlos al .gitignore
+[33m4fbd2ae[m HEAD@{5}: commit: Agrega efectos de sonidos de enemigos, ambiente y de player
+[33m0e29e6b[m HEAD@{6}: commit: Agrega sistema para rifle, animaciones pt1, sonidos
+[33m7936d76[m HEAD@{7}: commit: Agrega comienzo de cambio de arma, nueva parte del mapa, spawn de enemigos
+[33md6c091a[m HEAD@{8}: commit: Agrega mapa parate hospital, cursores, menu pausa
+[33m72b6087[m HEAD@{9}: commit: Agrega prefab de pickups, cambios en la escena principal
+[33mf25ffba[m HEAD@{10}: commit: Agrega sistema de spawn de enemigos, spawn por tiempo
+[33m732901b[m HEAD@{11}: commit: Agrega spawn de zombies
+[33mec8509d[m HEAD@{12}: commit: Agrega animaciones player, sistema melee, scene test
+[33m9436e39[m HEAD@{13}: commit: Agrega audios varios
+[33mc22bf33[m HEAD@{14}: commit: Agrega particulas de impacto en enmigo eluminacion a prefab de bullet
+[33mf784195[m HEAD@{15}: commit: Agrega animaciones de enemigo, animaciones de player
+[33m19021e0[m HEAD@{16}: commit: Agrega: pickup vida, prefab enemigo, cursor in-game, iluminacion pickups, pantalla de muerte
+[33mb658df8[m HEAD@{17}: commit: Subida inicial
+[33mfa2e6b9[m HEAD@{18}: clone: from https://github.com/GDieser/Talento-Tech---Unity-2D.git

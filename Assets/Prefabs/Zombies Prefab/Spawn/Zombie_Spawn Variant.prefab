@@ -90,3 +90,8 @@ MonoBehaviour:
   life: 2
   particulas: {fileID: 4684864505028817916}
   IsTest: 0
+  HealthPack: {fileID: 3978531461274372969, guid: 8b6eeb0e87a0707408e51e3a42744aaa, type: 3}
+  Bullets: {fileID: 414591439965549265, guid: c6b1d96aba8f9c24ca98b1a8f92d8654, type: 3}
+  Alert1: {fileID: 8300000, guid: d54f62f19b6ee4446ae4760c20de2ef2, type: 3}
+  Alert2: {fileID: 8300000, guid: 396709551b291804eba38fb23a9a375c, type: 3}
+  Alert3: {fileID: 8300000, guid: 4433cb02a3d98934181dd81936ea76dc, type: 3}

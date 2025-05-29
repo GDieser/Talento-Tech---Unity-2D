@@ -6,11 +6,13 @@ public class PlayerVida : MonoBehaviour
 {
     [SerializeField] public int vida = 4;
     [SerializeField] public MenuGameOver gameOver;
+    [SerializeField] public AudioClip death;
 
     void Update()
     {
         if(vida < 1)
         {
+            SoundController.instance.PlaySound(death, 0.5f);
             Destroy(gameObject);
             gameOver.gameObject.SetActive(true);
         }

@@ -26,6 +26,7 @@ public class HordeController : MonoBehaviour
 
     private void Start()
     {
+        //TextTimer.enabled = true;
         TextHorde.SetActive(true);
     }
 
@@ -46,9 +47,7 @@ public class HordeController : MonoBehaviour
 
     }
 
-
     //Fase 1
-
     private void StartFase1()
     {
         if (!viewCont)
@@ -60,9 +59,7 @@ public class HordeController : MonoBehaviour
         fase1 = Timer(25); ;
     }
 
-
     //Fase 2
-
     private void StartFase2()
     {
         if (!viewCont)
@@ -73,7 +70,6 @@ public class HordeController : MonoBehaviour
 
         fase2 = Timer(35); ;
     }
-
 
     //Fase 3
     private void StartFase3()

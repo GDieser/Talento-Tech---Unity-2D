@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ZombieScriptSpawn : MonoBehaviour
 {
     public Transform player;
-
 
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float detectionRange = 2f;
@@ -24,9 +24,9 @@ public class ZombieScriptSpawn : MonoBehaviour
     private bool isAttacking = false;
     private bool isColliding = false;
 
-
-
-
+    [SerializeField] private GameObject HealthPack;
+    [SerializeField] private GameObject Bullets;
+    private System.Random random = new System.Random();
 
     private void Start()
     {
@@ -47,6 +47,7 @@ public class ZombieScriptSpawn : MonoBehaviour
 
         if (distanceToPlayer <= detectionRange)
         {
+
             direction.Normalize();
             movement = direction;
 
@@ -70,20 +71,14 @@ public class ZombieScriptSpawn : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Vector2 direccionDamage = new Vector2(transform.position.x, transform.position.y);
-            //Debug.Log("DAÑOOO");
 
             isAttacking = true;
-            //attack = true;
             Animator.SetBool("Attack", true);
 
             PlayerVida vida = collision.gameObject.GetComponent<PlayerVida>();
             vida.vida--;
 
             StartCoroutine(FinAtaque());
-
-            //vida.RecibeDamage( 1);
-            //playerVivo = !vida.muerto;
         }
 
     }
@@ -95,7 +90,6 @@ public class ZombieScriptSpawn : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isColliding = false;
-            // No se cambia Animator aquí, lo maneja la Coroutine
         }
     }
     
@@ -133,7 +127,6 @@ public class ZombieScriptSpawn : MonoBehaviour
     
     private IEnumerator FinAtaque()
     {
-        // Espera a que termine la animación actual de ataque
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
 
         isAttacking = false;
@@ -141,7 +134,7 @@ public class ZombieScriptSpawn : MonoBehaviour
         if (!isColliding)
         {
             Animator.SetBool("Attack", false);
-            Animator.SetBool("Walk", true); // Vuelve a caminar si no sigue colisionando
+            Animator.SetBool("Walk", true);
         }
     }
 
@@ -157,13 +150,19 @@ public class ZombieScriptSpawn : MonoBehaviour
         particulas.Play();
         if (life <= 0)
         {
-            StopAllCoroutines(); // Por si hay otras corrutinas de ataque o movimiento activas
+            int rand = random.Next(1,11);
 
-            Animator.Play("Death"); // Forzar animación inmediatamente
+            if(rand == 1 || rand == 2)
+                Bullets = Instantiate(Bullets, transform.position, Quaternion.identity);
+            else if(rand == 3)
+                HealthPack = Instantiate(HealthPack, transform.position, Quaternion.identity);
+
+            StopAllCoroutines();
+
+            Animator.Play("Death");
 
             if (!IsTest)
             {
-                //Animator.SetBool("Idle", false);
                 Animator.SetBool("Walk", false);
                 Animator.SetBool("Attack", false);
                 StartCoroutine(Morir());
@@ -181,17 +180,12 @@ public class ZombieScriptSpawn : MonoBehaviour
     private IEnumerator Morir()
     {
         Animator.SetBool("Death", true);
+        rb.simulated = false; 
+        GetComponent<Collider2D>().enabled = false; 
+        this.enabled = false; 
 
-        // Desactivar comportamiento del enemigo, pero no su GameObject
-        rb.simulated = false; // Desactiva física
-        GetComponent<Collider2D>().enabled = false; // Desactiva colisión
-        this.enabled = false; // Desactiva este script
-        // Espera que termine la animación de muerte
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
 
-
-
-        // El personaje queda en el último frame de la animación de muerte
     }
 
     void moveCharacter(Vector2 direction)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using static MenuPause;
 
 public class PlayerMov : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class PlayerMov : MonoBehaviour
     void Start()
     {
         //Optiene los componente del rb
+        transform.position = GameState.startPosition;
         linterna.enabled = true;
         rb = GetComponent<Rigidbody2D>();
         timerOn = true;
@@ -77,6 +79,8 @@ public class PlayerMov : MonoBehaviour
                 rifle.enabled = false;
 
             revolver.enabled = true;
+            animator.CrossFade("Idle", 0f);
+            animator.SetInteger("Select_Gun", 0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -84,6 +88,9 @@ public class PlayerMov : MonoBehaviour
             {
                 revolver.enabled = false;
                 rifle.enabled = true;
+
+                animator.CrossFade("Rifle_Idle", 0f);
+                animator.SetInteger("Select_Gun", 1);
             }
             
         }

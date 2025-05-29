@@ -5,7 +5,6 @@ using UnityEngine;
 public class Intro : MonoBehaviour
 {
     [SerializeField] private GameObject menuPausa;
-    [SerializeField] private GameObject playerPausa;
     [SerializeField] private Animator animIntroText;
 
     private static bool introYaMostrada = false;
@@ -21,7 +20,6 @@ public class Intro : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(!Timer())
@@ -32,8 +30,6 @@ public class Intro : MonoBehaviour
         {
             introYaMostrada = true;
             menuPausa.SetActive(true);
-            //playerPausa.SetActive(true);
-            //Time.timeScale = 1f;
             this.gameObject.SetActive(false);
         }
     }
@@ -41,8 +37,6 @@ public class Intro : MonoBehaviour
     private void Pause()
     {
         menuPausa.SetActive(false);
-        //playerPausa.SetActive(false);
-        //Time.timeScale = 0f;
     }
 
     private bool Timer()

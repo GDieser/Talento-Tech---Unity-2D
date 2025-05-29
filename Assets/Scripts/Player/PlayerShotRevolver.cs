@@ -16,7 +16,7 @@ public class PlayerShotRevolver : MonoBehaviour
 
     [SerializeField] private TotalBullets total;
 
-    [SerializeField]private AudioClip audioShoot;
+    [SerializeField] private AudioClip audioShoot;
     [SerializeField] private AudioClip audioReload;
     [SerializeField] private AudioClip audioReloadClick;
     [SerializeField] private AudioClip audioNoBullets;

@@ -15,10 +15,19 @@ public class MenuPause : MonoBehaviour
     [SerializeField] private Texture2D cursorDefault;
     [SerializeField] private Vector2 cursorHotspotDefault;
 
+    private bool SecondSpawn = false;
+
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(SecondSpawn)
+            GameState.startPosition = new Vector2(22, -0.3f);
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(pauseGame)
             { 
@@ -55,5 +64,15 @@ public class MenuPause : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void SetSpawn()
+    {
+        SecondSpawn = true;
+    }
+
+    public static class GameState
+    {
+        public static Vector2 startPosition = new Vector2(-9, -0.6f);
     }
 }

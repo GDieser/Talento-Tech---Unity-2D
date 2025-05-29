@@ -6,8 +6,10 @@ using UnityEngine.Rendering;
 public class HordeCanvaScript : MonoBehaviour
 {
     [SerializeField] private GameObject HordeCanva;
+    [SerializeField] private Animator animation;
 
-    //[SerializeField] private GameObject music;
+    [SerializeField] private GameObject Rifle;
+    [SerializeField] private MenuPause menu;
 
     [SerializeField] private MusicController music;
 
@@ -18,6 +20,13 @@ public class HordeCanvaScript : MonoBehaviour
     {
         if(visto)
         {
+            Collider2D collider = Rifle.GetComponent<Collider2D>();
+            HordeController horde = Rifle.GetComponent<HordeController>();
+
+            collider.enabled = false;
+            horde.enabled = true;
+
+            //Rifle.SetActive(false);
             this.gameObject.SetActive(false);
         }
     }
@@ -27,6 +36,12 @@ public class HordeCanvaScript : MonoBehaviour
     {
         if(startCanva && Timer())
         {
+            Collider2D collider = Rifle.GetComponent<Collider2D>();
+            HordeController horde = Rifle.GetComponent<HordeController>();
+
+            collider.enabled = false;
+            horde.enabled = true;
+
             this.gameObject.SetActive(false);
             visto = true;
         }
@@ -36,8 +51,10 @@ public class HordeCanvaScript : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            music.isHorde = true;
+            menu.SetSpawn();
 
+            animation.enabled = true;
+            music.isHorde = true;
             HordeCanva.SetActive(true);
             startCanva = true;
         }
