@@ -15,10 +15,14 @@ public class MenuPause : MonoBehaviour
     [SerializeField] private Texture2D cursorDefault;
     [SerializeField] private Vector2 cursorHotspotDefault;
 
+    [SerializeField] private float startX = -9;
+    [SerializeField] private float startY = -0.6f;
+
     private bool SecondSpawn = false;
 
     private void Start()
     {
+        GameState.startPosition = new Vector2(startX, startY);
         Time.timeScale = 1f;
     }
 
