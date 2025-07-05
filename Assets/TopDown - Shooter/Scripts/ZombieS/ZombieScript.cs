@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using System;
+using UnityEngine.AI;
 
 public class ZombieScript : MonoBehaviour
 {
     public Transform player;
-
+    NavMeshAgent agent;
 
     private float moveSpeed = 0.5f;
     private float detectionRange = 2f;
@@ -56,6 +57,9 @@ public class ZombieScript : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         Animator = this.GetComponent<Animator>();
 
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
 
     }
     private void Update()
@@ -68,6 +72,7 @@ public class ZombieScript : MonoBehaviour
         //Para que siga al personaje
         Vector3 direction = player.position - transform.position;
         float distanceToPlayer = direction.magnitude;
+        agent.SetDestination(player.position);
 
         if (distanceToPlayer <= detectionRange)
         {

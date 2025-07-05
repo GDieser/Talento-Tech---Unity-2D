@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8497525905264691132}
   - component: {fileID: 1640581186746443140}
   - component: {fileID: 7262391538656396855}
+  - component: {fileID: 1456630204093881535}
   m_Layer: 0
   m_Name: Police
   m_TagString: Untagged
@@ -135,6 +136,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.258253, y: 3.7063985}
   m_EdgeRadius: 0
+--- !u!114 &1456630204093881535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497525905264691131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1001 &8497525903528454233
 PrefabInstance:
   m_ObjectHideFlags: 0

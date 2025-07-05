@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4449356142549365050}
   - component: {fileID: 4449356142549365053}
   - component: {fileID: 4449356142549365030}
+  - component: {fileID: 656234387829124178}
   - component: {fileID: 685119400654359361}
   m_Layer: 0
   m_Name: Zombie_2 Variant
@@ -173,6 +174,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!195 &656234387829124178
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4449356142549365052}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.42499998
+  m_Speed: 0.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.53999996
+  m_BaseOffset: 0.26999998
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &685119400654359361
 MonoBehaviour:
   m_ObjectHideFlags: 0

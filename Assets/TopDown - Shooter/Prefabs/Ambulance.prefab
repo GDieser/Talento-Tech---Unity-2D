@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9127050388731561298}
   - component: {fileID: 9127050388731561299}
   - component: {fileID: 3059598068071970695}
+  - component: {fileID: -434674935207657496}
   m_Layer: 0
   m_Name: Ambulance
   m_TagString: Untagged
@@ -113,6 +114,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2869081, y: 4.0713024}
   m_EdgeRadius: 0
+--- !u!114 &-434674935207657496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127050388731561296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1001 &2722129621984884808
 PrefabInstance:
   m_ObjectHideFlags: 0

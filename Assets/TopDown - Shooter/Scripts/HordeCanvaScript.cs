@@ -36,6 +36,7 @@ public class HordeCanvaScript : MonoBehaviour
     {
         if(startCanva && Timer())
         {
+            
             Collider2D collider = Rifle.GetComponent<Collider2D>();
             HordeController horde = Rifle.GetComponent<HordeController>();
 
@@ -49,6 +50,7 @@ public class HordeCanvaScript : MonoBehaviour
 
     public void HordeActive(bool collision)
     {
+        
         if (collision && !visto)
         {
             menu.SetSpawn();
