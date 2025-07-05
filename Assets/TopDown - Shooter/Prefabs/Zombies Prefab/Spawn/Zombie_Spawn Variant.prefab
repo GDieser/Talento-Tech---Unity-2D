@@ -7,6 +7,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 656234387829124178, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: m_Speed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 656234387829124178, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 656234387829124178, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: m_Acceleration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291994414080555112, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: Bullets
+      value: 
+      objectReference: {fileID: 414591439965549265, guid: c6b1d96aba8f9c24ca98b1a8f92d8654, type: 3}
+    - target: {fileID: 1291994414080555112, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1291994414080555112, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: HealthPack
+      value: 
+      objectReference: {fileID: 3978531461274372969, guid: 8b6eeb0e87a0707408e51e3a42744aaa, type: 3}
+    - target: {fileID: 1291994414080555112, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
+      propertyPath: particulas
+      value: 
+      objectReference: {fileID: 4684864505028817916}
     - target: {fileID: 4449356142549365049, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -79,7 +107,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4684864505853938158}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1b1f0d4195f4e641a780100e817f404, type: 3}
   m_Name: 

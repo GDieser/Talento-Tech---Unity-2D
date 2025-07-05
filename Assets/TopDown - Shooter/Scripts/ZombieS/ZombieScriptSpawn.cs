@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.AI;
 
 public class ZombieScriptSpawn : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ZombieScriptSpawn : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private Animator Animator;
+    NavMeshAgent agent;
 
     private PlayerVida vida;
 
@@ -37,7 +39,9 @@ public class ZombieScriptSpawn : MonoBehaviour
 
         rb = this.GetComponent<Rigidbody2D>();
         Animator = this.GetComponent<Animator>();
-
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
 
     }
     private void Update()
@@ -51,12 +55,19 @@ public class ZombieScriptSpawn : MonoBehaviour
 
         if (distanceToPlayer <= detectionRange)
         {
+            agent.SetDestination(player.position);
+
 
             direction.Normalize();
             movement = direction;
 
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //rb.rotation = angle;
+            Vector3 moveDir = agent.velocity;
+
+            float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
             rb.rotation = angle;
+
             enMov = true;
         }
         else
@@ -144,8 +155,9 @@ public class ZombieScriptSpawn : MonoBehaviour
 
     private void FixedUpdate()
     {
+        /*
         if (!isAttacking)
-            moveCharacter(movement);
+            moveCharacter(movement);*/
     }
 
     public void Damage(int damage)
@@ -164,7 +176,7 @@ public class ZombieScriptSpawn : MonoBehaviour
             StopAllCoroutines();
 
             Animator.Play("Death");
-
+            agent.enabled = false;
 
             if (!IsTest)
             {

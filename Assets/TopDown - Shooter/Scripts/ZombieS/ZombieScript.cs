@@ -16,6 +16,7 @@ public class ZombieScript : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private Animator Animator;
+    //private CapsuleCollider2D capsuleCollider;
 
     private PlayerVida vida;
 
@@ -56,6 +57,7 @@ public class ZombieScript : MonoBehaviour
         //playerVivo = true;
         rb = this.GetComponent<Rigidbody2D>();
         Animator = this.GetComponent<Animator>();
+        //capsuleCollider = this.GetComponent<CapsuleCollider2D>();
 
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
@@ -72,11 +74,13 @@ public class ZombieScript : MonoBehaviour
         //Para que siga al personaje
         Vector3 direction = player.position - transform.position;
         float distanceToPlayer = direction.magnitude;
-        agent.SetDestination(player.position);
+
 
         if (distanceToPlayer <= detectionRange)
         {
-            if(!IsAlert)
+            agent.SetDestination(player.position);
+
+            if (!IsAlert)
             {
                 int rand = random.Next(1, 4);
 
@@ -90,16 +94,19 @@ public class ZombieScript : MonoBehaviour
                 IsAlert = true;
             }
 
-            if((audio = GetComponent<AudioSource>()) != null )
+            if ((audio = GetComponent<AudioSource>()) != null)
             {
                 audio.enabled = true;
             }
 
-            direction.Normalize();
-            movement = direction;
+            //direction.Normalize();
+            //movement = direction;
 
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Vector3 moveDir = agent.velocity;
+
+            float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
             rb.rotation = angle;
+
             enMov = true;
         }
         else
@@ -196,8 +203,8 @@ public class ZombieScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isAttacking)
-            moveCharacter(movement);
+        //if (!isAttacking)
+        // moveCharacter(movement);
     }
 
     public void Damage(int damage)
@@ -218,6 +225,8 @@ public class ZombieScript : MonoBehaviour
             StopAllCoroutines();
 
             Animator.Play("Death");
+            //capsuleCollider.enabled = false;
+            agent.enabled = false;
 
             if (!IsTest)
             {
@@ -239,9 +248,9 @@ public class ZombieScript : MonoBehaviour
     {
         Animator.SetBool("Death", true);
 
-        rb.simulated = false; 
-        GetComponent<Collider2D>().enabled = false; 
-        this.enabled = false; 
+        rb.simulated = false;
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
 
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
 
