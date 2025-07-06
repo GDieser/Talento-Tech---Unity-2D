@@ -77,6 +77,6 @@ public class MenuPause : MonoBehaviour
 
     public static class GameState
     {
-        public static Vector2 startPosition = new Vector2(-9, -0.6f);
+        public static Vector2 startPosition = new Vector2(19, -0.6f);
     }
 }
