@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -15,7 +17,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        //Debug.Log(collision.tag.ToString() + "Hola");
+
         if (collision.CompareTag("Zombie"))
         {
             collision.GetComponent<ZombieScript>().Damage(damage);
@@ -30,7 +33,7 @@ public class Bullet : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Building"))
         {
-            
+            //Debug.Log("Acá 2");
             Destroy(gameObject);
         }
     }

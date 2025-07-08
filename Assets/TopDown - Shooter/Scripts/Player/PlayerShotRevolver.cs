@@ -30,7 +30,6 @@ public class PlayerShotRevolver : MonoBehaviour
         //audioSource = this.GetComponent<AudioSource>();
         if (animator == null)
         {
-            //Me direcciona al nimator del player
             animator = GetComponentInChildren<Animator>();
         }
     }

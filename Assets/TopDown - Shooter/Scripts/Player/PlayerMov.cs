@@ -34,6 +34,10 @@ public class PlayerMov : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         timerOn = true;
         animator = GetComponentInChildren<Animator>();
+
+        PlayerShotRifle rifle = GetComponent<PlayerShotRifle>();
+        rifle.active = true;
+
     }
 
     void Update()
@@ -75,29 +79,50 @@ public class PlayerMov : MonoBehaviour
     {
         PlayerShotRevolver revolver = GetComponent<PlayerShotRevolver>();
         PlayerShotRifle rifle = GetComponent<PlayerShotRifle>();
+        PlayerShotShotGun shotGun = GetComponent<PlayerShotShotGun>();
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) || scroll > 0f)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if(rifle.enabled == true)
+            if(rifle.active || shotGun.GetActive())
+            {
                 rifle.enabled = false;
+                shotGun.enabled = false;
 
-            revolver.enabled = true;
-            animator.CrossFade("Idle", 0f);
-            animator.SetInteger("Select_Gun", 0);
+                revolver.enabled = true;
+                animator.CrossFade("Idle", 0f);
+                animator.SetInteger("Select_Gun", 0);
+            }
+
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) || scroll < 0f)
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if((revolver.enabled == true) && rifle.active == true)
+            if ((revolver.enabled == true) || (shotGun.GetActive()) && rifle.active == true)
             {
                 revolver.enabled = false;
+                shotGun.enabled = false;
+
                 rifle.enabled = true;
 
                 animator.CrossFade("Rifle_Idle", 0f);
                 animator.SetInteger("Select_Gun", 1);
             }
             
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (((rifle.enabled == true) || (revolver.enabled == true))&& shotGun.GetActive())
+            {
+                rifle.enabled = false;
+                revolver.enabled = false;
+
+                shotGun.enabled = true;
+
+                animator.CrossFade("ShotGun_Idle", 0f);
+                animator.SetInteger("Select_Gun", 2);
+            }
+
         }
     }
 
