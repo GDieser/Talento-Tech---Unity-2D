@@ -10,8 +10,8 @@ public class ZombieScript : MonoBehaviour
     public Transform player;
     NavMeshAgent agent;
 
-    private float moveSpeed = 0.5f;
-    private float detectionRange = 2f;
+    [SerializeField]  private float moveSpeed = 0.5f;
+    [SerializeField]  private float detectionRange = 2f;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -79,6 +79,7 @@ public class ZombieScript : MonoBehaviour
         if (distanceToPlayer <= detectionRange)
         {
             agent.SetDestination(player.position);
+            //agent.speed = moveSpeed;
 
             if (!IsAlert)
             {
@@ -104,8 +105,11 @@ public class ZombieScript : MonoBehaviour
 
             Vector3 moveDir = agent.velocity;
 
-            float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-            rb.rotation = angle;
+            if (moveDir.sqrMagnitude > 0.01f) // Para evitar que rote cuando está quieto
+            {
+                float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+                rb.rotation = angle;
+            }
 
             enMov = true;
         }

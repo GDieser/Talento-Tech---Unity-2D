@@ -94,16 +94,9 @@ public class PlayerShotBase : MonoBehaviour
 
     }
 
-    public void AddBullet(int bullets, int maxBullets)
+    public virtual void AddBullet(int bullets, int maxBullets)
     {
-        if (totalBullets < MaxBullets)
-        {
-            totalBullets += bullets;
-        }
-
-        if (totalBullets > maxBullets)
-            totalBullets = maxBullets;
-
+        totalBullets += bullets;
     }
 
     protected void ReloadBulletsGun(int total)

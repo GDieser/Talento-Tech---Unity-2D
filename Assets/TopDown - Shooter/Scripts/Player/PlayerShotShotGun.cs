@@ -8,6 +8,7 @@ public class PlayerShotShotGun : PlayerShotBase
     [SerializeField] AudioClip PreReloadSound;
 
     protected float timer = 0;
+    private bool isReloading = false;
     void Start()
     {
         if (animator == null)
@@ -61,39 +62,58 @@ public class PlayerShotShotGun : PlayerShotBase
 
     protected override void ReloadGun(int bullet, int maxBullets)
     {
-        if (Input.GetKeyDown(KeyCode.R) || (bullets == 0 && totalBullets > 0))
+        if ((Input.GetKeyDown(KeyCode.R) || (bullets == 0 && totalBullets > 0)) && !isReloading)
         {
             if (totalBullets > 0 && bullets < maxBullets)
             {
-                ReloadBulletsGun(bullet);
-                SoundController.instance.PlaySound(PreReloadSound, 0.8f);
-
-                ///Para despues
-                /*for (int i = 1; i <= (bullet - bullets); i++)
-                {
-                    ReloadBulletsGun(i);
-                    SoundController.instance.PlaySound(PreReloadSound, 0.8f);
-
-                    while (!Timer(10))
-                    {
-                        continue;
-                    }
-
-                    //Debug.Log(i);
-                    //animator.SetTrigger("Reload");
-                }*/
-
-
-                SoundController.instance.PlaySound(audioReload, 0.5f);
-                animator.SetTrigger("Reload");
+                StartCoroutine(ReloadShellByShell(bullet, maxBullets));
             }
             else
             {
                 SoundController.instance.PlaySound(audioReloadClick, 0.4f);
-
             }
         }
 
+    }
+
+    public override void AddBullet(int bullets, int maxBullets)
+    {
+        if (totalBullets < MaxBullets)
+        {
+            totalBullets += bullets;
+        }
+
+        if (totalBullets > maxBullets)
+            totalBullets = maxBullets;
+
+    }
+
+    private IEnumerator ReloadShellByShell(int bullet, int maxBullets)
+    {
+        isReloading = true;
+        
+        yield return new WaitForSeconds(0.4f);/// ---------> importante para timers
+
+        while (bullets < maxBullets && totalBullets > 0)
+        {
+            bullets++;
+            totalBullets--;
+
+            ReloadBulletsGun(bullets);
+            SoundController.instance.PlaySound(PreReloadSound, 0.8f);
+            
+            animator.SetTrigger("Reload");
+
+            yield return new WaitForSeconds(0.6f);
+
+            
+            if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+            {
+                break;
+            }
+        }
+        
+        isReloading = false;
     }
 
     private bool Timer(float totalTime)

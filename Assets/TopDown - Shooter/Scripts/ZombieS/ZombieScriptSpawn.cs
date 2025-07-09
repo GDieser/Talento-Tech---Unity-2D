@@ -55,6 +55,7 @@ public class ZombieScriptSpawn : MonoBehaviour
 
         if (distanceToPlayer <= detectionRange)
         {
+            //agent.speed = spee  
             agent.SetDestination(player.position);
 
 

@@ -53,12 +53,16 @@ public class PickUpBullets : MonoBehaviour
             else if(shotGun)
             {
                 PlayerShotShotGun bulletsShotGun = collision.GetComponent<PlayerShotShotGun>();
-                if(bulletsShotGun != null && bulletsShotGun.GetTotalBullets() < 32)
+                
+                if(bulletsShotGun.GetActive())
                 {
-                    SoundController.instance.PlaySound(audioBullets, 0.8f);
-                    bulletsShotGun.AddBullet(6, 32);
+                    if (bulletsShotGun != null && bulletsShotGun.GetTotalBullets() < 32)
+                    {
+                        SoundController.instance.PlaySound(audioBullets, 0.8f);
+                        bulletsShotGun.AddBullet(6, 32);
 
-                    gameObject.SetActive(false);
+                        gameObject.SetActive(false);
+                    }
                 }
             }
             

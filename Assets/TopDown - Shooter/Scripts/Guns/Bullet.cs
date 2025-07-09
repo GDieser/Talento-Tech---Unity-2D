@@ -21,8 +21,15 @@ public class Bullet : MonoBehaviour
 
         if (collision.CompareTag("Zombie"))
         {
+
             collision.GetComponent<ZombieScript>().Damage(damage);
             
+            Destroy(gameObject);
+        }
+        else if (collision.CompareTag("Zombie2"))
+        {
+            collision.GetComponent<Zombie2Script>().Damage(damage);
+
             Destroy(gameObject);
         }
         else if (collision.CompareTag("ZombieSpawn"))

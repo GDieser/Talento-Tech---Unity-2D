@@ -75,7 +75,7 @@ public class PlayerMov : MonoBehaviour
         //rb.velocity = mov * speed;
     }
 
-    private void ChangeGun()
+    public void ChangeGun(int op = 0)
     {
         PlayerShotRevolver revolver = GetComponent<PlayerShotRevolver>();
         PlayerShotRifle rifle = GetComponent<PlayerShotRifle>();
@@ -83,7 +83,7 @@ public class PlayerMov : MonoBehaviour
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) || op == 1)
         {
             if(rifle.active || shotGun.GetActive())
             {
@@ -96,7 +96,7 @@ public class PlayerMov : MonoBehaviour
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || op == 2)
         {
             if ((revolver.enabled == true) || (shotGun.GetActive()) && rifle.active == true)
             {
@@ -110,7 +110,7 @@ public class PlayerMov : MonoBehaviour
             }
             
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3) || op == 3)
         {
             if (((rifle.enabled == true) || (revolver.enabled == true))&& shotGun.GetActive())
             {
