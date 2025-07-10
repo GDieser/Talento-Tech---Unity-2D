@@ -110,6 +110,7 @@ public class PlayerShotBase : MonoBehaviour
 
     protected void Shoot(int cantidad = 1)
     {
+        List<GameObject> balas = new List<GameObject>();
 
         for (int i = 0; i < cantidad; i++)
         {
@@ -117,13 +118,28 @@ public class PlayerShotBase : MonoBehaviour
 
             Quaternion spreadRotation = controlShoot.rotation * Quaternion.Euler(0f, 0f, spreadAngle);
 
-            Instantiate(bullet, controlShoot.position, spreadRotation);
+            GameObject gb = Instantiate(bullet, controlShoot.position, spreadRotation);
+
+            if (gb != null)
+                balas.Add(gb);
         }
-        
+
+        StartCoroutine(DestruirBalasJuntas(balas, 0.5f));
         ShotLight.CrossFade("Shoot", 0f);
         ShotLight.SetTrigger("Shoot");
         bullets--;
         currentCoolDown = coolDown;
+    }
+
+    private IEnumerator DestruirBalasJuntas(List<GameObject> balas, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        foreach (GameObject b in balas)
+        {
+            if (b != null)
+                Destroy(b);
+        }
     }
 
     protected void CoolDown()

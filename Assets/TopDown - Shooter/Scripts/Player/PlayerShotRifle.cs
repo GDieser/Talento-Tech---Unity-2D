@@ -109,7 +109,13 @@ public class PlayerShotRifle : MonoBehaviour
     private void Shoot()
     {
 
-        Instantiate(bullet, controlShoot.position, controlShoot.rotation);
+        GameObject gb = Instantiate(bullet, controlShoot.position, controlShoot.rotation);
+
+        if (gb != null)
+        {
+            Destroy(gb.gameObject, 1.5f);
+        }
+
         ShotLight.CrossFade("Shoot", 0f);
         ShotLight.SetTrigger("Shoot");
         bullets--;

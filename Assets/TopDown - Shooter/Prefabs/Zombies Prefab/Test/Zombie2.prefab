@@ -30,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8980113809764747542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.005651063, w: 0.999984}
   m_LocalPosition: {x: 22.177, y: -0.454, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -147,7 +147,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!114 &8980113809764747536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.36
-  m_Speed: 1.8
+  m_Speed: 2
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 360
@@ -201,12 +201,12 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 0.5
   detectionRange: 2
-  life: 2
-  particulas: {fileID: 0}
-  IsTest: 0
-  Alert1: {fileID: 8300000, guid: a39b40512e0a53f4084600eb48cea555, type: 3}
-  Alert2: {fileID: 8300000, guid: 84fe4101efec5434d8dbf1e5826bbf69, type: 3}
-  Alert3: {fileID: 8300000, guid: 51a1a14a07ac88e44a1a991b15bcbd9a, type: 3}
+  boxCollider: {fileID: 0}
+  life: 3
+  IsScream: 0
+  Alert1: {fileID: 8300000, guid: 1663430377157f34a9daf66d3aeafe41, type: 3}
+  Alert2: {fileID: 8300000, guid: 361afb57387f47a45a69117863c1a685, type: 3}
+  Alert3: {fileID: 8300000, guid: ab8062ff32c3b5b41a62e55c895cd147, type: 3}
   Attack1: {fileID: 8300000, guid: 5284779de01f7e247ad08b096e24ef41, type: 3}
   Attack2: {fileID: 8300000, guid: 9cca43e99e9761141bb56bad9dc2bb7f, type: 3}
   Attack3: {fileID: 8300000, guid: 464b906f59099df49a0d47ca9d253a57, type: 3}

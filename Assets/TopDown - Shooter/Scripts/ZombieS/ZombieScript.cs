@@ -160,7 +160,7 @@ public class ZombieScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isColliding = false;
-            // No se cambia Animator aquí, lo maneja la Coroutine
+            
         }
     }
 
@@ -193,7 +193,7 @@ public class ZombieScript : MonoBehaviour
 
     private IEnumerator FinAtaque()
     {
-        // Espera a que termine la animación actual de ataque
+        
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
 
         isAttacking = false;
@@ -201,7 +201,7 @@ public class ZombieScript : MonoBehaviour
         if (!isColliding)
         {
             Animator.SetBool("Attack", false);
-            Animator.SetBool("Walk", true); // Vuelve a caminar si no sigue colisionando
+            Animator.SetBool("Walk", true); 
         }
     }
 
@@ -211,7 +211,7 @@ public class ZombieScript : MonoBehaviour
         // moveCharacter(movement);
     }
 
-    public void Damage(int damage)
+    public void Damage(int damage, bool death2 = false)
     {
         int rand = random.Next(1, 6);
 
@@ -228,7 +228,14 @@ public class ZombieScript : MonoBehaviour
         {
             StopAllCoroutines();
 
-            Animator.Play("Death");
+            if(death2)
+            {
+                Animator.Play("Zombie_Death2");
+            }
+            else
+            {
+                Animator.Play("Death");
+            }
             //capsuleCollider.enabled = false;
             agent.enabled = false;
 
@@ -236,7 +243,16 @@ public class ZombieScript : MonoBehaviour
             {
                 Animator.SetBool("Walk", false);
                 Animator.SetBool("Attack", false);
-                StartCoroutine(Morir());
+                
+                if (death2)
+                {
+                    StartCoroutine(Morir(true));
+                }
+                else
+                {
+                    StartCoroutine(Morir());
+                }
+
             }
             else
             {
@@ -248,15 +264,29 @@ public class ZombieScript : MonoBehaviour
         }
     }
 
-    private IEnumerator Morir()
+    private IEnumerator Morir(bool isShotGun = false)
     {
-        Animator.SetBool("Death", true);
+        
+        if(isShotGun)
+        {
+            Animator.SetBool("Death2", true);
 
-        rb.simulated = false;
-        GetComponent<Collider2D>().enabled = false;
-        this.enabled = false;
+            rb.simulated = false;
+            GetComponent<Collider2D>().enabled = false;
+            this.enabled = false;
 
-        yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
+        }
+        else
+        {
+            Animator.SetBool("Death", true);
+
+            rb.simulated = false;
+            GetComponent<Collider2D>().enabled = false;
+            this.enabled = false;
+
+            yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
+        }
 
     }
 

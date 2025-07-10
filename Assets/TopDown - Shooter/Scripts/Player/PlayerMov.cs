@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 using static MenuPause;
 
 public class PlayerMov : MonoBehaviour
@@ -23,6 +24,15 @@ public class PlayerMov : MonoBehaviour
     private float speed;
     [SerializeField] private float speedCons = 30;
 
+    [SerializeField] private Image revolverImage;
+    [SerializeField] private Image revolverBullet;
+
+    [SerializeField] private Image rifleImage;
+    [SerializeField] private Image rifleBullet;
+
+    [SerializeField] private Image shotGunImage;
+    [SerializeField] private Image shotGunBullet;
+
     //Acceder a sus prop
     private Rigidbody2D rb;
 
@@ -37,6 +47,9 @@ public class PlayerMov : MonoBehaviour
 
         PlayerShotRifle rifle = GetComponent<PlayerShotRifle>();
         rifle.active = true;
+
+        revolverImage.enabled = true;
+        revolverBullet.enabled = true;
 
     }
 
@@ -90,6 +103,14 @@ public class PlayerMov : MonoBehaviour
                 rifle.enabled = false;
                 shotGun.enabled = false;
 
+                rifleImage.enabled = false;
+                rifleBullet.enabled = false;
+                shotGunImage.enabled = false;   
+                shotGunBullet.enabled = false;
+
+                revolverImage.enabled = true;
+                revolverBullet.enabled = true;
+
                 revolver.enabled = true;
                 animator.CrossFade("Idle", 0f);
                 animator.SetInteger("Select_Gun", 0);
@@ -102,6 +123,15 @@ public class PlayerMov : MonoBehaviour
             {
                 revolver.enabled = false;
                 shotGun.enabled = false;
+
+                revolverImage.enabled = false;
+                revolverBullet.enabled = false;
+                shotGunImage.enabled = false;
+                shotGunBullet.enabled = false;
+
+                rifleImage.enabled = true;
+                rifleBullet.enabled = true;
+                
 
                 rifle.enabled = true;
 
@@ -116,6 +146,14 @@ public class PlayerMov : MonoBehaviour
             {
                 rifle.enabled = false;
                 revolver.enabled = false;
+
+                revolverImage.enabled = false;
+                revolverBullet.enabled = false;
+                rifleImage.enabled = false;
+                rifleBullet.enabled = false;
+
+                shotGunImage.enabled = true;
+                shotGunBullet.enabled = true;
 
                 shotGun.enabled = true;
 

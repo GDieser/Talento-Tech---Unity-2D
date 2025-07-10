@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 8800584127410245565}
   m_Layer: 0
   m_Name: Bullet ShotGun
-  m_TagString: Untagged
+  m_TagString: ShotgunBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -232,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 8
   damage: 1
+  IsShotGun: 1
 --- !u!61 &8800584127410245565
 BoxCollider2D:
   m_ObjectHideFlags: 0

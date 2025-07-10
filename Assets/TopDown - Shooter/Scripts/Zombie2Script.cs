@@ -10,6 +10,7 @@ public class Zombie2Script : MonoBehaviour
 
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float detectionRange = 2f;
+    [SerializeField] BoxCollider2D boxCollider;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -18,9 +19,10 @@ public class Zombie2Script : MonoBehaviour
     private PlayerVida vida;
 
     [SerializeField] private int life = 2;
-    [SerializeField] private ParticleSystem particulas;
-    [SerializeField] private bool IsTest;
-
+    //[SerializeField] private ParticleSystem particulas;
+    [SerializeField] private bool IsScream = false;
+    private bool Alert = false;
+    private bool isWaiting = false;
 
 
     private bool enMov;
@@ -70,21 +72,28 @@ public class Zombie2Script : MonoBehaviour
         float distanceToPlayer = direction.magnitude;
 
 
-        if (distanceToPlayer <= detectionRange)
+        if (distanceToPlayer <= detectionRange || Alert)
         {
             agent.SetDestination(player.position);
+
             //agent.speed = moveSpeed;
 
             if (!IsAlert)
             {
-                int rand = random.Next(1, 4);
+                if (IsScream)
+                {
+                    AlertAndPause();
+                }
+                else
+                {
+                    int rand = random.Next(1, 3);
 
-                if (rand == 1)
-                    SoundController.instance.PlaySound(Alert1, 0.8f);
-                else if (rand == 2)
-                    SoundController.instance.PlaySound(Alert2, 0.8f);
-                else if (rand == 3)
-                    SoundController.instance.PlaySound(Alert3, 0.8f);
+                    if (rand == 1)
+                        SoundController.instance.PlaySound(Alert2, 0.8f);
+                    else if (rand == 2)
+                        SoundController.instance.PlaySound(Alert3, 0.8f);
+                }
+
 
                 IsAlert = true;
             }
@@ -122,6 +131,35 @@ public class Zombie2Script : MonoBehaviour
 
     }
 
+    public void AlertZombie()
+    {
+        if (IsScream)
+        {
+            Alert = true;
+            boxCollider.enabled = false;
+
+        }
+    }
+
+    public void AlertAndPause()
+    {
+        if (!isWaiting)
+            StartCoroutine(AlertPauseCoroutine());
+    }
+
+
+    private IEnumerator AlertPauseCoroutine()
+    {
+        isWaiting = true;
+
+        SoundController.instance.PlaySound(Alert1, 0.8f);
+        agent.isStopped = true;
+        yield return new WaitForSeconds(1f);
+        agent.isStopped = false;
+
+        isWaiting = false;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -140,7 +178,7 @@ public class Zombie2Script : MonoBehaviour
             Animator.SetBool("Attack", true);
 
             PlayerVida vida = collision.gameObject.GetComponent<PlayerVida>();
-            vida.RecibeDamage(2);
+            vida.RecibeDamage(4);
 
             StartCoroutine(FinAtaque());
         }
@@ -152,7 +190,7 @@ public class Zombie2Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isColliding = false;
-            // No se cambia Animator aquí, lo maneja la Coroutine
+
         }
     }
 
@@ -177,6 +215,7 @@ public class Zombie2Script : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.CompareTag("Melee"))
         {
 
@@ -185,7 +224,7 @@ public class Zombie2Script : MonoBehaviour
 
     private IEnumerator FinAtaque()
     {
-        // Espera a que termine la animación actual de ataque
+
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
 
         isAttacking = false;
@@ -193,7 +232,7 @@ public class Zombie2Script : MonoBehaviour
         if (!isColliding)
         {
             Animator.SetBool("Attack", false);
-            Animator.SetBool("Walk", true); // Vuelve a caminar si no sigue colisionando
+            Animator.SetBool("Walk", true);
         }
     }
 
@@ -215,15 +254,22 @@ public class Zombie2Script : MonoBehaviour
             SoundController.instance.PlaySound(Impact3, 0.8f);
 
         life -= damage;
-        particulas.Play();
+
+        Alert = true;
+        //particulas.Play();
         if (life <= 0)
         {
             StopAllCoroutines();
 
             Animator.Play("Death");
-            
+
             agent.enabled = false;
 
+            Animator.SetBool("Walk", false);
+            Animator.SetBool("Attack", false);
+            StartCoroutine(Morir());
+
+            /*
             if (!IsTest)
             {
                 Animator.SetBool("Walk", false);
@@ -236,7 +282,7 @@ public class Zombie2Script : MonoBehaviour
 
                 Destroy(gameObject);
 
-            }
+            }*/
         }
     }
 

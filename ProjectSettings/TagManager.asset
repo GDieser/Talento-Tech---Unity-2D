@@ -13,6 +13,8 @@ TagManager:
   - Shotgun
   - Item
   - Tools
+  - Zombie2
+  - ShotgunBullet
   layers:
   - Default
   - TransparentFX

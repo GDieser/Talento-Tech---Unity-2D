@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float velocity;
     [SerializeField] private int damage;
+    [SerializeField] private bool IsShotGun = false;
 
 
     private void Update()
@@ -21,8 +22,15 @@ public class Bullet : MonoBehaviour
 
         if (collision.CompareTag("Zombie"))
         {
-
-            collision.GetComponent<ZombieScript>().Damage(damage);
+            if(IsShotGun)
+            {
+                collision.GetComponent<ZombieScript>().Damage(damage, true);
+            }
+            else
+            {
+                collision.GetComponent<ZombieScript>().Damage(damage);
+            }
+            
             
             Destroy(gameObject);
         }
@@ -42,6 +50,16 @@ public class Bullet : MonoBehaviour
         {
             //Debug.Log("Acá 2");
             Destroy(gameObject);
+        }
+
+
+        if(IsShotGun)
+        {
+            Destroy(gameObject, 1f);
+        }
+        else
+        {
+            Destroy(gameObject, 3f);
         }
     }
 }

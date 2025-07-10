@@ -22,7 +22,7 @@ public class PlayerMission : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(itemMission.Count);
+        //Debug.Log(itemMission.Count);
 
         if (itemMission.Count == 1)
             item1.enabled = true;

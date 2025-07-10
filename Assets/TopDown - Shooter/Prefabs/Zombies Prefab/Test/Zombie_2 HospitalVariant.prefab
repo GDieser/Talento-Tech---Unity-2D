@@ -49,7 +49,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665275, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: detectionRange
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665276, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: m_Mass
@@ -57,11 +57,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665278, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: m_Color.b
-      value: 0.3443396
+      value: 0.6933962
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665278, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: m_Color.g
-      value: 0.63351977
+      value: 0.84567213
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665278, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: m_Color.r
