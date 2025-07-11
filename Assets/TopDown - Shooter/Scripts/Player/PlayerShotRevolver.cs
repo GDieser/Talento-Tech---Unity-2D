@@ -50,7 +50,10 @@ public class PlayerShotRevolver : MonoBehaviour
             //Acá Dispara
             Shoot();
             ShotLight.SetTrigger("Shoot");
-            SoundController.instance.PlaySound(audioShoot, 0.5f);
+
+
+            SoundController.instance.PlaySound2(audioShoot, 0.2f);
+
             animator.SetTrigger("Shoot");
 
         }
@@ -76,7 +79,7 @@ public class PlayerShotRevolver : MonoBehaviour
             }
             else
             {
-                SoundController.instance.PlaySound(audioReloadClick, 0.4f);
+                SoundController.instance.PlaySound(audioReloadClick, 1f);
                 
             }
         }

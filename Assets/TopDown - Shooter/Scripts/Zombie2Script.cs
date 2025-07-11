@@ -67,68 +67,71 @@ public class Zombie2Script : MonoBehaviour
 
         if (isAttacking) return;
 
+        float distanceToPlayer = 0f;
+
         //Para que siga al personaje
-        Vector3 direction = player.position - transform.position;
-        float distanceToPlayer = direction.magnitude;
-
-
-        if (distanceToPlayer <= detectionRange || Alert)
+        if (player != null)
         {
-            agent.SetDestination(player.position);
+            Vector3 direction = player.position - transform.position;
+            distanceToPlayer = direction.magnitude;
 
-            //agent.speed = moveSpeed;
-
-            if (!IsAlert)
+            if (distanceToPlayer <= detectionRange || Alert)
             {
-                if (IsScream)
+                agent.SetDestination(player.position);
+
+                //agent.speed = moveSpeed;
+
+                if (!IsAlert)
                 {
-                    AlertAndPause();
+                    if (IsScream)
+                    {
+                        AlertAndPause();
+                    }
+                    else
+                    {
+                        int rand = random.Next(1, 3);
+
+                        if (rand == 1)
+                            SoundController.instance.PlaySound(Alert2, 0.8f);
+                        else if (rand == 2)
+                            SoundController.instance.PlaySound(Alert3, 0.8f);
+                    }
+
+
+                    IsAlert = true;
                 }
-                else
+
+                if ((audio = GetComponent<AudioSource>()) != null)
                 {
-                    int rand = random.Next(1, 3);
-
-                    if (rand == 1)
-                        SoundController.instance.PlaySound(Alert2, 0.8f);
-                    else if (rand == 2)
-                        SoundController.instance.PlaySound(Alert3, 0.8f);
+                    audio.enabled = true;
                 }
 
 
-                IsAlert = true;
-            }
+                Vector3 moveDir = agent.velocity;
 
-            if ((audio = GetComponent<AudioSource>()) != null)
+                if (moveDir.sqrMagnitude > 0.01f) // Para evitar que rote cuando está quieto
+                {
+                    float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+                    rb.rotation = angle;
+                }
+
+                enMov = true;
+            }
+            else
             {
-                audio.enabled = true;
+                movement = Vector2.zero;
+                enMov = false;
             }
 
+            Animator.SetBool("Walk", enMov);
 
-            Vector3 moveDir = agent.velocity;
+            /*
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            rb.rotation = angle;
+            direction.Normalize();
+            movement = direction;*/
 
-            if (moveDir.sqrMagnitude > 0.01f) // Para evitar que rote cuando está quieto
-            {
-                float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-                rb.rotation = angle;
-            }
-
-            enMov = true;
         }
-        else
-        {
-            movement = Vector2.zero;
-            enMov = false;
-        }
-
-        Animator.SetBool("Walk", enMov);
-
-        /*
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        rb.rotation = angle;
-        direction.Normalize();
-        movement = direction;*/
-
-
     }
 
     public void AlertZombie()
@@ -244,6 +247,8 @@ public class Zombie2Script : MonoBehaviour
 
     public void Damage(int damage)
     {
+        
+
         int rand = random.Next(1, 6);
 
         if (rand == 1)
@@ -284,6 +289,18 @@ public class Zombie2Script : MonoBehaviour
 
             }*/
         }
+    }
+
+    public static IEnumerator PlaySound(AudioSource audioSrc, AudioClip sfx, float volume, float pitch = 1, float waitingTime = 0)
+    {
+        yield return new WaitForSeconds(waitingTime);
+
+        audioSrc.clip = sfx;
+        audioSrc.volume = volume;
+        audioSrc.pitch = pitch;
+        audioSrc.PlayOneShot(sfx);
+
+        yield return "Audio Played";
     }
 
     private IEnumerator Morir()

@@ -10,8 +10,8 @@ public class ZombieScript : MonoBehaviour
     public Transform player;
     NavMeshAgent agent;
 
-    [SerializeField]  private float moveSpeed = 0.5f;
-    [SerializeField]  private float detectionRange = 2f;
+    [SerializeField] private float moveSpeed = 0.5f;
+    [SerializeField] private float detectionRange = 2f;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -70,63 +70,64 @@ public class ZombieScript : MonoBehaviour
         //Animator.SetBool("Walk", movement.magnitude > 0.01f);
 
         if (isAttacking) return;
-
-        //Para que siga al personaje
-        Vector3 direction = player.position - transform.position;
-        float distanceToPlayer = direction.magnitude;
-
-
-        if (distanceToPlayer <= detectionRange)
+        if (player != null)
         {
-            agent.SetDestination(player.position);
-            //agent.speed = moveSpeed;
+            //Para que siga al personaje
+            Vector3 direction = player.position - transform.position;
+            float distanceToPlayer = direction.magnitude;
 
-            if (!IsAlert)
+
+            if (distanceToPlayer <= detectionRange)
             {
-                int rand = random.Next(1, 4);
+                agent.SetDestination(player.position);
+                //agent.speed = moveSpeed;
 
-                if (rand == 1)
-                    SoundController.instance.PlaySound(Alert1, 0.8f);
-                else if (rand == 2)
-                    SoundController.instance.PlaySound(Alert2, 0.8f);
-                else if (rand == 3)
-                    SoundController.instance.PlaySound(Alert3, 0.8f);
+                if (!IsAlert)
+                {
+                    int rand = random.Next(1, 4);
 
-                IsAlert = true;
+                    if (rand == 1)
+                        SoundController.instance.PlaySound(Alert1, 0.8f);
+                    else if (rand == 2)
+                        SoundController.instance.PlaySound(Alert2, 0.8f);
+                    else if (rand == 3)
+                        SoundController.instance.PlaySound(Alert3, 0.8f);
+
+                    IsAlert = true;
+                }
+
+                if ((audio = GetComponent<AudioSource>()) != null)
+                {
+                    audio.enabled = true;
+                }
+
+                //direction.Normalize();
+                //movement = direction;
+
+                Vector3 moveDir = agent.velocity;
+
+                if (moveDir.sqrMagnitude > 0.01f) // Para evitar que rote cuando está quieto
+                {
+                    float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+                    rb.rotation = angle;
+                }
+
+                enMov = true;
+            }
+            else
+            {
+                movement = Vector2.zero;
+                enMov = false;
             }
 
-            if ((audio = GetComponent<AudioSource>()) != null)
-            {
-                audio.enabled = true;
-            }
+            Animator.SetBool("Walk", enMov);
 
-            //direction.Normalize();
-            //movement = direction;
-
-            Vector3 moveDir = agent.velocity;
-
-            if (moveDir.sqrMagnitude > 0.01f) // Para evitar que rote cuando está quieto
-            {
-                float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-                rb.rotation = angle;
-            }
-
-            enMov = true;
+            /*
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            rb.rotation = angle;
+            direction.Normalize();
+            movement = direction;*/
         }
-        else
-        {
-            movement = Vector2.zero;
-            enMov = false;
-        }
-
-        Animator.SetBool("Walk", enMov);
-
-        /*
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        rb.rotation = angle;
-        direction.Normalize();
-        movement = direction;*/
-
 
     }
 
@@ -160,7 +161,7 @@ public class ZombieScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isColliding = false;
-            
+
         }
     }
 
@@ -193,7 +194,7 @@ public class ZombieScript : MonoBehaviour
 
     private IEnumerator FinAtaque()
     {
-        
+
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
 
         isAttacking = false;
@@ -201,7 +202,7 @@ public class ZombieScript : MonoBehaviour
         if (!isColliding)
         {
             Animator.SetBool("Attack", false);
-            Animator.SetBool("Walk", true); 
+            Animator.SetBool("Walk", true);
         }
     }
 
@@ -228,7 +229,7 @@ public class ZombieScript : MonoBehaviour
         {
             StopAllCoroutines();
 
-            if(death2)
+            if (death2)
             {
                 Animator.Play("Zombie_Death2");
             }
@@ -243,7 +244,7 @@ public class ZombieScript : MonoBehaviour
             {
                 Animator.SetBool("Walk", false);
                 Animator.SetBool("Attack", false);
-                
+
                 if (death2)
                 {
                     StartCoroutine(Morir(true));
@@ -266,8 +267,8 @@ public class ZombieScript : MonoBehaviour
 
     private IEnumerator Morir(bool isShotGun = false)
     {
-        
-        if(isShotGun)
+
+        if (isShotGun)
         {
             Animator.SetBool("Death2", true);
 

@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioHealth: {fileID: 8300000, guid: 392ce2a4396692840aae062bcf13bf47, type: 3}
+  audioHealth2: {fileID: 8300000, guid: 5110afaa0e9144d4095e00a9b83b84bb, type: 3}
 --- !u!114 &8744142529419603425
 MonoBehaviour:
   m_ObjectHideFlags: 0

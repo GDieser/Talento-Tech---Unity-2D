@@ -27,8 +27,16 @@ public class SoundController : MonoBehaviour
 
     public void PlaySound(AudioClip audio, float volumen)
     {
+        /*
         audioSource.volume = volumen;
         audioSource.PlayOneShot(audio);
+        */
+        audioSource.PlayOneShot(audio, volumen);
+    }
+
+    public void PlaySound2(AudioClip clip, float volume)
+    {
+        audioSource.PlayOneShot(clip, volume);
     }
 
     public void PlaySoundBackground(AudioClip audio, float volumen)
