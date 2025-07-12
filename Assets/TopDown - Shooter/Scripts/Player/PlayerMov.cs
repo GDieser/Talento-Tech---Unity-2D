@@ -86,6 +86,11 @@ public class PlayerMov : MonoBehaviour
         //rb.AddForce(mov * speed * Time.deltaTime);
         rb.velocity = (mov * speed * Time.fixedDeltaTime);
         //rb.velocity = mov * speed;
+
+        //rb.velocity = mov * speed;
+        if (mov == Vector2.zero)
+            rb.velocity = Vector2.zero;
+
     }
 
     public void ChangeGun(int op = 0)
@@ -101,7 +106,8 @@ public class PlayerMov : MonoBehaviour
             if(rifle.active || shotGun.GetActive())
             {
                 rifle.enabled = false;
-                shotGun.enabled = false;
+                if (shotGun != null)
+                    shotGun.enabled = false;
 
                 rifleImage.enabled = false;
                 rifleBullet.enabled = false;
@@ -122,7 +128,9 @@ public class PlayerMov : MonoBehaviour
             if ((revolver.enabled == true) || (shotGun.GetActive()) && rifle.active == true)
             {
                 revolver.enabled = false;
-                shotGun.enabled = false;
+                
+                if(shotGun != null)
+                    shotGun.enabled = false;
 
                 revolverImage.enabled = false;
                 revolverBullet.enabled = false;

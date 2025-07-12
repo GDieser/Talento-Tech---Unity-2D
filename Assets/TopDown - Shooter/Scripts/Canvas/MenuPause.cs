@@ -33,7 +33,7 @@ public class MenuPause : MonoBehaviour
     private void Awake()
     {
         if (level1)
-            GameState.startPosition = new Vector2(-9, -0.6f);
+            GameState.startPosition = new Vector2(19, -0.6f);
         else if (level2)
             GameState.startPosition = new Vector2(-8, -0.5f);
     }
@@ -103,6 +103,6 @@ public class MenuPause : MonoBehaviour
 
     public static class GameState
     {
-        public static Vector2 startPosition = new Vector2(-9, -0.6f);
+        public static Vector2 startPosition = new Vector2(19, -0.6f);
     }
 }

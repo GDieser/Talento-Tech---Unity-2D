@@ -15,9 +15,8 @@ GameObject:
   - component: {fileID: 4449356142549365053}
   - component: {fileID: 4449356142549365030}
   - component: {fileID: 685119400654359361}
-  - component: {fileID: 1291994414080555112}
   - component: {fileID: 656234387829124178}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Zombie_2 Variant
   m_TagString: Zombie
   m_Icon: {fileID: 0}
@@ -142,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  moveSpeed: 0.5
+  detectionRange: 2
   life: 2
   particulas: {fileID: 4449356144440101678}
   IsTest: 0
@@ -191,26 +192,6 @@ MonoBehaviour:
   cursorHotspot: {x: 16, y: 16}
   cursorDefault: {fileID: 2800000, guid: 6e31e765a69075346ae71fefe12b1251, type: 3}
   cursorHotspotDefault: {x: 16, y: 16}
---- !u!114 &1291994414080555112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4449356142549365052}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b1f0d4195f4e641a780100e817f404, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  moveSpeed: 1.2
-  detectionRange: 10
-  life: 1
-  particulas: {fileID: 0}
-  IsTest: 0
-  HealthPack: {fileID: 0}
-  Bullets: {fileID: 0}
 --- !u!195 &656234387829124178
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -222,9 +203,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.42499998
   m_Speed: 0.6
-  m_Acceleration: 1
+  m_Acceleration: 10
   avoidancePriority: 50
-  m_AngularSpeed: 60
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -287,6 +268,10 @@ PrefabInstance:
     - target: {fileID: 881738737535900979, guid: 572487ac266f7a841964e1b7a6ca1f2f, type: 3}
       propertyPath: m_Name
       value: Particulas
+      objectReference: {fileID: 0}
+    - target: {fileID: 881738737535900979, guid: 572487ac266f7a841964e1b7a6ca1f2f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 881738737535900990, guid: 572487ac266f7a841964e1b7a6ca1f2f, type: 3}
       propertyPath: lengthInSec
