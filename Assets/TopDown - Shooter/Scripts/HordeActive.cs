@@ -16,6 +16,7 @@ public class HordeActive : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             horde.HordeActive(true);
+
             this.gameObject.SetActive(false);
         }
     }

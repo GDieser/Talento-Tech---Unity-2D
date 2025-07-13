@@ -97,6 +97,11 @@ public class PlayerShotRifle : MonoBehaviour
 
     }
 
+    public int GetTotalBullets()
+    {
+        return totalBullets;
+    }
+
     public void ReloadBulletsGun()
     {
         while (bullets < 30 && totalBullets > 0)

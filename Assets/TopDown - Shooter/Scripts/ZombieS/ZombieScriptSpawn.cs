@@ -49,39 +49,42 @@ public class ZombieScriptSpawn : MonoBehaviour
 
         if (isAttacking) return;
 
-        //Para que siga al personaje
-        Vector3 direction = player.position - transform.position;
-        float distanceToPlayer = direction.magnitude;
-
-        if (distanceToPlayer <= detectionRange)
+        if (player != null)
         {
-            //agent.speed = spee  
-            agent.SetDestination(player.position);
+            //Para que siga al personaje
+            Vector3 direction = player.position - transform.position;
+            float distanceToPlayer = direction.magnitude;
+
+            if (distanceToPlayer <= detectionRange)
+            {
+                //agent.speed = spee  
+                agent.SetDestination(player.position);
 
 
-            direction.Normalize();
-            movement = direction;
+                direction.Normalize();
+                movement = direction;
 
-            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            //rb.rotation = angle;
-            Vector3 moveDir = agent.velocity;
+                //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                //rb.rotation = angle;
+                Vector3 moveDir = agent.velocity;
 
-            float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-            rb.rotation = angle;
+                float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+                rb.rotation = angle;
 
-            enMov = true;
+                enMov = true;
+            }
+            else
+            {
+                movement = Vector2.zero;
+                enMov = false;
+            }
+
+            Animator.SetBool("Walk", enMov);
+
         }
-        else
-        {
-            movement = Vector2.zero;
-            enMov = false;
-        }
-
-        Animator.SetBool("Walk", enMov);
-
     }
 
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -98,9 +101,9 @@ public class ZombieScriptSpawn : MonoBehaviour
         }
 
     }
-    
 
-    
+
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -108,10 +111,10 @@ public class ZombieScriptSpawn : MonoBehaviour
             isColliding = false;
         }
     }
-    
 
 
-    
+
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -130,7 +133,7 @@ public class ZombieScriptSpawn : MonoBehaviour
             }
         }
     }
-    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -140,7 +143,7 @@ public class ZombieScriptSpawn : MonoBehaviour
         }
     }
 
-    
+
     private IEnumerator FinAtaque()
     {
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
@@ -167,11 +170,11 @@ public class ZombieScriptSpawn : MonoBehaviour
         particulas.Play();
         if (life <= 0)
         {
-            int rand = random.Next(1,11);
+            int rand = random.Next(1, 11);
 
-            if(rand == 1 || rand == 2)
+            if (rand == 1 || rand == 2)
                 Bullets = Instantiate(Bullets, transform.position, Quaternion.identity);
-            else if(rand == 3)
+            else if (rand == 3)
                 HealthPack = Instantiate(HealthPack, transform.position, Quaternion.identity);
 
             StopAllCoroutines();
@@ -198,8 +201,8 @@ public class ZombieScriptSpawn : MonoBehaviour
     private IEnumerator Morir()
     {
         Animator.SetBool("Death", true);
-        rb.simulated = false; 
-        GetComponent<Collider2D>().enabled = false; 
+        rb.simulated = false;
+        GetComponent<Collider2D>().enabled = false;
         this.enabled = false;
 
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
@@ -214,5 +217,5 @@ public class ZombieScriptSpawn : MonoBehaviour
     {
         rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
     }
-    
+
 }

@@ -35,6 +35,11 @@ public class PlayerShotShotGun : PlayerShotBase
         ReloadGun(bulletReload, bulletMax);
     }
 
+    public int GetTotalBullets()
+    {
+        return totalBullets;
+    }
+
     public void SetActive(bool setActive)
     {
         active = setActive;

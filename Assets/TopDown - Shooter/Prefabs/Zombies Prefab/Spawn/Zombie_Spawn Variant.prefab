@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 656234387829124178, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
       propertyPath: m_Acceleration
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1291994414080555112, guid: 43c391687656b2c4d9e544e470ff21af, type: 3}
       propertyPath: Bullets
@@ -107,14 +107,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4684864505853938158}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1b1f0d4195f4e641a780100e817f404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   moveSpeed: 1.2
-  detectionRange: 10
+  detectionRange: 12
   life: 1
   particulas: {fileID: 4684864505028817916}
   IsTest: 0

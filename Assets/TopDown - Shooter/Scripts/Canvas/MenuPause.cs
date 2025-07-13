@@ -22,19 +22,23 @@ public class MenuPause : MonoBehaviour
 
 
     [SerializeField] private bool level1 = false;
-    private bool SecondSpawnLevel1 = false;
+    public bool SecondSpawnLevel1 = false;
     
     [SerializeField] private bool level2 = false;
     protected int spawmOrder = 0;
 
-    private bool SecondSpawnLevel2 = false;
+    public bool SecondSpawnLevel2 = false;
 
 
     private void Awake()
     {
-        if (level1)
-            GameState.startPosition = new Vector2(19, -0.6f);
-        else if (level2)
+        if (level1 && !GameState.SecondSpawnLevel1)
+            GameState.startPosition = new Vector2(19f, -0.3f);
+        else if (level1 && GameState.SecondSpawnLevel1)
+            GameState.startPosition = new Vector2(22.5f, -0.3f);
+        else if (level2 && !GameState.SecondSpawnLevel2)
+            GameState.startPosition = new Vector2(-8, -0.5f);
+        else if (level2&& GameState.SecondSpawnLevel2)
             GameState.startPosition = new Vector2(-8, -0.5f);
     }
 
@@ -48,7 +52,7 @@ public class MenuPause : MonoBehaviour
     void Update()
     {
         if(SecondSpawnLevel1)
-            GameState.startPosition = new Vector2(22, -0.3f);
+            GameState.startPosition = new Vector2(22.5f, -0.3f);
 
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -104,5 +108,8 @@ public class MenuPause : MonoBehaviour
     public static class GameState
     {
         public static Vector2 startPosition = new Vector2(19, -0.6f);
+
+        public static bool SecondSpawnLevel1 = false;
+        public static bool SecondSpawnLevel2 = false;
     }
 }

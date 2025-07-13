@@ -19,32 +19,54 @@ public class GeneratorController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI textMesh;
 
+    [SerializeField] private GameObject Faro1;
+    [SerializeField] private GameObject Faro2;
+
     public bool IsActive = false;
     private bool isInRange = false;
     private bool isHorde = false;
 
+    private bool reinicio = false;
+
     private void Update()
     {
-        if (isInRange && Input.GetKeyDown(KeyCode.E) && !IsActive)
+        if (GameStateGenerator.HordaActiva && !reinicio)
         {
-            ActivarGenerador();
-        }
+            StartCoroutine(EncenderSirenas());
 
-        if (!isHorde)
+            Faro1.SetActive(true);
+            Faro2.SetActive(true);
+
+            reinicio = true;
+        }
+        else
         {
-            ActivarHorda(controller.IsActive);
+
+            if (isInRange && Input.GetKeyDown(KeyCode.E) && !IsActive)
+            {
+                ActivarGenerador();
+            }
+
+            if (!isHorde)
+            {
+                ActivarHorda(controller.IsActive);
+            }
+            
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && !IsActive)
+        if (!GameStateGenerator.HordaActiva)
         {
-            isInRange = true;
+            if (collision.CompareTag("Player") && !IsActive)
+            {
+                isInRange = true;
 
-            if (!IsActive)
-                textMesh.text = "Presiona E para activar el generador";
+                if (!IsActive)
+                    textMesh.text = "Presiona E para activar el generador";
 
+            }
         }
     }
 
@@ -61,17 +83,13 @@ public class GeneratorController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            textMesh.text = "";
             IsActive = true;
 
             StartCoroutine(EncenderGenerador());
 
         }
 
-        /*
-        SoundController.instance.PlaySound(sirenaClip1, 0.8f);
-        SoundController.instance.PlaySound(sirenaClip2, 0.8f);
-        SoundController.instance.PlaySound(sirenaClip3, 0.8f);
-        */
     }
 
     private void ActivarHorda(bool radio)
@@ -79,23 +97,45 @@ public class GeneratorController : MonoBehaviour
         if (radio)
         {
             isHorde = true;
-            //SoundController.instance.PlaySound(sirenaClip1, 0.8f);
-            MusicController.instance.PlaySound(sirenaClip2);
-            //SoundController.instance.PlaySound(sirenaClip3, 0.8f);
+            StartCoroutine(EncenderSirenas());
         }
 
 
     }
 
+    private IEnumerator EncenderSirenas()
+    {
+        SoundController.instance.PlaySound(sirenaClip1, 0.8f);
+
+        yield return new WaitForSeconds(sirenaClip1.length);
+
+
+        MusicController.instance.PlaySirena(sirenaClip2, 0.5f, true);
+        //SoundController.instance.PlaySound(sirenaClip3, 0.8f);
+
+        GameStateGenerator.HordaActiva = true;
+    }
+
+
     private IEnumerator EncenderGenerador()
     {
-        // 1. Sonido inicial (una vez)
+
         SoundController.instance.PlaySound(generatorClip1, 0.8f);
 
-        yield return new WaitForSeconds(generatorClip1.length); // o yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(generatorClip1.length);
 
-        // 3. Reproducir en loop (desde otro controlador si querés)
-        MusicController.instance.PlaySound(generatorClip2);
+
+        MusicController.instance.PlaySound(generatorClip2, 0.6f);
+        Faro1.SetActive(true);
+        Faro2.SetActive(true);
+
+        
+
+    }
+
+    public static class GameStateGenerator
+    {
+        public static bool HordaActiva = false;
     }
 
 

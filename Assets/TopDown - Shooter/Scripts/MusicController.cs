@@ -69,7 +69,7 @@ public class MusicController : MonoBehaviour
     {
         if (isHordeTension1)
         {
-            PlayFXSound(HordeTension1, 0.3f);
+            PlayFXSound(HordeTension1, 0.4f);
             PlayFXSound(HordeTension2, 0.4f);
             isHordeTension1 = false;
         }
@@ -97,12 +97,43 @@ public class MusicController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    
     public void PlaySound(AudioClip audio, float volumen = 0.5f)
     {
         audioSource.volume = volumen;
         audioSource.loop = true;
         audioSource.PlayOneShot(audio);
     }
+
+    /*
+    public void PlaySound(AudioClip audio, float volumen = 0.5f, bool loop = false)
+    {
+        //audioSource.Stop(); // Detiene cualquier sonido anterior
+
+        audioSource.clip = audio;
+        audioSource.volume = volumen;
+        audioSource.loop = loop;
+        audioSource.Play();
+
+    }*/
+
+    public void PlaySirena(AudioClip audio, float volumen = 0.5f, bool loop = false)
+    {
+        audioSource.clip = audio;
+        audioSource.volume = volumen;
+        audioSource.loop = loop;
+        audioSource.Play();
+
+    }
+
+    public void PlayMotor(AudioClip audio, float volumen = 0.5f, bool loop = false)
+    {
+        audioSource.clip = audio;
+        audioSource.volume = volumen;
+        audioSource.loop = loop;
+        audioSource.Play();
+    }
+
 
     public void PlayFXSound(AudioClip audio, float volumen = 0.5f)
     {
@@ -112,7 +143,7 @@ public class MusicController : MonoBehaviour
 
     private bool Timer()
     {
-        if (timer < 20)
+        if (timer < 10)
         {
             timer += Time.deltaTime;
 

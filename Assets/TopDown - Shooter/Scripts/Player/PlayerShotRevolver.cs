@@ -10,6 +10,7 @@ public class PlayerShotRevolver : MonoBehaviour
 
     [SerializeField] public int bullets = 4;
     [SerializeField] public int totalBullets = 0;
+    public int MaxBullets = 48;
 
     [SerializeField] private float coolDown = 0.5f;
     private float currentCoolDown = 0f;
@@ -86,9 +87,20 @@ public class PlayerShotRevolver : MonoBehaviour
 
     }
 
+    public int GetTotalBullets()
+    {
+        return totalBullets;
+    }
+
     public void AddBullet(int bullets)
     {
-        totalBullets += bullets;
+        if (totalBullets < MaxBullets)
+        {
+            totalBullets += bullets;
+        }
+
+        if (totalBullets > 48)
+            totalBullets = 48;
     }
 
     public void ReloadBulletsGun()

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HordeController : MonoBehaviour
 {
     [SerializeField] private HordeTimer TextTimer;
     [SerializeField] private GameObject TextHorde;
+
+    [SerializeField] private TextMeshProUGUI textMesh;
 
     private bool fase1 = false;
     private bool fase2 = false;
@@ -16,6 +19,7 @@ public class HordeController : MonoBehaviour
     [SerializeField] GameObject Ending;
 
     private float timer = 0;
+    private float timer2 = 0;
     private float totalIntoTime = 0;
     private int TextSec = 120;
 
@@ -30,24 +34,44 @@ public class HordeController : MonoBehaviour
         TextHorde.SetActive(true);
     }
 
+
     private void Update()
     {
-        TextTimer.setTimer(TextSec);
-
-
-        if (!fase1)
-            StartFase1();
-        else if (!fase2)
-            StartFase2();
-        else if (!fase3)
-            StartFase3();
-
-        if(finFase)
+        if(Timer2())
         {
-            Ending.SetActive(true);
-            TextHorde.SetActive(false);
+            TextTimer.setTimer(TextSec);
+
+            textMesh.text = "Resiste la horda.";
+
+            if (!fase1)
+                StartFase1();
+            else if (!fase2)
+                StartFase2();
+            else if (!fase3)
+                StartFase3();
+
+            if (finFase)
+            {
+                Ending.SetActive(true);
+                TextHorde.SetActive(false);
+
+                textMesh.text = "Ve a la entra del hospital.";
+            }
         }
 
+    }
+    private bool Timer2()
+    {
+        if (timer2 < 10)
+        {
+            timer2 += Time.deltaTime;
+
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     //Fase 1

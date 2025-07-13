@@ -19,7 +19,11 @@ public class PickUpGun : MonoBehaviour
             if(this.gameObject.CompareTag("Rifle"))
             {
                 collision.GetComponent<PlayerShotRifle>().active = true;
+                player.GetComponent<PlayerMov>().DesbloquearRifle();
+
                 SoundController.instance.PlaySound(audioGun, 0.8f);
+
+                player.ChangeGun(2);
                 //PlayerShotRifle rifle = GetComponent<PlayerShotRifle>();
                 //rifle.active = true;
             }

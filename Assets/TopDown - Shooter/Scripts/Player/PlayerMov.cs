@@ -33,6 +33,18 @@ public class PlayerMov : MonoBehaviour
     [SerializeField] private Image shotGunImage;
     [SerializeField] private Image shotGunBullet;
 
+    [SerializeField] private bool isLevel1 = true;
+
+    // Armas disponibles (desbloqueo)
+    public bool hasRevolver = true;
+    public bool hasRifle = false;
+    public bool hasShotgun = false;
+
+    // Armas activas
+    private PlayerShotRevolver revolver;
+    private PlayerShotRifle rifle;
+    private PlayerShotShotGun shotGun;
+
     //Acceder a sus prop
     private Rigidbody2D rb;
 
@@ -45,11 +57,20 @@ public class PlayerMov : MonoBehaviour
         timerOn = true;
         animator = GetComponentInChildren<Animator>();
 
-        PlayerShotRifle rifle = GetComponent<PlayerShotRifle>();
-        rifle.active = true;
+        revolver = GetComponent<PlayerShotRevolver>();
+        rifle = GetComponent<PlayerShotRifle>();
+        shotGun = GetComponent<PlayerShotShotGun>();
 
-        revolverImage.enabled = true;
-        revolverBullet.enabled = true;
+        // Por defecto solo tiene revólver
+        hasRevolver = true;
+        hasRifle = !isLevel1; // si es lvl2 o superior, tiene rifle
+        hasShotgun = false; // desbloqueás más adelante
+
+        // Activar revólver al inicio
+        ActivarRevolver();
+
+        //revolverImage.enabled = true;
+        //revolverBullet.enabled = true;
 
     }
 
@@ -93,6 +114,7 @@ public class PlayerMov : MonoBehaviour
 
     }
 
+    /*
     public void ChangeGun(int op = 0)
     {
         PlayerShotRevolver revolver = GetComponent<PlayerShotRevolver>();
@@ -103,7 +125,7 @@ public class PlayerMov : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1) || op == 1)
         {
-            if(rifle.active || shotGun.GetActive())
+            if(rifle.active || (shotGun != null && shotGun.GetActive()))
             {
                 rifle.enabled = false;
                 if (shotGun != null)
@@ -170,6 +192,78 @@ public class PlayerMov : MonoBehaviour
             }
 
         }
+    }
+    */
+
+    public void ChangeGun(int op = 0)
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) || op == 1)
+        {
+            if (hasRevolver) ActivarRevolver();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || op == 2)
+        {
+            if (hasRifle) ActivarRifle();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3) || op == 3)
+        {
+            if (hasShotgun) ActivarShotgun();
+        }
+    }
+
+    private void ActivarRevolver()
+    {
+        DesactivarTodas();
+        revolver.enabled = true;
+
+        revolverImage.enabled = true;
+        revolverBullet.enabled = true;
+
+        animator.CrossFade("Idle", 0f);
+        animator.SetInteger("Select_Gun", 0);
+    }
+
+    private void ActivarRifle()
+    {
+        DesactivarTodas();
+        rifle.enabled = true;
+
+        rifleImage.enabled = true;
+        rifleBullet.enabled = true;
+
+        animator.CrossFade("Rifle_Idle", 0f);
+        animator.SetInteger("Select_Gun", 1);
+    }
+
+    private void ActivarShotgun()
+    {
+        DesactivarTodas();
+        shotGun.enabled = true;
+
+        shotGunImage.enabled = true;
+        shotGunBullet.enabled = true;
+
+        animator.CrossFade("ShotGun_Idle", 0f);
+        animator.SetInteger("Select_Gun", 2);
+    }
+
+    private void DesactivarTodas()
+    {
+        if (revolver != null) revolver.enabled = false;
+        if (rifle != null) rifle.enabled = false;
+        if (shotGun != null) shotGun.enabled = false;
+
+        revolverImage.enabled = false;
+        revolverBullet.enabled = false;
+        rifleImage.enabled = false;
+        rifleBullet.enabled = false;
+        shotGunImage.enabled = false;
+        shotGunBullet.enabled = false;
+    }
+
+    public void DesbloquearRifle()
+    {
+        hasRifle = true;
     }
 
     private void AttackMelee()
