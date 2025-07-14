@@ -37,7 +37,7 @@ public class MenuPause : MonoBehaviour
         else if (level1 && GameState.SecondSpawnLevel1)
             GameState.startPosition = new Vector2(22.5f, -0.3f);
         else if (level2 && !GameState.SecondSpawnLevel2)
-            GameState.startPosition = new Vector2(-8, -0.5f);
+            GameState.startPosition = new Vector2(53, 11f);
         else if (level2&& GameState.SecondSpawnLevel2)
             GameState.startPosition = new Vector2(-8, -0.5f);
     }

@@ -16,6 +16,8 @@ public class PickFullAmmo : MonoBehaviour
     [SerializeField] private bool isRifle = false;
     [SerializeField] private bool isShotGun = false;
 
+    [SerializeField] private AudioClip audio;
+
     public bool IsActive = false;
     private bool isInRange = false;
     private bool recarga = false;
@@ -104,18 +106,21 @@ public class PickFullAmmo : MonoBehaviour
         if (IsActive && revolver != null && isRevolver)
         {
             revolver.AddBullet(48);
+            SoundController.instance.PlaySound2(audio, 0.5f);
             textMesh.text = "";
             IsActive = false;
         }
         else if(IsActive && rifle != null && isRifle)
         {
             rifle.AddBullet(240);
+            SoundController.instance.PlaySound2(audio, 0.5f);
             textMesh.text = "";
             IsActive = false;
         }
         else if (IsActive && shotGun != null && isShotGun)
         {
             shotGun.AddBullet(32, 32);
+            SoundController.instance.PlaySound2(audio, 0.5f);
             textMesh.text = "";
             IsActive = false;
         }

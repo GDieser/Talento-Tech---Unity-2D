@@ -266,6 +266,11 @@ public class PlayerMov : MonoBehaviour
         hasRifle = true;
     }
 
+    public void DesbloquearShotgun()
+    {
+        hasShotgun = true;
+    }
+
     private void AttackMelee()
     {
         if(Input.GetButtonDown("Fire2"))

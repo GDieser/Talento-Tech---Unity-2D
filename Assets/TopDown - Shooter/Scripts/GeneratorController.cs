@@ -28,6 +28,9 @@ public class GeneratorController : MonoBehaviour
 
     private bool reinicio = false;
 
+    [SerializeField] private bool level2 = false;
+    [SerializeField] private TextMeshProUGUI instrucciones;
+
     private void Update()
     {
         if (GameStateGenerator.HordaActiva && !reinicio)
@@ -45,6 +48,8 @@ public class GeneratorController : MonoBehaviour
             if (isInRange && Input.GetKeyDown(KeyCode.E) && !IsActive)
             {
                 ActivarGenerador();
+
+                
             }
 
             if (!isHorde)
@@ -89,7 +94,6 @@ public class GeneratorController : MonoBehaviour
             StartCoroutine(EncenderGenerador());
 
         }
-
     }
 
     private void ActivarHorda(bool radio)
@@ -130,6 +134,11 @@ public class GeneratorController : MonoBehaviour
         Faro2.SetActive(true);
 
         
+        if (level2)
+        {
+            yield return new WaitForSeconds(1f);
+            instrucciones.text = "Conecta la betería del auto";
+        }
 
     }
 

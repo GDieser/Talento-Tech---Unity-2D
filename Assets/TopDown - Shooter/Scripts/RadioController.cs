@@ -13,9 +13,14 @@ public class RadioController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField]
-    private string mensajeRadio = "¿Hola? ¿Me escuchas? ¿Pudiste llegar al hospital?\n" +
-               "Hay poco tiempo. Necesitás encontrar 3 medikits grandes y una caja de herramientas.\n" +
-               "El auto está en el estacionamiento trasero. ¡Mucha suerte!";
+    private string mensajeRadio = "... ... Ho... ¿Hola?... ¿Me escuchas?... ¿Pudiste llegar al hospital?\n" +
+               "Hay poco tiempo. Necesitás encontrar 3 medikits de los grandes y una caja de herramientas para conectar la batería del auto.\n" +
+               "El auto quedó en el estacionamiento trasero, tenes que salir por el deposito. Nos encontramos en el punto de extracción. Mucha suerte...";
+
+    private string mensajeRadio2 = "... ... Ho... ¿Hola?... ¿Me escuchas?... ¿Pudiste conseguir todo?\n" +
+               "Ahora necesitás conectar la batería del auto al generador, eso va a generar mucho ruido, vas a tener que resistir lo suficiente para que arranque.\n" +
+               "Te vamos a estar esperando en el punto de extracción. Mucha suerte...";
+
     [SerializeField] private float duracionDialogo = 20f;
 
     [SerializeField] GameObject radioCom;
@@ -33,6 +38,9 @@ public class RadioController : MonoBehaviour
 
     private bool reinicio = false;
 
+    [SerializeField] private bool level2 = false;
+    [SerializeField] private TextMeshProUGUI instrucciones;
+
     void Start()
     {
 
@@ -42,33 +50,41 @@ public class RadioController : MonoBehaviour
     void Update()
     {
 
-        if (GameStateRadio.HordaActiva && !reinicio)
+        if (!level2 || GameStateRadio.bateriaConectada)
         {
-            textMesh.text = "";
-            music.isHorde = true;
-            horde.enabled = true;
-            activo = true;
+            if (GameStateRadio.HordaActiva && !reinicio)
+            {
+                textMesh.text = "";
+                music.isHorde = true;
+                horde.enabled = true;
+                activo = true;
 
-            reinicio = true;
+                reinicio = true;
+            }
+            else
+            {
+
+                if (isInRange && Input.GetKeyDown(KeyCode.E) && controller.IsActive && !IsActive && !play)
+                {
+
+                    textMesh.text = "";
+                    StartCoroutine(AccionRadio());
+
+                }
+
+                if (play && Timer() && !activo)
+                {
+                    music.isHorde = true;
+                    horde.enabled = true;
+                    activo = true;
+                }
+            }
         }
         else
         {
 
-            if (isInRange && Input.GetKeyDown(KeyCode.E) && controller.IsActive && !IsActive && !play)
-            {
-
-                textMesh.text = "";
-                StartCoroutine(AccionRadio());
-
-            }
-
-            if (play && Timer() && !activo)
-            {
-                music.isHorde = true;
-                horde.enabled = true;
-                activo = true;
-            }
         }
+
     }
 
     private bool Timer()
@@ -87,21 +103,47 @@ public class RadioController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!GameStateRadio.HordaActiva)
+        if (!GameStateRadio.HordaActiva)
         {
             if (collision.CompareTag("Player"))
             {
                 isInRange = true;
 
-                if (controller.IsActive && !IsActive)
+                if (!level2)
                 {
-                    textMesh.text = "Presiona E para llamar a la base";
+                    if (controller.IsActive && !IsActive)
+                    {
+                        textMesh.text = "Presiona E para llamar a la base";
 
+                    }
+                    else if (IsActive)
+                        textMesh.text = "";
+                    else
+                        textMesh.text = "Sin energía, activa el generador";
                 }
-                else if (IsActive)
-                    textMesh.text = "";
                 else
-                    textMesh.text = "Sin energía, activa el generador";
+                {
+                    if (GameStateRadio.bateriaConectada)
+                    {
+                        if (controller.IsActive && !IsActive)
+                        {
+                            textMesh.text = "Presiona E para llamar a la base";
+
+                        }
+                        else if (IsActive)
+                            textMesh.text = "";
+
+                    }
+                    else if (!controller.IsActive && !IsActive)
+                    {
+
+                        textMesh.text = "Sin energía, activa el generador";
+                    }
+                    else
+                    {
+                        textMesh.text = "Conecta primero la batería del auto";
+                    }
+                }
             }
         }
     }
@@ -145,7 +187,10 @@ public class RadioController : MonoBehaviour
         SoundController.instance.PlaySound(RadioClip1, 0.8f);
 
         // 2. Lanzar diálogo al mismo tiempo
-        StartCoroutine(TypeDialogue(mensajeRadio, duracionDialogo));
+        if (!level2)
+            StartCoroutine(TypeDialogue(mensajeRadio, duracionDialogo));
+        else
+            StartCoroutine(TypeDialogue(mensajeRadio2, duracionDialogo));
 
         // 3. Esperar a que termine el sonido + un poco más
         yield return new WaitForSeconds(RadioClip1.length + 1f);
@@ -162,6 +207,7 @@ public class RadioController : MonoBehaviour
     public static class GameStateRadio
     {
         public static bool HordaActiva = false;
+        public static bool bateriaConectada = false;
 
     }
 

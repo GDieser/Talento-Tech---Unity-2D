@@ -28,7 +28,7 @@ public class ZombieScriptSpawn : MonoBehaviour
     private bool isColliding = false;
 
     [SerializeField] private GameObject HealthPack;
-    [SerializeField] private GameObject Bullets;
+    //[SerializeField] private GameObject Bullets;
 
     private float timer = 0;
 
@@ -170,12 +170,16 @@ public class ZombieScriptSpawn : MonoBehaviour
         particulas.Play();
         if (life <= 0)
         {
-            int rand = random.Next(1, 11);
+            int rand = random.Next(1, 16);
 
-            if (rand == 1 || rand == 2)
-                Bullets = Instantiate(Bullets, transform.position, Quaternion.identity);
-            else if (rand == 3)
-                HealthPack = Instantiate(HealthPack, transform.position, Quaternion.identity);
+            /*if (rand == 1 || rand == 2)
+                Bullets = Instantiate(Bullets, transform.position, Quaternion.identity);*/
+            if (rand == 3)
+            {
+                GameObject instancia = Instantiate(HealthPack, transform.position, Quaternion.identity);
+
+                Destroy(instancia, 6f);
+            }
 
             StopAllCoroutines();
 

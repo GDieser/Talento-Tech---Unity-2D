@@ -27,6 +27,7 @@ public class HordeController : MonoBehaviour
     private float contador = 0;
 
     [SerializeField] private GameObject SpawnZombie;
+    [SerializeField] private bool level2 = false;
 
     private void Start()
     {
@@ -55,7 +56,10 @@ public class HordeController : MonoBehaviour
                 Ending.SetActive(true);
                 TextHorde.SetActive(false);
 
-                textMesh.text = "Ve a la entra del hospital.";
+                if(!level2)
+                    textMesh.text = "Ve a la entra del hospital.";
+                else
+                    textMesh.text = "El auto está listo, sube para escapar.";
             }
         }
 
