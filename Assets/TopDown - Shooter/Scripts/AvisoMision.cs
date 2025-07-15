@@ -6,8 +6,9 @@ using TMPro;
 public class AvisoMision : MonoBehaviour
 {
     [SerializeField] protected PlayerMission mision;
-
     [SerializeField] protected TextMeshProUGUI aviso;
+
+    [SerializeField] private MenuPause spawn;
 
     private bool isInRange = false;
 
@@ -33,6 +34,10 @@ public class AvisoMision : MonoBehaviour
             if (cant < 3)
             {
                 aviso.text = "Cuidado! Aún te faltan " + (3 - cant) + " Medikits";
+            }
+            else if(cant == 3)
+            {
+                spawn.SetSpawn(3);
             }
 
         }

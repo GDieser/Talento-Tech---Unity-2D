@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MenuPause : MonoBehaviour
 {
     [SerializeField] private GameObject menuPausa;
+    [SerializeField] private GameObject menuConfig;
     [SerializeField] private GameObject playerPausa;
     private bool pauseGame = false;
 
@@ -29,17 +30,23 @@ public class MenuPause : MonoBehaviour
 
     public bool SecondSpawnLevel2 = false;
 
+    [SerializeField] private GameObject missionHud;
 
     private void Awake()
     {
         if (level1 && !GameState.SecondSpawnLevel1)
-            GameState.startPosition = new Vector2(19f, -0.3f);
+            GameState.startPosition = new Vector2(-9f, -0.3f);
         else if (level1 && GameState.SecondSpawnLevel1)
             GameState.startPosition = new Vector2(22.5f, -0.3f);
-        else if (level2 && !GameState.SecondSpawnLevel2)
-            GameState.startPosition = new Vector2(53, 11f);
-        else if (level2&& GameState.SecondSpawnLevel2)
+        else if (level2 && !GameState.SecondSpawnLevel2 && !GameState.SecondSpawnAltLevel2)
             GameState.startPosition = new Vector2(-8, -0.5f);
+        else if (level2 && GameState.SecondSpawnLevel2 && !GameState.SecondSpawnAltLevel2)
+        {
+            GameState.startPosition = new Vector2(-9, -38f);
+            missionHud.SetActive(false);
+        }
+        else if (level2 && GameState.SecondSpawnAltLevel2)
+            GameState.startPosition = new Vector2(64, 10f);
     }
 
     private void Start()
@@ -100,9 +107,35 @@ public class MenuPause : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void SetSpawn()
+    public void SetSpawn(int level = 1)
     {
-        SecondSpawnLevel1 = true;
+        if(level == 1)
+            SecondSpawnLevel1 = true;
+        if(level == 2)
+        {
+            GameState.SecondSpawnLevel2 = true;
+            GameState.SecondSpawnAltLevel2 = false;
+            missionHud.SetActive(false);
+        }
+        if(level == 3)
+        {
+            GameState.SecondSpawnAltLevel2 = true;
+            GameState.SecondSpawnLevel2 = false;
+        }
+    }
+
+    public void AbrirConfiguraciones(bool abrir)
+    {
+        if (abrir)
+        {
+            menuPausa.SetActive(false);
+            menuConfig.SetActive(true);
+        }
+        else
+        {
+            menuConfig.SetActive(false);
+            menuPausa.SetActive(true);
+        }
     }
 
     public static class GameState
@@ -111,5 +144,6 @@ public class MenuPause : MonoBehaviour
 
         public static bool SecondSpawnLevel1 = false;
         public static bool SecondSpawnLevel2 = false;
+        public static bool SecondSpawnAltLevel2 = false;
     }
 }

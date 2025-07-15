@@ -50,4 +50,25 @@ public class PlayerVida : MonoBehaviour
     {
         vida -= damage;
     }
+
+    public void SetStory(int tipo)
+    {
+        if(tipo == 1)
+            GameStateStory.hablo = true;
+        else if(tipo == 2)
+            GameStateStory.foto = true;
+    }
+
+    public bool GetStory()
+    {
+        return GameStateStory.hablo;
+    }
+
+    public static class GameStateStory
+    {
+        public static bool hablo = false;
+        public static bool foto = false;
+        public static bool sirena1 = false;
+        public static bool sirena2 = false;
+    }
 }

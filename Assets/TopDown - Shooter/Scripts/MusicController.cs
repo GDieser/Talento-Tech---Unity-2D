@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MusicController : MonoBehaviour
 {
     public static MusicController instance;
 
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private Slider miSlider;
 
     [SerializeField] private AudioClip audioIntro;
     [SerializeField] private AudioClip MusicHorde;
@@ -37,6 +39,15 @@ public class MusicController : MonoBehaviour
             intro = false;
         }
 
+        float vol = PlayerPrefs.GetFloat("fxVolume", 1f);
+        miSlider.value = vol;
+
+    }
+
+    public void CambiarVolumen()
+    {
+        audioSource.volume = miSlider.value;
+        PlayerPrefs.SetFloat("fxVolume", miSlider.value);
     }
 
     private void Update()
@@ -95,12 +106,14 @@ public class MusicController : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = PlayerPrefs.GetFloat("fxVolume", 1f);
     }
 
     
     public void PlaySound(AudioClip audio, float volumen = 0.5f)
     {
-        audioSource.volume = volumen;
+        float volumenFinal = volumen * miSlider.value;
+        audioSource.volume = volumenFinal;
         audioSource.loop = true;
         audioSource.PlayOneShot(audio);
     }
@@ -120,7 +133,8 @@ public class MusicController : MonoBehaviour
     public void PlaySirena(AudioClip audio, float volumen = 0.5f, bool loop = false)
     {
         audioSource.clip = audio;
-        audioSource.volume = volumen;
+        float volumenFinal = volumen * miSlider.value;
+        audioSource.volume = volumenFinal;
         audioSource.loop = loop;
         audioSource.Play();
 
@@ -129,7 +143,8 @@ public class MusicController : MonoBehaviour
     public void PlayMotor(AudioClip audio, float volumen = 0.5f, bool loop = false)
     {
         audioSource.clip = audio;
-        audioSource.volume = volumen;
+        float volumenFinal = volumen * miSlider.value;
+        audioSource.volume = volumenFinal;
         audioSource.loop = loop;
         audioSource.Play();
     }
@@ -137,7 +152,8 @@ public class MusicController : MonoBehaviour
 
     public void PlayFXSound(AudioClip audio, float volumen = 0.5f)
     {
-        audioSource.volume = volumen;
+        float volumenFinal = volumen * miSlider.value;
+        audioSource.volume = volumenFinal;
         audioSource.PlayOneShot(audio);
     }
 

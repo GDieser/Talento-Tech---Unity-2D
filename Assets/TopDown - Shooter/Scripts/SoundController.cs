@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class SoundController : MonoBehaviour
 {
     public static SoundController instance;
 
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private Slider miSlider;
 
     private void Awake()
     {
-
+        
         if (instance == null)
         {
             instance = this;
@@ -20,29 +22,36 @@ public class SoundController : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
-        
-        audioSource = GetComponent<AudioSource>();
+
+
+        audioSource.volume = PlayerPrefs.GetFloat("fxVolume", 1f);
     }
 
-    public void PlaySound(AudioClip audio, float volumen)
+    void Start()
     {
-        /*
-        audioSource.volume = volumen;
-        audioSource.PlayOneShot(audio);
-        */
-        audioSource.PlayOneShot(audio, volumen);
+        float vol = PlayerPrefs.GetFloat("fxVolume", 1f);
+        miSlider.value = vol; 
     }
 
-    public void PlaySound2(AudioClip clip, float volume)
+    public void CambiarVolumen()
     {
-        audioSource.PlayOneShot(clip, volume);
+        audioSource.volume = miSlider.value;
+        PlayerPrefs.SetFloat("fxVolume", miSlider.value);
     }
 
-    public void PlaySoundBackground(AudioClip audio, float volumen)
+
+    public void PlaySound(AudioClip audio, float volumenRelativo = 1f)
     {
-        audioSource.volume = volumen;
-        audioSource.PlayOneShot(audio);
+        float volumenFinal = volumenRelativo * audioSource.volume;
+        audioSource.PlayOneShot(audio, volumenFinal);
+    }
+
+
+    public void PlaySound2(AudioClip audio, float volumenRelativo = 1f)
+    {
+        PlaySound(audio, volumenRelativo);
     }
 
 }

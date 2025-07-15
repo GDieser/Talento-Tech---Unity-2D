@@ -183,19 +183,17 @@ public class RadioController : MonoBehaviour
     {
         play = true;
         radioCom.SetActive(true);
-        // 1. Sonido inicial (una vez)
+        
         SoundController.instance.PlaySound(RadioClip1, 0.8f);
 
-        // 2. Lanzar diálogo al mismo tiempo
         if (!level2)
             StartCoroutine(TypeDialogue(mensajeRadio, duracionDialogo));
         else
             StartCoroutine(TypeDialogue(mensajeRadio2, duracionDialogo));
 
-        // 3. Esperar a que termine el sonido + un poco más
+        
         yield return new WaitForSeconds(RadioClip1.length + 1f);
 
-        // 4. Marcar como activado
         IsActive = true;
         radioCom.SetActive(false);
 

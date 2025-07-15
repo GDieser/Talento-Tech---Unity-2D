@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TopDown - Shooter/Scenes/SampleScene.unity
+    path: Assets/TopDown - Shooter/Scenes/Menu.unity
+    guid: be4c596dde0aecb4387094a245d34097
+  - enabled: 1
+    path: Assets/TopDown - Shooter/Scenes/IntroCiudad.unity
+    guid: e446e9595685af24da23a22d5df90a2a
+  - enabled: 1
+    path: Assets/TopDown - Shooter/Scenes/Ciudad.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/TopDown - Shooter/Scenes/IntroHospital.unity
+    guid: cf6351e49553dbb41ab928633150e399
+  - enabled: 1
+    path: Assets/TopDown - Shooter/Scenes/Hospital.unity
+    guid: c257afc3439db014098d602089ff5d61
   m_configObjects: {}

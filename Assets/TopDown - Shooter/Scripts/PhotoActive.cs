@@ -7,6 +7,7 @@ public class PhotoActive : MonoBehaviour
 {
     public TextMeshProUGUI textoInteraccion;
     public GameObject panelFoto;
+    [SerializeField] private PlayerVida player;
 
     private bool jugadorEnZona = false;
     private bool fotoMostrada = false;
@@ -19,6 +20,8 @@ public class PhotoActive : MonoBehaviour
             panelFoto.SetActive(true);
 
             Invoke("DesactivarFoto", 5f);
+
+            player.SetStory(2);
         }
     }
 
