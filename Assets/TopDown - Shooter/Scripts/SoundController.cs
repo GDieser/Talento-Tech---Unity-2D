@@ -35,6 +35,14 @@ public class SoundController : MonoBehaviour
         miSlider.value = vol; 
     }
 
+    public void DetenerFX()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+    }
+
     public void CambiarVolumen()
     {
         audioSource.volume = miSlider.value;

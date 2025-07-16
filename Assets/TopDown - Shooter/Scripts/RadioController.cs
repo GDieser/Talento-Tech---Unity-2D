@@ -14,11 +14,11 @@ public class RadioController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogText;
     [SerializeField]
     private string mensajeRadio = "... ... Ho... ¿Hola?... ¿Me escuchas?... ¿Pudiste llegar al hospital?\n" +
-               "Hay poco tiempo. Necesitás encontrar 3 medikits de los grandes y una caja de herramientas para conectar la batería del auto.\n" +
+               "Hay poco tiempo. Necesitás encontrar 3 equipos medicos y una caja de herramientas para conectar la batería del auto.\n" +
                "El auto quedó en el estacionamiento trasero, tenes que salir por el deposito. Nos encontramos en el punto de extracción. Mucha suerte...";
 
     private string mensajeRadio2 = "... ... Ho... ¿Hola?... ¿Me escuchas?... ¿Pudiste conseguir todo?\n" +
-               "Ahora necesitás conectar la batería del auto al generador, eso va a generar mucho ruido, vas a tener que resistir lo suficiente para que arranque.\n" +
+               "Ahora necesitas esperar a que cargue la batería del auto, eso va a tardar y generar mucho ruido, vas a tener que resistir lo suficiente para que arranque.\n" +
                "Te vamos a estar esperando en el punto de extracción. Mucha suerte...";
 
     [SerializeField] private float duracionDialogo = 20f;

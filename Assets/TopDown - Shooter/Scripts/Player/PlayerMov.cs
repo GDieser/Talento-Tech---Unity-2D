@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using static MenuPause;
+using static PlayerVida;
+using UnityEngine.SceneManagement;
+using static PlayerMission;
 
 public class PlayerMov : MonoBehaviour
 {
@@ -45,12 +48,15 @@ public class PlayerMov : MonoBehaviour
     private PlayerShotRifle rifle;
     private PlayerShotShotGun shotGun;
 
-    //Acceder a sus prop
+    private PlayerVida vida;
+    private PlayerMission mission;
+
     private Rigidbody2D rb;
 
     void Start()
     {
-        //Optiene los componente del rb
+
+
         transform.position = GameState.startPosition;
         linterna.enabled = true;
         rb = GetComponent<Rigidbody2D>();
@@ -61,13 +67,52 @@ public class PlayerMov : MonoBehaviour
         rifle = GetComponent<PlayerShotRifle>();
         shotGun = GetComponent<PlayerShotShotGun>();
 
-        // Por defecto solo tiene revólver
-        hasRevolver = true;
-        hasRifle = !isLevel1; // si es lvl2 o superior, tiene rifle
-        hasShotgun = false; // desbloqueás más adelante
 
-        // Activar revólver al inicio
+        hasRevolver = true;
+        hasRifle = !isLevel1;
+        hasShotgun = GameManager.instance.shotGun;
+        //hasShotgun = true;
+
         ActivarRevolver();
+
+        if (!isLevel1)
+        {
+            //Debug.Log("Guardado en GameManager: " + GameManager.instance.totalRevolverBullets);
+
+            if(GameManager.instance.totalRifleBullets != 0)
+            {
+                
+                rifle.totalBullets = GameManager.instance.totalRifleBullets;
+                revolver.totalBullets = GameManager.instance.totalRevolverBullets;
+
+
+                if (GameManager.instance.shotGun)
+                {
+                    hasShotgun = true;
+                    shotGun.SetTotalBase(GameManager.instance.totalShotGunBullets);
+
+                }
+
+                vida = GetComponent<PlayerVida>();
+
+                vida.AddPack(GameManager.instance.totalPacks);
+
+                GameStateStory.hablo = GameManager.instance.hablo;
+                GameStateStory.sirena1 = GameManager.instance.sirena1;
+                GameStateStory.sirena2 = GameManager.instance.sirena2;
+            }
+            else
+            {
+                rifle.totalBullets = 30;
+                revolver.totalBullets = 16;
+            }
+
+            
+            //mission = GetComponent<PlayerMission>();
+
+            //mission.AgregarItems();
+
+        }
 
         //revolverImage.enabled = true;
         //revolverBullet.enabled = true;
@@ -86,7 +131,7 @@ public class PlayerMov : MonoBehaviour
         {
             RecargarSprint();
         }
-        
+
 
         mov = new Vector2(movHorizontal, movVertical);
         //Normaliza la velocida para que no se sumen
@@ -273,7 +318,7 @@ public class PlayerMov : MonoBehaviour
 
     private void AttackMelee()
     {
-        if(Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2"))
         {
             animator.SetTrigger("Melee");
         }
@@ -286,7 +331,7 @@ public class PlayerMov : MonoBehaviour
         {
             linterna.enabled = !linterna.enabled;
             SoundController.instance.PlaySound(flashLight, 0.8f);
-        }        
+        }
 
     }
 
@@ -294,8 +339,8 @@ public class PlayerMov : MonoBehaviour
     {
         speed = speedCons;
 
-        if (Input.GetKey(KeyCode.LeftShift) && 
-            (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) 
+        if (Input.GetKey(KeyCode.LeftShift) &&
+            (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             && timerOn)
         {
             if (tiempoSprint > 0)
@@ -309,7 +354,7 @@ public class PlayerMov : MonoBehaviour
             }
             speed = speedCons * 1.5f;
         }
-        else if(!timerOn)
+        else if (!timerOn)
         {
             speed = speedCons;
             return false;

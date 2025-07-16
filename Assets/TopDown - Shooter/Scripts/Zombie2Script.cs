@@ -252,11 +252,11 @@ public class Zombie2Script : MonoBehaviour
         int rand = random.Next(1, 6);
 
         if (rand == 1)
-            SoundController.instance.PlaySound(Impact1, 0.8f);
+            SoundController.instance.PlaySound(Impact1, 0.6f);
         else if (rand == 2)
-            SoundController.instance.PlaySound(Impact2, 0.8f);
+            SoundController.instance.PlaySound(Impact2, 0.6f);
         else if (rand == 3)
-            SoundController.instance.PlaySound(Impact3, 0.8f);
+            SoundController.instance.PlaySound(Impact3, 0.6f);
 
         life -= damage;
 

@@ -46,6 +46,12 @@ public class PlayerVida : MonoBehaviour
         packs.AddPack(1);
     }
 
+    public void AddPack(int total)
+    {
+        totalPacks = total;
+        packs.AddPack(total);
+    }
+
     public void RecibeDamage(int damage)
     {
         vida -= damage;

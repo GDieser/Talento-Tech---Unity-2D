@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static PlayerMission;
 
 public class FinFase1Level2 : MonoBehaviour
 {
@@ -17,13 +18,28 @@ public class FinFase1Level2 : MonoBehaviour
     [SerializeField] private PlayerMov player;
     [SerializeField] private GameObject playerRoot;
 
+    [SerializeField] private PlayerShotRevolver revolver;
+    [SerializeField] private PlayerShotRifle rifle;
+    [SerializeField] private PlayerShotShotGun shotGun;
+
+    [SerializeField] private PlayerVida packs;
+    private bool shotGunAct = false;
+
 
     private bool IsRange = false;
     private bool AllItems = false;
 
     void Start()
     {
-        
+        //Debug.Log("Fase");
+        /*
+        GameManager.instance.totalRifleBullets = rifle.totalBullets;
+        GameManager.instance.totalRevolverBullets = revolver.totalBullets;
+        GameManager.instance.totalPacks = packs.totalPacks;
+
+        GameManager.instance.totalShotGunBullets = shotGun.GetTotalBullets();
+        GameManager.instance.shotGun = player.hasShotgun;
+        */
     }
 
     // Update is called once per frame
@@ -35,6 +51,15 @@ public class FinFase1Level2 : MonoBehaviour
         }
     }
 
+    protected void CargarDatosSpawn()
+    {
+        GameManager.instance.totalRifleBullets = rifle.totalBullets;
+        GameManager.instance.totalRevolverBullets = revolver.totalBullets;
+        GameManager.instance.totalPacks = packs.totalPacks;
+
+        GameManager.instance.totalShotGunBullets = shotGun.GetTotalBullets();
+        GameManager.instance.shotGun = player.hasShotgun;
+    }
 
     public IEnumerator ChangeFase()
     {
@@ -48,10 +73,13 @@ public class FinFase1Level2 : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
+        CargarDatosSpawn();
         playerRoot.SetActive(true);
 
         yield return new WaitForSeconds(2.5f);
         change.SetActive(false);
+
+        this.gameObject.SetActive(false);
         
     }
 
@@ -62,7 +90,7 @@ public class FinFase1Level2 : MonoBehaviour
         {
             IsRange = true;
 
-            if(mision.itemMission.Count == 3 && mision.tools)
+            if((mision.itemMission.Count == 3 || GameStateItems.itemMissionStatic1) && mision.tools )
             {
                 intereaccion.text = "Presiona E para salir del hospital";
                 AllItems = true;

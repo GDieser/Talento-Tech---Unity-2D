@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
@@ -24,15 +25,27 @@ public class PlayerMission : MonoBehaviour
     {
         //Debug.Log(itemMission.Count);
 
-        if (itemMission.Count == 1)
+        if (itemMission.Count == 1 )
             item1.enabled = true;
         else if (itemMission.Count == 2)
             item2.enabled = true;
         else if (itemMission.Count == 3)
             item3.enabled = true;
+        else if(GameStateItems.itemMissionStatic1)
+        {
+            item1.enabled = true;
+            item2.enabled = true;
+            item3.enabled = true;
+        }
 
         if (tools)
             tool.enabled = true;
+    }
+
+    public static class GameStateItems
+    {
+        public static bool itemMissionStatic1 = false;
+
     }
 
 }

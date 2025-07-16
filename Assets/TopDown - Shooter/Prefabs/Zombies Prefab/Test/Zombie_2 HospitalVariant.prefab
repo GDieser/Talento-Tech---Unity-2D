@@ -37,7 +37,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665275, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: life
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665275, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: player
@@ -45,11 +45,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665275, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: moveSpeed
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665275, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: detectionRange
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2834789859293665276, guid: 12025971bde174741b78b2e234d00c55, type: 3}
       propertyPath: m_Mass

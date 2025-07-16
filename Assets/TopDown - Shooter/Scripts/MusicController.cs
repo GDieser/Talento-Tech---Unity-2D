@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using static Unity.VisualScripting.Member;
 
 public class MusicController : MonoBehaviour
 {
+
     public static MusicController instance;
 
     [SerializeField] private AudioSource audioSource;
@@ -50,23 +53,48 @@ public class MusicController : MonoBehaviour
         PlayerPrefs.SetFloat("fxVolume", miSlider.value);
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Volver a enlazar si el slider de volumen es parte de la escena
+        if (miSlider == null)
+            miSlider = GameObject.Find("VolumenSlider")?.GetComponent<Slider>();
+
+        // También podés restaurar referencias a audioClips o sources si fuera necesario
+    }
+
     private void Update()
     {
         if (!isHorde)
         {
             if (TimerFX() || isFirtsZombieAmb)
             {
-                if (zombieAmb)
+                if (!GameStateHorde.esHorda)
                 {
-                    PlayFXSound(ZombieAmb2, 0.3f);
+                    if (zombieAmb)
+                    {
+                        if (ZombieAmb2 != null)
+                            PlayFXSound(ZombieAmb2, 0.3f);
+                    }
+                    else
+                    {
+                        if (ZombieAmb1 != null)
+                            PlayFXSound(ZombieAmb1, 0.3f);
+                        zombieAmb = true;
+                    }
+                    isFirtsZombieAmb = false;
+                    timerFX = 0;
                 }
-                else
-                {
-                    PlayFXSound(ZombieAmb1, 0.3f);
-                    zombieAmb = true;
-                }
-                isFirtsZombieAmb = false;
-                timerFX=0;
             }
         }
 
@@ -75,6 +103,16 @@ public class MusicController : MonoBehaviour
             ChangeMusic();
         }
     }
+
+    public void DetenerMusica()
+    {
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+        }
+    }
+
 
     private void ChangeMusic()
     {
@@ -89,6 +127,7 @@ public class MusicController : MonoBehaviour
         {
             PlaySound(MusicHorde, 0.3f);
             isHorde = false;
+            GameStateHorde.esHorda = true;
         }
     }
 
@@ -109,7 +148,7 @@ public class MusicController : MonoBehaviour
         audioSource.volume = PlayerPrefs.GetFloat("fxVolume", 1f);
     }
 
-    
+
     public void PlaySound(AudioClip audio, float volumen = 0.5f)
     {
         float volumenFinal = volumen * miSlider.value;
@@ -130,18 +169,36 @@ public class MusicController : MonoBehaviour
 
     }*/
 
+
     public void PlaySirena(AudioClip audio, float volumen = 0.5f, bool loop = false)
     {
+        if (audioSource == null)
+        {
+            Debug.LogWarning("AudioSource no asignado");
+            return;
+        }
+
+        if (audio == null)
+        {
+            Debug.LogWarning("AudioClip de sirena no asignado");
+            return;
+        }
+
+        float volumenFinal = volumen * (miSlider != null ? miSlider.value : 1f);
         audioSource.clip = audio;
-        float volumenFinal = volumen * miSlider.value;
         audioSource.volume = volumenFinal;
         audioSource.loop = loop;
         audioSource.Play();
-
     }
+
 
     public void PlayMotor(AudioClip audio, float volumen = 0.5f, bool loop = false)
     {
+        if (audioSource == null || audio == null)
+        {
+            Debug.LogWarning("Audio o AudioSource faltante en FX");
+            return;
+        }
         audioSource.clip = audio;
         float volumenFinal = volumen * miSlider.value;
         audioSource.volume = volumenFinal;
@@ -152,6 +209,11 @@ public class MusicController : MonoBehaviour
 
     public void PlayFXSound(AudioClip audio, float volumen = 0.5f)
     {
+        if (audioSource == null || audio == null)
+        {
+            Debug.LogWarning("Audio o AudioSource faltante en FX");
+            return;
+        }
         float volumenFinal = volumen * miSlider.value;
         audioSource.volume = volumenFinal;
         audioSource.PlayOneShot(audio);
@@ -183,6 +245,12 @@ public class MusicController : MonoBehaviour
         {
             return true;
         }
+    }
+
+    public static class GameStateHorde
+    {
+        public static bool esHorda = false;
+
     }
 
 

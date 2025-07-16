@@ -55,11 +55,16 @@ public class MenuController : MonoBehaviour
 
     public void AbrirLevel1()
     {
+        //MusicController.instance.DetenerMusica();
+        //SoundController.instance.DetenerFX();
+
         SceneManager.LoadScene("IntroCiudad");
     }
 
     public void AbrirLevel2()
     {
+        //MusicController.instance.DetenerMusica();
+        //SoundController.instance.DetenerFX();
         SceneManager.LoadScene("IntroHospital");
     }
 

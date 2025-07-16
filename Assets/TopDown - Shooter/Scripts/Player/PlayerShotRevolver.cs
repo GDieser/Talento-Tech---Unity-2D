@@ -8,8 +8,8 @@ public class PlayerShotRevolver : MonoBehaviour
     [SerializeField] private Transform controlShoot;
     [SerializeField] private GameObject bullet;
 
-    [SerializeField] public int bullets = 4;
-    [SerializeField] public int totalBullets = 0;
+    [SerializeField] public int bullets = 8;
+    [SerializeField] public int totalBullets = 10;
     public int MaxBullets = 48;
 
     [SerializeField] private float coolDown = 0.5f;

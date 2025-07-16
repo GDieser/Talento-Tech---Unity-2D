@@ -17,7 +17,8 @@ public class PlayerShotShotGun : PlayerShotBase
         }
 
         bullets = 6;
-        totalBullets = 0;
+        if (totalBullets == 0)
+            totalBullets = 0;
         MaxBullets = 32;
         coolDown = 0.8f;
         bulletReload = 6;
@@ -38,6 +39,12 @@ public class PlayerShotShotGun : PlayerShotBase
     public int GetTotalBullets()
     {
         return totalBullets;
+    }
+
+    public void SetTotalBase(int bull)
+    {
+        totalBullets = bull;
+        total.setTotalBullets(bull);
     }
 
     public void SetActive(bool setActive)

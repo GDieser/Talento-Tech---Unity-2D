@@ -138,6 +138,13 @@ public class MenuPause : MonoBehaviour
         }
     }
 
+    public void VolverMenuPrinciapl()
+    {
+        MusicController.instance.DetenerMusica();
+        SoundController.instance.DetenerFX();
+        SceneManager.LoadScene("Menu");
+    }
+
     public static class GameState
     {
         public static Vector2 startPosition = new Vector2(19, -0.6f);
