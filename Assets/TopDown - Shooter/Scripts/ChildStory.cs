@@ -14,6 +14,8 @@ public class ChildStory : MonoBehaviour
 
     [SerializeField] private GameObject radioCom;
 
+    [SerializeField] private AudioClip audio;
+
     private string dialogo = "¿Hola...? ¿Señor...? Tenga cuidado, hay muchos monstruos en la calle...  Ayer mi papá fue al hospital y aún no volvió... Espero que este bien, necesitamos medicamentos para mamá... Ayer sonó una alarma muy fuerte y después muchos gritos... Si vez a mi papá por favor ayudalo, usaba una remera roja, mi mamá lo necesita...";
 
     private bool IsRange = false;
@@ -30,7 +32,7 @@ public class ChildStory : MonoBehaviour
         if (IsRange && !hablando && Input.GetKeyDown(KeyCode.E))
         {
             
-            StartCoroutine(TypeDialogue(dialogo, 30));
+            StartCoroutine(TypeDialogue(dialogo, 24));
         }
     }
 
@@ -66,6 +68,8 @@ public class ChildStory : MonoBehaviour
         dialogText.text = "";
 
         float delay = duration / text.Length;
+
+        SoundController.instance.PlaySound(audio, 0.4f);
 
         foreach (char c in text)
         {

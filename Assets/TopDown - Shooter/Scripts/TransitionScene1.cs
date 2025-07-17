@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class TransitionScene1 : MonoBehaviour
 {
@@ -11,48 +12,59 @@ public class TransitionScene1 : MonoBehaviour
     [SerializeField] private float duracionAnimacion = 2f;
     [SerializeField] private string nombreSiguienteEscena;
     [SerializeField] private GameObject textoPresionaE;
-
-    private AsyncOperation cargaEscena;
+    [SerializeField] private Slider sliderCarga;
 
     private bool puedeCambiarEscena = false;
+    private AsyncOperation operacionCarga;
 
     void Start()
     {
         animation.SetActive(true);
         staticCanva.SetActive(false);
         textoPresionaE.SetActive(false);
+        sliderCarga.value = 0f;
 
-        StartCoroutine(MostrarIntroYPreCargar());
+        StartCoroutine(MostrarIntro());
     }
 
     void Update()
     {
         if (puedeCambiarEscena && Input.GetKeyDown(KeyCode.E))
         {
-            cargaEscena.allowSceneActivation = true;
+            operacionCarga.allowSceneActivation = true;
         }
     }
 
-    private IEnumerator MostrarIntroYPreCargar()
+    private IEnumerator MostrarIntro()
     {
-        // Empieza a cargar la escena en segundo plano pero no la activa aún
-        cargaEscena = SceneManager.LoadSceneAsync(nombreSiguienteEscena);
-        cargaEscena.allowSceneActivation = false;
-
         yield return new WaitForSeconds(duracionAnimacion);
 
         animation.SetActive(false);
         staticCanva.SetActive(true);
 
-        // Esperar a que la carga esté casi completa
-        while (cargaEscena.progress < 0.9f)
-        {
-            yield return null; // espera un frame
-        }
-
-        textoPresionaE.SetActive(true);
-        puedeCambiarEscena = true;
+        // Inicia la carga asincrónica sin activar aún
+        StartCoroutine(CargarEscena());
     }
 
+    private IEnumerator CargarEscena()
+    {
+        operacionCarga = SceneManager.LoadSceneAsync(nombreSiguienteEscena);
+        operacionCarga.allowSceneActivation = false;
+
+        while (!operacionCarga.isDone)
+        {
+            // Unity frena el progreso en 0.9 hasta que se permita la activación
+            float progreso = Mathf.Clamp01(operacionCarga.progress / 0.9f);
+            sliderCarga.value = progreso;
+
+            if (progreso >= 1f)
+            {
+                textoPresionaE.SetActive(true);
+                puedeCambiarEscena = true;
+            }
+
+            yield return null;
+        }
+    }
 
 }

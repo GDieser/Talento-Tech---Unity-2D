@@ -53,4 +53,9 @@ public class Intro : MonoBehaviour
         }
     }
 
+    public static void ResetIntroState()
+    {
+        introYaMostrada = false;
+    }
+
 }

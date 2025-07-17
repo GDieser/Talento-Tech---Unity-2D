@@ -92,6 +92,11 @@ public class VehiculoController : MonoBehaviour
     public static class GameStateAuto
     {
         public static bool HordaActiva = false;
+
+        public static void ResetAll()
+        {
+            HordaActiva = false;
+        }
     }
 
 }

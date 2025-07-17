@@ -32,18 +32,43 @@ public class MusicController : MonoBehaviour
     public bool zombieAmb = false;
     public static bool isFirtsZombieAmb = true;
 
+    private bool sonidoInicialReproducido = false;
+    private static bool sonidoInicialReproducido2 = false;
+
     private static bool intro = true;
+    private bool introReproducida = false;
 
     private void Start()
     {
+        float vol = PlayerPrefs.GetFloat("fxVolume", 1f);
+
+        if (miSlider == null)
+        {
+            Slider sliderEncontrado = GameObject.Find("MusicSlider")?.GetComponent<Slider>();
+            if (sliderEncontrado != null)
+            {
+                miSlider = sliderEncontrado;
+                miSlider.onValueChanged.AddListener(delegate { CambiarVolumen(); });
+            }
+        }
+
+        if (miSlider != null)
+            miSlider.value = vol;
+
+       
+
         if (intro)
         {
+            
             PlaySound(audioIntro, 0.2f);
             intro = false;
         }
-
-        float vol = PlayerPrefs.GetFloat("fxVolume", 1f);
-        miSlider.value = vol;
+        else if (GameManager.instance.IsLevel2 && !sonidoInicialReproducido2)
+        {
+            
+            PlaySound(audioIntro, 0.2f);
+            sonidoInicialReproducido2 = true;
+        }
 
     }
 
@@ -53,31 +78,12 @@ public class MusicController : MonoBehaviour
         PlayerPrefs.SetFloat("fxVolume", miSlider.value);
     }
 
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Volver a enlazar si el slider de volumen es parte de la escena
-        if (miSlider == null)
-            miSlider = GameObject.Find("VolumenSlider")?.GetComponent<Slider>();
-
-        // También podés restaurar referencias a audioClips o sources si fuera necesario
-    }
-
     private void Update()
     {
+
         if (!isHorde)
         {
-            if (TimerFX() || isFirtsZombieAmb)
+            if ((TimerFX() || isFirtsZombieAmb || (GameManager.instance.IsLevel2 && !sonidoInicialReproducido)))
             {
                 if (!GameStateHorde.esHorda)
                 {
@@ -92,8 +98,12 @@ public class MusicController : MonoBehaviour
                             PlayFXSound(ZombieAmb1, 0.3f);
                         zombieAmb = true;
                     }
+
                     isFirtsZombieAmb = false;
                     timerFX = 0;
+
+                    if (GameManager.instance.IsLevel2)
+                        sonidoInicialReproducido = true;
                 }
             }
         }
@@ -102,6 +112,23 @@ public class MusicController : MonoBehaviour
         {
             ChangeMusic();
         }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = PlayerPrefs.GetFloat("fxVolume", 1f);
     }
 
     public void DetenerMusica()
@@ -131,22 +158,7 @@ public class MusicController : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
 
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        audioSource = GetComponent<AudioSource>();
-        audioSource.volume = PlayerPrefs.GetFloat("fxVolume", 1f);
-    }
 
 
     public void PlaySound(AudioClip audio, float volumen = 0.5f)
@@ -251,6 +263,29 @@ public class MusicController : MonoBehaviour
     {
         public static bool esHorda = false;
 
+
+        public static bool Level2 = false;
+
+        public static void Reset()
+        {
+            esHorda = false;
+            Level2 = false;
+        }
+
+    }
+
+    public static void ResetInstance()
+    {
+        intro = true;
+        isFirtsZombieAmb = true;
+
+        sonidoInicialReproducido2 = false;
+
+        if (instance != null)
+        {
+            Destroy(instance.gameObject);
+            instance = null;
+        }
     }
 
 

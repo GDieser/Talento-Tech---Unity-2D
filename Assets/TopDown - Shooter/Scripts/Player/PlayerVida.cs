@@ -63,6 +63,11 @@ public class PlayerVida : MonoBehaviour
             GameStateStory.hablo = true;
         else if(tipo == 2)
             GameStateStory.foto = true;
+        else if (tipo == 3)
+            GameStateStory.sirena1 = true;
+        else if (tipo == 4)
+            GameStateStory.sirena2 = true;
+
     }
 
     public bool GetStory()
@@ -76,5 +81,15 @@ public class PlayerVida : MonoBehaviour
         public static bool foto = false;
         public static bool sirena1 = false;
         public static bool sirena2 = false;
+
+
+        public static void Reset()
+        {
+            hablo = false;
+            foto = false;
+            sirena1 = false;
+            sirena2 = false;
+        }
+
     }
 }

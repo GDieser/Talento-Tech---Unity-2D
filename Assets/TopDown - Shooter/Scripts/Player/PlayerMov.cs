@@ -43,6 +43,10 @@ public class PlayerMov : MonoBehaviour
     public bool hasRifle = false;
     public bool hasShotgun = false;
 
+    private bool[] availableWeapons;
+    private int currentWeaponIndex = 0;
+
+
     // Armas activas
     private PlayerShotRevolver revolver;
     private PlayerShotRifle rifle;
@@ -52,6 +56,10 @@ public class PlayerMov : MonoBehaviour
     private PlayerMission mission;
 
     private Rigidbody2D rb;
+
+    public float tiempoSinUsarSprint = 0f; 
+    private float tiempoEsperaRecarga = 2f;
+    private bool estaRecargando = false;
 
     void Start()
     {
@@ -74,6 +82,7 @@ public class PlayerMov : MonoBehaviour
         //hasShotgun = true;
 
         ActivarRevolver();
+        availableWeapons = new bool[] { hasRevolver, hasRifle, hasShotgun };
 
         if (!isLevel1)
         {
@@ -126,6 +135,19 @@ public class PlayerMov : MonoBehaviour
         LinternaOff();
         AttackMelee();
         ChangeGun();
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll != 0)
+        {
+            if (scroll > 0) 
+            {
+                SwitchWeapon(1); 
+            }
+            else 
+            {
+                SwitchWeapon(-1);
+            }
+        }
 
         if (!Sprint())
         {
@@ -242,6 +264,66 @@ public class PlayerMov : MonoBehaviour
 
     public void ChangeGun(int op = 0)
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) op = 1;
+        else if (Input.GetKeyDown(KeyCode.Alpha2)) op = 2;
+        else if (Input.GetKeyDown(KeyCode.Alpha3)) op = 3;
+
+        switch (op)
+        {
+            case 1:
+                if (hasRevolver) ActivarRevolver();
+                currentWeaponIndex = 0;
+                break;
+            case 2:
+                if (hasRifle) ActivarRifle();
+                currentWeaponIndex = 1;
+                break;
+            case 3:
+                if (hasShotgun) ActivarShotgun();
+                currentWeaponIndex = 2;
+                break;
+        }
+    }
+
+    private void SwitchWeapon(int direction)
+    {
+        // Guardar el índice inicial para evitar bucles infinitos
+        int startIndex = currentWeaponIndex;
+        bool weaponFound = false;
+
+        do
+        {
+            // Calcular nuevo índice
+            currentWeaponIndex += direction;
+
+            // Asegurarse de que estamos dentro de los límites del array
+            if (currentWeaponIndex >= availableWeapons.Length)
+                currentWeaponIndex = 0;
+            else if (currentWeaponIndex < 0)
+                currentWeaponIndex = availableWeapons.Length - 1;
+
+            // Si el arma está disponible, activarla
+            if (availableWeapons[currentWeaponIndex])
+            {
+                weaponFound = true;
+                switch (currentWeaponIndex)
+                {
+                    case 0: ActivarRevolver(); break;
+                    case 1: ActivarRifle(); break;
+                    case 2: ActivarShotgun(); break;
+                }
+            }
+
+            // Si hemos dado la vuelta completa sin encontrar arma disponible, salir
+            if (currentWeaponIndex == startIndex)
+                break;
+
+        } while (!weaponFound);
+    }
+
+    /*
+    public void ChangeGun(int op = 0)
+    {
         if (Input.GetKeyDown(KeyCode.Alpha1) || op == 1)
         {
             if (hasRevolver) ActivarRevolver();
@@ -255,7 +337,7 @@ public class PlayerMov : MonoBehaviour
             if (hasShotgun) ActivarShotgun();
         }
     }
-
+    */
     private void ActivarRevolver()
     {
         DesactivarTodas();
@@ -308,11 +390,13 @@ public class PlayerMov : MonoBehaviour
 
     public void DesbloquearRifle()
     {
+        availableWeapons[1] = true;
         hasRifle = true;
     }
 
     public void DesbloquearShotgun()
     {
+        availableWeapons[2] = true;
         hasShotgun = true;
     }
 
@@ -335,6 +419,7 @@ public class PlayerMov : MonoBehaviour
 
     }
 
+    /*
     private bool Sprint()
     {
         speed = speedCons;
@@ -374,6 +459,65 @@ public class PlayerMov : MonoBehaviour
             timerOn = true;
             tiempoSEspera = 0;
             tiempoSprint = 3;
+        }
+    }
+    */
+
+    private bool Sprint()
+    {
+        bool estaSprintando = Input.GetKey(KeyCode.LeftShift) &&
+                              (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+                              Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D));
+
+        // Si está sprintando y tiene energía, reducir tiempoSprint
+        if (estaSprintando && timerOn)
+        {
+            tiempoSinUsarSprint = 0f; // Reiniciar contador de inactividad
+            estaRecargando = false;
+
+            if (tiempoSprint > 0)
+            {
+                tiempoSprint -= Time.deltaTime;
+                speed = speedCons * 1.5f;
+                return true;
+            }
+            else
+            {
+                timerOn = false;
+                speed = speedCons;
+                return false;
+            }
+        }
+        else
+        {
+            // Si no está sprintando, aumentar tiempoSinUsarSprint
+            tiempoSinUsarSprint += Time.deltaTime;
+
+            // Si pasó el tiempo de espera, empezar a recargar
+            if (tiempoSinUsarSprint >= tiempoEsperaRecarga)
+            {
+                estaRecargando = true;
+                RecargarSprint();
+            }
+
+            speed = speedCons;
+            return false;
+        }
+    }
+
+    private void RecargarSprint()
+    {
+        if (estaRecargando && tiempoSprint < 3f) // 3f = tiempo máximo de sprint
+        {
+            tiempoSprint += Time.deltaTime * 2f; // Velocidad de recarga (ajustable)
+
+            // Si se llena completamente, reiniciar estado
+            if (tiempoSprint >= 3f)
+            {
+                tiempoSprint = 3f;
+                timerOn = true;
+                estaRecargando = false;
+            }
         }
     }
 

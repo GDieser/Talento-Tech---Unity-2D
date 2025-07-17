@@ -10,16 +10,26 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject configuracion;
     [SerializeField] private GameObject creditos;
 
+    private AudioSource aSource;
+    [SerializeField] private AudioClip audio;
+    [SerializeField] private AudioClip audio2;
+
+    private void Start()
+    {
+        aSource = GetComponent<AudioSource>();
+    }
 
     public void NuevaPartida(bool abrir)
     {
         if(abrir)
         {
+            aSource.PlayOneShot(audio);
             principal.SetActive(false);
             nuevaPartida.SetActive(true);
         }
         else
         {
+            aSource.PlayOneShot(audio);
             principal.SetActive(true);
             nuevaPartida.SetActive(false);
         }
@@ -29,11 +39,13 @@ public class MenuController : MonoBehaviour
     {
         if (abrir)
         {
+            aSource.PlayOneShot(audio);
             principal.SetActive(false);
             configuracion.SetActive(true);
         }
         else
         {
+            aSource.PlayOneShot(audio);
             principal.SetActive(true);
             configuracion.SetActive(false);
         }
@@ -43,11 +55,13 @@ public class MenuController : MonoBehaviour
     {
         if (abrir)
         {
+            aSource.PlayOneShot(audio);
             principal.SetActive(false);
             creditos.SetActive(true);
         }
         else
         {
+            aSource.PlayOneShot(audio);
             principal.SetActive(true);
             creditos.SetActive(false);
         }
@@ -57,7 +71,7 @@ public class MenuController : MonoBehaviour
     {
         //MusicController.instance.DetenerMusica();
         //SoundController.instance.DetenerFX();
-
+        aSource.PlayOneShot(audio2);
         SceneManager.LoadScene("IntroCiudad");
     }
 
@@ -65,6 +79,7 @@ public class MenuController : MonoBehaviour
     {
         //MusicController.instance.DetenerMusica();
         //SoundController.instance.DetenerFX();
+        aSource.PlayOneShot(audio2);
         SceneManager.LoadScene("IntroHospital");
     }
 

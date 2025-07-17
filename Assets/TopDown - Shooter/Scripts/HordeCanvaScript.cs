@@ -16,6 +16,11 @@ public class HordeCanvaScript : MonoBehaviour
     private static bool visto = false;
     private float timer = 0;
     private bool startCanva = false;
+
+    public static void ResetIVistoState()
+    {
+        visto = false;
+    }
     void Start()
     {
         if(visto)

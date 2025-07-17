@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 
 public class PlayerMission : MonoBehaviour
@@ -45,6 +45,12 @@ public class PlayerMission : MonoBehaviour
     public static class GameStateItems
     {
         public static bool itemMissionStatic1 = false;
+
+        public static void ResetAll()
+        {
+            itemMissionStatic1 = false;
+            
+        }
 
     }
 

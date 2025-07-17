@@ -14,4 +14,16 @@ public class MenuGameOver : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void VolverMenuPrinciapl()
+    {
+        Destroy(MusicController.instance.gameObject);
+        Destroy(SoundController.instance.gameObject);
+
+        if (GameManager.instance != null)
+            GameManager.instance.ResetEstado();
+
+        SceneManager.LoadScene("Menu");
+    }
+
 }

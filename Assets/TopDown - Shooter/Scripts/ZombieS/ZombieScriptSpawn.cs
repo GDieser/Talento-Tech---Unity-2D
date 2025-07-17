@@ -34,6 +34,12 @@ public class ZombieScriptSpawn : MonoBehaviour
 
     private System.Random random = new System.Random();
 
+    public float knockbackForce = 5f;
+    public float knockbackDuration = 0.2f;
+
+    private bool isKnockedBack = false;
+    [SerializeField] private bool level2 = false;
+
     private void Start()
     {
 
@@ -58,7 +64,10 @@ public class ZombieScriptSpawn : MonoBehaviour
             if (distanceToPlayer <= detectionRange)
             {
                 //agent.speed = spee  
-                agent.SetDestination(player.position);
+                if (agent != null && agent.enabled && agent.isOnNavMesh)
+                {
+                    agent.SetDestination(player.position);
+                }
 
 
                 direction.Normalize();
@@ -137,10 +146,45 @@ public class ZombieScriptSpawn : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Melee"))
-        {
 
+        if (collision.CompareTag("Melee") && !isKnockedBack)
+        {
+            Vector2 knockbackDir = (transform.position - player.position).normalized;
+
+            StartCoroutine(ApplyKnockback(knockbackDir));
         }
+    }
+
+    private IEnumerator ApplyKnockback(Vector2 direction)
+    {
+        isKnockedBack = true;
+
+        agent.enabled = false;
+
+        float elapsed = 0f;
+        float duration = knockbackDuration;
+
+        float distance = 0.3f;
+
+        if (level2)
+            distance = 0.6f;
+        
+            
+
+        Vector3 start = transform.position;
+        Vector3 end = start + (Vector3)direction * distance;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(start, end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = end;
+
+        agent.enabled = true;
+        isKnockedBack = false;
     }
 
 

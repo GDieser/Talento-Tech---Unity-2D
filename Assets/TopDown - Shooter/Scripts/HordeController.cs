@@ -9,7 +9,7 @@ public class HordeController : MonoBehaviour
     [SerializeField] private GameObject TextHorde;
 
     [SerializeField] private TextMeshProUGUI textMesh;
-
+    
     private bool fase1 = false;
     private bool fase2 = false;
     private bool fase3 = false;

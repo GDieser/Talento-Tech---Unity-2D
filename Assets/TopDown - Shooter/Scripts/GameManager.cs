@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     public int totalRifleBullets = 0;
     public int totalShotGunBullets = 0;
     public int totalPacks = 0;
+
+    public bool IsLevel2 = false;
 
     public bool shotGun = false;
 
@@ -30,14 +33,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    public void ResetEstado()
     {
-        
+        totalRevolverBullets = 0;
+        totalRifleBullets = 0;
+        totalShotGunBullets = 0;
+        totalPacks = 0;
+
+        IsLevel2 = false;
+
+        shotGun = false;
+
+        hablo = foto = sirena1 = sirena2 = false;
+
+        if(itemMission != null)
+        {
+            itemMission.Clear();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

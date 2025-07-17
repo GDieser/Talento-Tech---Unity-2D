@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using static MenuPause;
+using static PlayerVida;
 
 public class RadioController : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class RadioController : MonoBehaviour
                "Ahora necesitas esperar a que cargue la batería del auto, eso va a tardar y generar mucho ruido, vas a tener que resistir lo suficiente para que arranque.\n" +
                "Te vamos a estar esperando en el punto de extracción. Mucha suerte...";
 
-    [SerializeField] private float duracionDialogo = 20f;
+    [SerializeField] private float duracionDialogo = 23f;
 
     [SerializeField] GameObject radioCom;
 
@@ -41,6 +42,8 @@ public class RadioController : MonoBehaviour
     [SerializeField] private bool level2 = false;
     [SerializeField] private TextMeshProUGUI instrucciones;
 
+    [SerializeField] private GameObject EndingCanva;
+
     void Start()
     {
 
@@ -52,31 +55,46 @@ public class RadioController : MonoBehaviour
 
         if (!level2 || GameStateRadio.bateriaConectada)
         {
-            if (GameStateRadio.HordaActiva && !reinicio)
+            if (!GameStateStory.sirena2 || !GameStateStory.sirena1)
             {
-                textMesh.text = "";
-                music.isHorde = true;
-                horde.enabled = true;
-                activo = true;
+                if (GameStateRadio.HordaActiva && !reinicio)
+                {
+                    textMesh.text = "";
+                    music.isHorde = true;
+                    horde.enabled = true;
+                    activo = true;
 
-                reinicio = true;
+                    reinicio = true;
+                }
+                else
+                {
+
+                    if (isInRange && Input.GetKeyDown(KeyCode.E) && controller.IsActive && !IsActive && !play)
+                    {
+
+                        textMesh.text = "";
+                        StartCoroutine(AccionRadio());
+
+                    }
+
+                    if (play && Timer() && !activo)
+                    {
+                        music.isHorde = true;
+                        horde.enabled = true;
+                        activo = true;
+                    }
+                }
             }
-            else
+            else if (GameStateStory.sirena1 && GameStateStory.sirena2)
             {
-
                 if (isInRange && Input.GetKeyDown(KeyCode.E) && controller.IsActive && !IsActive && !play)
                 {
 
                     textMesh.text = "";
-                    StartCoroutine(AccionRadio());
+                    StartCoroutine(AccionRadioAlt());
 
-                }
+                    instrucciones.text = "Entra en el Hospital";
 
-                if (play && Timer() && !activo)
-                {
-                    music.isHorde = true;
-                    horde.enabled = true;
-                    activo = true;
                 }
             }
         }
@@ -183,7 +201,7 @@ public class RadioController : MonoBehaviour
     {
         play = true;
         radioCom.SetActive(true);
-        
+
         SoundController.instance.PlaySound(RadioClip1, 0.8f);
 
         if (!level2)
@@ -191,7 +209,7 @@ public class RadioController : MonoBehaviour
         else
             StartCoroutine(TypeDialogue(mensajeRadio2, duracionDialogo));
 
-        
+
         yield return new WaitForSeconds(RadioClip1.length + 1f);
 
         IsActive = true;
@@ -202,10 +220,34 @@ public class RadioController : MonoBehaviour
 
     }
 
+    private IEnumerator AccionRadioAlt()
+    {
+        play = true;
+        radioCom.SetActive(true);
+
+        SoundController.instance.PlaySound(RadioClip1, 0.8f);
+
+
+        StartCoroutine(TypeDialogue(mensajeRadio, duracionDialogo));
+
+        yield return new WaitForSeconds(RadioClip1.length + 1f);
+        
+        radioCom.SetActive(false);
+
+        EndingCanva.SetActive(false);
+
+    }
+
     public static class GameStateRadio
     {
         public static bool HordaActiva = false;
         public static bool bateriaConectada = false;
+
+        public static void ResetAll()
+        {
+            HordaActiva = false;
+            bateriaConectada = false;
+        }
 
     }
 

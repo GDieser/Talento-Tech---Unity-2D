@@ -27,23 +27,23 @@ namespace NavMeshPlus.Extensions
             base.Awake();
         }
 
-        private void OnTilemapTileChanged(Tilemap tilemap, Tilemap.SyncTile[] syncTiles)
+        private void OnTilemapTileChanged(Tilemap tilemap)
         {
             if (tilemap == _tilemap)
             {
-                foreach (Tilemap.SyncTile syncTile in syncTiles)
+                foreach (var pos in _lookup.Keys)
                 {
-                    Vector3Int position = syncTile.position;
-                    if (syncTile.tile != null && _modifierMap.TryGetValue(syncTile.tile, out NavMeshModifierTilemap.TileModifier tileModifier))
+                    var tile = tilemap.GetTile(pos);
+                    if (tile != null && _modifierMap.TryGetValue(tile, out NavMeshModifierTilemap.TileModifier tileModifier))
                     {
-                        int i = _lookup[position];
+                        int i = _lookup[pos];
                         NavMeshBuildSource source = _sources[i];
                         source.area = tileModifier.area;
                         _sources[i] = source;
                     }
                     else if (_modifier.overrideArea)
                     {
-                        int i = _lookup[position];
+                        int i = _lookup[pos];
                         NavMeshBuildSource source = _sources[i];
                         source.area = _modifier.area;
                         _sources[i] = source;
@@ -75,13 +75,13 @@ namespace NavMeshPlus.Extensions
                     _lookup[position] = i;
                 }
             }
-            Tilemap.tilemapTileChanged -= OnTilemapTileChanged;
-            Tilemap.tilemapTileChanged += OnTilemapTileChanged;
+            //Tilemap.tilemapTileChanged -= OnTilemapTileChanged;
+            //Tilemap.tilemapTileChanged += OnTilemapTileChanged;
         }
 
         protected override void OnDestroy()
         {
-            Tilemap.tilemapTileChanged -= OnTilemapTileChanged;
+            //Tilemap.tilemapTileChanged -= OnTilemapTileChanged;
             base.OnDestroy();
         }
     }

@@ -35,7 +35,7 @@ public class GeneratorController : MonoBehaviour
     {
         if (GameStateGenerator.HordaActiva && !reinicio)
         {
-            StartCoroutine(EncenderSirenas());
+            //StartCoroutine(EncenderSirenas());
 
             Faro1.SetActive(true);
             Faro2.SetActive(true);
@@ -49,14 +49,14 @@ public class GeneratorController : MonoBehaviour
             {
                 ActivarGenerador();
 
-                
+
             }
 
             if (!isHorde)
             {
                 ActivarHorda(controller.IsActive);
             }
-            
+
         }
     }
 
@@ -133,7 +133,7 @@ public class GeneratorController : MonoBehaviour
         Faro1.SetActive(true);
         Faro2.SetActive(true);
 
-        
+
         if (level2)
         {
             yield return new WaitForSeconds(1f);
@@ -145,6 +145,11 @@ public class GeneratorController : MonoBehaviour
     public static class GameStateGenerator
     {
         public static bool HordaActiva = false;
+
+        public static void ResetAll()
+        {
+            HordaActiva = false;
+        }
     }
 
 

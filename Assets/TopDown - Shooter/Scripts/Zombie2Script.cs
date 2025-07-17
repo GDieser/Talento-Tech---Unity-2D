@@ -291,6 +291,7 @@ public class Zombie2Script : MonoBehaviour
         }
     }
 
+    /*
     public static IEnumerator PlaySound(AudioSource audioSrc, AudioClip sfx, float volume, float pitch = 1, float waitingTime = 0)
     {
         yield return new WaitForSeconds(waitingTime);
@@ -302,7 +303,7 @@ public class Zombie2Script : MonoBehaviour
 
         yield return "Audio Played";
     }
-
+    */
     private IEnumerator Morir()
     {
         Animator.SetBool("Death", true);

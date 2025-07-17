@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static GeneratorController;
+using static MusicController;
+using static PlayerMission;
+using static PlayerVida;
+using static RadioController;
+using static VehiculoController;
 
 public class MenuPause : MonoBehaviour
 {
@@ -24,7 +30,7 @@ public class MenuPause : MonoBehaviour
 
     [SerializeField] private bool level1 = false;
     public bool SecondSpawnLevel1 = false;
-    
+
     [SerializeField] private bool level2 = false;
     protected int spawmOrder = 0;
 
@@ -35,11 +41,11 @@ public class MenuPause : MonoBehaviour
     private void Awake()
     {
         if (level1 && !GameState.SecondSpawnLevel1)
-            GameState.startPosition = new Vector2(-9f, -0.3f);
+            GameState.startPosition = new Vector2(-9f, -0.6f);
         else if (level1 && GameState.SecondSpawnLevel1)
             GameState.startPosition = new Vector2(22.5f, -0.3f);
         else if (level2 && !GameState.SecondSpawnLevel2 && !GameState.SecondSpawnAltLevel2)
-            GameState.startPosition = new Vector2(-8, -0.5f);
+            GameState.startPosition = new Vector2(-9, -38f);
         else if (level2 && GameState.SecondSpawnLevel2 && !GameState.SecondSpawnAltLevel2)
         {
             GameState.startPosition = new Vector2(-9, -38f);
@@ -58,14 +64,14 @@ public class MenuPause : MonoBehaviour
 
     void Update()
     {
-        if(SecondSpawnLevel1)
+        if (SecondSpawnLevel1)
             GameState.startPosition = new Vector2(22.5f, -0.3f);
 
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(pauseGame)
-            { 
+            if (pauseGame)
+            {
                 ContinueGame();
             }
             else
@@ -77,7 +83,7 @@ public class MenuPause : MonoBehaviour
 
     protected void SetSpawnOrder(int order)
     {
-        spawmOrder = order; 
+        spawmOrder = order;
     }
 
     public void PauseGame()
@@ -109,15 +115,15 @@ public class MenuPause : MonoBehaviour
 
     public void SetSpawn(int level = 1)
     {
-        if(level == 1)
+        if (level == 1)
             SecondSpawnLevel1 = true;
-        if(level == 2)
+        if (level == 2)
         {
             GameState.SecondSpawnLevel2 = true;
             GameState.SecondSpawnAltLevel2 = false;
             missionHud.SetActive(false);
         }
-        if(level == 3)
+        if (level == 3)
         {
             GameState.SecondSpawnAltLevel2 = true;
             GameState.SecondSpawnLevel2 = false;
@@ -140,8 +146,8 @@ public class MenuPause : MonoBehaviour
 
     public void VolverMenuPrinciapl()
     {
-        MusicController.instance.DetenerMusica();
-        SoundController.instance.DetenerFX();
+        ResetearTodo();
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
 
@@ -152,5 +158,44 @@ public class MenuPause : MonoBehaviour
         public static bool SecondSpawnLevel1 = false;
         public static bool SecondSpawnLevel2 = false;
         public static bool SecondSpawnAltLevel2 = false;
+
+        public static void ResetAll()
+        {
+            startPosition = new Vector2(19, -0.6f);
+            SecondSpawnLevel1 = false;
+            SecondSpawnLevel2 = false;
+            SecondSpawnAltLevel2 = false;
+
+        }
+
+    }
+
+    public static void ResetearTodo()
+    {
+        if (MusicController.instance != null)
+            MusicController.ResetInstance();
+
+        if (SoundController.instance != null)
+            SoundController.ResetInstance();
+
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ResetEstado();
+            GameObject.Destroy(GameManager.instance.gameObject);
+            GameManager.instance = null;
+        }
+
+        GameState.ResetAll();
+        GameStateStory.Reset();
+        GameStateItems.ResetAll();
+        GameStateGenerator.ResetAll();
+        GameStateHorde.Reset();
+        GameStateRadio.ResetAll();
+        GameStateAuto.ResetAll();
+
+        Intro.ResetIntroState();
+        HordeCanvaScript.ResetIVistoState();
     }
 }
+
+
