@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static PlayerVida;
 using UnityEngine.SceneManagement;
+using static GeneratorController;
+using static MenuPause;
+using static MusicController;
+using static PlayerMission;
+using static RadioController;
+using static VehiculoController;
 
 public class EndingCanva : MonoBehaviour
 {
@@ -17,6 +23,9 @@ public class EndingCanva : MonoBehaviour
     [SerializeField] private PlayerShotRifle rifle;
 
     [SerializeField] private PlayerVida packs;
+
+
+    [SerializeField] private bool IsLevel2 = false;
 
 
     private bool animation = false;
@@ -56,7 +65,7 @@ public class EndingCanva : MonoBehaviour
     {
         
 
-        if (!GameManager.instance.IsLevel2)
+        if (!GameManager.instance.IsLevel2 && !IsLevel2)
         {
             if (animation)
             {
@@ -80,19 +89,48 @@ public class EndingCanva : MonoBehaviour
         {
             if (animation)
             {
-                if (Timer(8))
+                if (Timer(14))
                 {
-                    player.SetActive(false);
+                    if(player)
+                        player.SetActive(false);
 
-                    Destroy(MusicController.instance.gameObject);
-                    Destroy(SoundController.instance.gameObject);
-
+                    ResetearTodo();
+                    Time.timeScale = 1f;
+                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                     SceneManager.LoadScene("Menu");
                 }
             }
             
         }
 
+    }
+
+
+    public static void ResetearTodo()
+    {
+        if (MusicController.instance != null)
+            MusicController.ResetInstance();
+
+        if (SoundController.instance != null)
+            SoundController.ResetInstance();
+
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ResetEstado();
+            GameObject.Destroy(GameManager.instance.gameObject);
+            GameManager.instance = null;
+        }
+
+        GameState.ResetAll();
+        GameStateStory.Reset();
+        GameStateItems.ResetAll();
+        GameStateGenerator.ResetAll();
+        GameStateHorde.Reset();
+        GameStateRadio.ResetAll();
+        GameStateAuto.ResetAll();
+
+        Intro.ResetIntroState();
+        HordeCanvaScript.ResetIVistoState();
     }
 
     private bool Timer(int time = 5)

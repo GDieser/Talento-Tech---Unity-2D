@@ -10,6 +10,10 @@ public class HordeController : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI textMesh;
     
+    
+    [SerializeField] private TextMeshProUGUI PreHorda;
+
+        
     private bool fase1 = false;
     private bool fase2 = false;
     private bool fase3 = false;
@@ -38,8 +42,10 @@ public class HordeController : MonoBehaviour
 
     private void Update()
     {
+        PreHorda.text = "Se acercan... Preparate.";
         if(Timer2())
         {
+            PreHorda.text = "";
             TextTimer.setTimer(TextSec);
 
             textMesh.text = "Resiste la horda.";

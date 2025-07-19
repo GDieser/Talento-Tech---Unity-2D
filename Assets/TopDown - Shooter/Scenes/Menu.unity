@@ -708,6 +708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 341792980}
   - component: {fileID: 341792981}
+  - component: {fileID: 341792982}
   m_Layer: 5
   m_Name: SliderMusica
   m_TagString: Untagged
@@ -736,7 +737,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0002594, y: -0.9161}
+  m_AnchoredPosition: {x: 0.0002594, y: 108}
   m_SizeDelta: {x: 457.22, y: 18.7526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &341792981
@@ -789,7 +790,32 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 341792982}
+        m_TargetAssemblyTypeName: ManuMusicManager, Assembly-CSharp
+        m_MethodName: ChangeVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &341792982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341792979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6f2e903f6dd05940b75d8fc6e3c8db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 341792981}
 --- !u!1 &358557700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,6 +1295,144 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416883641}
   m_CullTransparentMesh: 1
+--- !u!1 &452100474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452100475}
+  - component: {fileID: 452100477}
+  - component: {fileID: 452100476}
+  m_Layer: 5
+  m_Name: Controles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &452100475
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452100474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 611408242}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.00025034, y: -102.12}
+  m_SizeDelta: {x: 447.0681, y: 315.7778}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &452100476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452100474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "Movimiento :              W,A,S,D\nSprintar :                   SHIFT\nCambiar
+    Arma:           Scroll/Num\nCurarse :                   H\nLinterna :                  
+    F\nAcci\xF3n :                     E\nDisparar :                  Click Izq\nMelee
+    :                      Click Der\nMen\xFA :                       ESC"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 25.61
+  m_fontSizeBase: 25.61
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &452100477
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452100474}
+  m_CullTransparentMesh: 1
 --- !u!1 &471623833
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,6 +1639,7 @@ RectTransform:
   - {fileID: 3390419}
   - {fileID: 341792980}
   - {fileID: 850156572}
+  - {fileID: 452100475}
   m_Father: {fileID: 1348168879}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1693,7 +1858,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -678.60376}
+  m_SizeDelta: {x: 0, y: 4380.9663}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &650926205
 MonoBehaviour:
@@ -1715,7 +1880,118 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Texto de Prueba!!!!
+  m_text: "Cr\xE9ditos y Agradecimientos\n\n- Sprites:\n\nSurvivor Player\nAutor:
+    Riley Gombart\nhttps://opengameart.org/content/animated-top-down-survivor-player\n\nZombie
+    2 \u2013 Animated Top Down Zombie\nAutor: Riley Gombart\nhttps://opengameart.org/content/top-down-animated-zombie-set\n\n2D
+    Health & Ammo Pickups\nAutor: fightswithbears\nhttps://fightswithbears.itch.io/2d-health-and-ammo-pickups\n\nTop
+    Down Buildings and Objects \u2013 Pixel Art\nAutor: 2D Game Assets\nhttps://dribbble.com/shots/19756083-Top-Down-Buildings-and-Objects-Pixel-Art\n\nMap
+    Tiles for Modern City Streets\nAutor: Ross McConnell (2-Minute Tabletop)\nhttps://2minutetabletop.com/map-tiles-modern-city-streets/\n\nModern
+    & Near-Future Street Tiles\nAutor: Cherno\nhttps://forums.rptools.net/viewtopic.php?t=23342\n\n-
+    M\xFAsica:\n\nMetal 1 \u2013 INSTRUMENTAL DARK META\nAutor: @musicaldiscoveries9302\nhttps://www.youtube.com/watch?v=auk_jD8V880\n\nMetal
+    2 \u2013 Flayed to Rest (Groove Metal)\nAutor: Rip & Riff\nhttps://www.youtube.com/watch?v=PTmYmu4NTsk\n\nMenu
+    \u2013 Dark Ambient (Horror Background Music)\nAutor: THRLL\nhttps://www.youtube.com/watch?v=oO0DvpIWhd0\n\n-
+    Sonidos (SFX)\n\nRecursos de sonidos libres obtenidos de Pixabay:\n\nSound Effect
+    por Rusu Gabriel\nhttps://pixabay.com/users/skyscraper_seven-43500092/\nEnlace
+    al sonido\n\nSound Effect por CreatorsHome\nhttps://pixabay.com/users/creatorshome-49707711/\nEnlace
+    al sonido\n\nSound Effect por Universfield\nhttps://pixabay.com/users/universfield-28281460/\nEnlace
+    al sonido\n\nSound Effect por freesound_community\nhttps://pixabay.com/users/freesound_community-46691455/\nEnlace
+    al sonido\n\nSound Effect por ALIENIGHTMARE\nhttps://pixabay.com/users/alienightmare-42489797/\nEnlace
+    al sonido\n\nRecursos de sonidos libres obtenidos de freesound.org:\n\nGunshot.ogg
+    by wesleyextreme_gamer -- https://freesound.org/s/574818/ -- License: Creative
+    Commons 0\r\n\nGun-Pistol(one shot).wav by Shades -- https://freesound.org/s/37236/
+    -- License: Sampling+\r\n\nGlock Shot Sound Effect by aleksnascimento -- https://freesound.org/s/161195/
+    -- License: Attribution 3.0\r\n\n1911 Reload by nioczkus -- https://freesound.org/s/396331/
+    -- License: Creative Commons 0\r\n\nGlock19_reload.wav by Fr3yr -- https://freesound.org/s/100804/
+    -- License: Attribution 3.0\r\n\nBone crack by TuneSeeker -- https://freesound.org/s/803550/
+    -- License: Creative Commons 0\r\n\nbutton by crystalpt -- https://freesound.org/s/790757/
+    -- License: Creative Commons 0\r\n\nflaslight switch.m4a by CaptainYulef -- https://freesound.org/s/640872/
+    -- License: Creative Commons 0\r\n\nPressure Hiss by magnuswaker -- https://freesound.org/s/581083/
+    -- License: Creative Commons 0\r\n\nRifle Gun, Ready 02.wav by LilMati -- https://freesound.org/s/371513/
+    -- License: Creative Commons 0\r\n\nGunSLide.wav by RazzDaSpazz -- https://freesound.org/s/155174/
+    -- License: Creative Commons 0\r\n\nMagazineClatter_03.wav by dustboxednorth
+    -- https://freesound.org/s/613702/ -- License: Creative Commons 0\r\n\nAR15 Safety
+    Selector by DrinkingWindGames -- https://freesound.org/s/678880/ -- License:
+    Attribution 4.0\r\n\nmachinegun-one-shot.wav by DeltaCode -- https://freesound.org/s/668347/
+    -- License: Creative Commons 0\r\n\nAK12 Assault Rifle Load by PNMCarrieRailfan
+    -- https://freesound.org/s/683308/ -- License: Attribution NonCommercial 4.0\r\n\nAR15
+    Ejecting a Loaded Magazine 2 by DrinkingWindGames -- https://freesound.org/s/678871/
+    -- License: Attribution 4.0\r\n\ngunfiddle.wav by j1987 -- https://freesound.org/s/107795/
+    -- License: Creative Commons 0\r\n\nDark Ambient Music (Black Queen Rises) by
+    TheBoseDeity -- https://freesound.org/s/395694/ -- License: Attribution NonCommercial
+    3.0\r\n\nMulch Space Tone.wav by MrFossy -- https://freesound.org/s/591145/ --
+    License: Creative Commons 0\r\n\nLA Rain Storm.wav by courter -- https://freesound.org/s/449826/
+    -- License: \nCreative Commons 0\r\n\nBreathing and Weezing.wav by mrh4hn --
+    https://freesound.org/s/426614/ -- License: Creative Commons 0\r\n\nZombie Groan
+    0 by OwNathan -- https://freesound.org/s/754438/ -- License: Creative Commons
+    0\r\n\nZ-Fem 04b - Attack.wav by angelkunev -- https://freesound.org/s/560590/
+    -- License: Creative Commons 0\r\n\nZombie moan.wav by Hoshenko -- https://freesound.org/s/698566/
+    -- License: Attribution 4.0\r\n\nterror ambience.mp3 by burning-mir -- https://freesound.org/s/155142/
+    -- License: Creative Commons 0\r\n\nCreepy Ambient Noises by PatrickLieberkind
+    -- https://freesound.org/s/243925/ -- License: Attribution 4.0\r\n\nZombie distant
+    ambience by ryanconway -- https://freesound.org/s/253362/ -- License: Attribution
+    4.0\r\n\nscary-creaking-knocking-wood.wav by MinigunFiend -- https://freesound.org/s/175205/
+    -- License: Creative Commons 0\r\n\nSudden Unbearable Weight Of creep by rahulsawla_
+    -- https://freesound.org/s/748869/ -- License: Creative Commons 0\r\n\nDay_1_v3.wav
+    by copyc4t -- https://freesound.org/s/182352/ -- License: Attribution 4.0\r\n\nDreadful
+    prayer 2 by BrainClaim -- https://freesound.org/s/267632/ -- License: Creative
+    Commons 0\r\n\nDreadful prayer 2 by BrainClaim -- https://freesound.org/s/267632/
+    -- License: Creative Commons 0\r\n\nCreepy Tension Rise Build Up 1 by miksmusic
+    -- https://freesound.org/s/506843/ -- License: Attribution NonCommercial 3.0\r\n\nZOMBIE
+    F\xDCRZE.wav by AnimyosFox -- https://freesound.org/s/688155/ -- License: Attribution
+    4.0\r\n\nZOMBIE ZENTRALE.wav by AnimyosFox -- https://freesound.org/s/688158/
+    -- License: Attribution 4.0\r\n\nScream.wav by nicktermer -- https://freesound.org/s/320247/
+    -- License: Creative Commons 0\r\n\nZombie Demon Scream by Wakerone -- https://freesound.org/s/435651/
+    -- License: Creative Commons 0\r\n\nMutant Scream by scorpion67890 -- https://freesound.org/s/396797/
+    -- License: Creative Commons 0\r\n\nDeath 2 - The Ridge - Host by bananplyte
+    -- https://freesound.org/s/452347/ -- License: Creative Commons 0\r\n\n01561
+    ghost scream.wav by Robinhood76 -- https://freesound.org/s/94166/ -- License:
+    Attribution NonCommercial 4.0\r\n\nhorror scream woman long.wav by klankbeeld
+    -- https://freesound.org/s/171078/ -- License: Attribution 4.0\r\n\nlight_bulb_switch_on2_44_16.wav
+    by Suz_Soundcreations -- https://freesound.org/s/180533/ -- License: Attribution
+    4.0\r\n\nTelephone Pick Up.wav by Analog Bleep Ten -- https://freesound.org/s/75828/
+    -- License: Sampling+\r\n\nRetro, Underwater Coin.wav by LilMati -- https://freesound.org/s/523547/
+    -- License: Creative Commons 0\r\n\nempty-gun-failure-to-fire-trigger-pull-3
+    by CosmicEmbers -- https://freesound.org/s/387484/ -- License: Attribution 3.0\r\n\nCobra
+    III Pump Pull (1).ogg by smill.and.welson -- https://freesound.org/s/698974/
+    -- License: Attribution 4.0\r\n\nshell load.ogg by CeebFrack -- https://freesound.org/s/108793/
+    -- License: Creative Commons 0\r\n\nShotgun Cock Reload Layered (Powerful) by
+    Paul368 -- https://freesound.org/s/200966/ -- License: Creative Commons 0\r\n\nempty-gun-failure-to-fire-trigger-pull-3
+    by CosmicEmbers -- https://freesound.org/s/387484/ -- License: Attribution 3.0\r\n\nshotgun
+    sounds by lensflare8642 -- https://freesound.org/s/145209/ -- License: Creative
+    Commons 0\r\n\nCoachgun_Fire1.wav by PhreaKsAccount -- https://freesound.org/s/46261/
+    -- License: Attribution 3.0\r\n\nheartmonitor-EKG.wav by FreqMan -- https://freesound.org/s/32329/
+    -- License: Attribution 4.0\r\n\ngrab-item by 1bob -- https://freesound.org/s/651515/
+    -- License: Creative Commons 0\r\n\nR08-46-Zombie Group.wav by craigsmith --
+    https://freesound.org/s/480762/ -- License: Creative Commons 0\r\n\nDamnedSouls_Chorus.mp3
+    by cormi -- https://freesound.org/s/328702/ -- License: Attribution NonCommercial
+    4.0\r\n\nProcessed Tormented Lamenting souls by DTheTech -- https://freesound.org/s/713601/
+    -- License: Attribution 4.0\r\n\nGhost Monster Scream by NachtmahrTV -- https://freesound.org/s/556701/
+    -- License: Creative Commons 0\r\n\nhaunted shrills.wav by squashy555 -- https://freesound.org/s/240091/
+    -- License: Creative Commons 0\r\n\nZombie Demon Scream by Wakerone -- https://freesound.org/s/435651/
+    -- License: Creative Commons 0\r\n\nWhat hell sounds like.wav by TheSoundmakerqueen
+    -- https://freesound.org/s/439397/ -- License: Attribution 4.0\r\nZombie Choking.wav
+    by mrh4hn -- https://freesound.org/s/426637/ -- License: Creative Commons 0\r\n\nremix
+    of 141109__toiletrolltube__003-c-001-me-2006-06-07.mp3 by Timbre -- https://freesound.org/s/141172/
+    -- License: Attribution NonCommercial 4.0\r\nzombie noise2.wav by iSaria -- https://freesound.org/s/326262/
+    -- License: Attribution 4.0\r\n\nData stream by copyc4t -- https://freesound.org/s/244622/
+    -- License: Attribution 4.0\r\n\nCW_RN1TN_contest.mp3 by acclivity -- https://freesound.org/s/13743/
+    -- License: Attribution NonCommercial 4.0\r\n\nfluctuating radio sounds  by deleted_user_3137935
+    -- https://freesound.org/s/256090/ -- License: Creative Commons 0\r\nattack2t22.wav
+    by guitarguy1985 -- https://freesound.org/s/59864/ -- License: Creative Commons
+    0\r\n\nClassic Car Ford Mustang Bonnet Open And Close.wav by mincedbeats -- https://freesound.org/s/630546/
+    -- License: Creative Commons 0\r\nt_start1.mp3 by roscoetoon -- https://freesound.org/s/26814/
+    -- License: Attribution 3.0\r\n\nhorror gate.aif by Tomlija -- https://freesound.org/s/109710/
+    -- License: Attribution 3.0\r\n\nThriller Ambient by unfa -- https://freesound.org/s/157133/
+    -- License: Creative Commons 0\r\n\nDeep Breathing Beast with Reversed Clicks
+    by DudeAwesome -- https://freesound.org/s/387593/ -- License: Attribution 4.0\r\nsideband
+    AM voice.wav by parabolix -- https://freesound.org/s/362448/ -- License: Creative
+    Commons 0\r\n\nLooppelganger #59 | Dark Ambient Sound by looplicator -- https://freesound.org/s/777115/
+    -- License: Attribution 4.0\r\n\nWaiting for the apocalypse by xkeril -- https://freesound.org/s/686658/
+    -- License: Creative Commons 0\r\n\nPan Your Mind by Trevor.Net -- https://freesound.org/s/682721/
+    -- License: Creative Commons 0\r\n\nFragment drone/soundscape by Garzul -- https://freesound.org/s/380485/
+    -- License: Creative Commons 0\r\n\n\nTodos los recursos fueron utilizados respetando
+    sus licencias y condiciones de uso. Agradecimientos especiales a los creadores
+    por ofrecer contenido gratuito y de alta calidad para desarrolladores independientes."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -1748,7 +2024,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -2848,8 +3124,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1263651469}
   m_HandleRect: {fileID: 1263651468}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.13793088
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2908,7 +3184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &850156572
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4276,7 +4552,7 @@ RectTransform:
   m_Father: {fileID: 608314584}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.86206913}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -6166,7 +6442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "M\xFAsica"
+  m_text: "M\xFAsica/FX"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

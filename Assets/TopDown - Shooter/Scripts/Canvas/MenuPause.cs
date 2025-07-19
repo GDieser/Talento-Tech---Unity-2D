@@ -16,8 +16,8 @@ public class MenuPause : MonoBehaviour
     [SerializeField] private GameObject playerPausa;
     private bool pauseGame = false;
 
-    [SerializeField] private Texture2D cursorMenu;
-    [SerializeField] private Vector2 cursorHotspot;
+    //[SerializeField] private Texture2D cursorMenu;
+    //[SerializeField] private Vector2 cursorHotspot;
 
     [SerializeField] private Texture2D cursorDefault;
     [SerializeField] private Vector2 cursorHotspotDefault;
@@ -40,12 +40,14 @@ public class MenuPause : MonoBehaviour
 
     private void Awake()
     {
+        
+
         if (level1 && !GameState.SecondSpawnLevel1)
             GameState.startPosition = new Vector2(-9f, -0.6f);
         else if (level1 && GameState.SecondSpawnLevel1)
             GameState.startPosition = new Vector2(22.5f, -0.3f);
         else if (level2 && !GameState.SecondSpawnLevel2 && !GameState.SecondSpawnAltLevel2)
-            GameState.startPosition = new Vector2(-9, -38f);
+            GameState.startPosition = new Vector2(-8, -0.5f);
         else if (level2 && GameState.SecondSpawnLevel2 && !GameState.SecondSpawnAltLevel2)
         {
             GameState.startPosition = new Vector2(-9, -38f);
@@ -57,6 +59,7 @@ public class MenuPause : MonoBehaviour
 
     private void Start()
     {
+        
         //GameState.startPosition = new Vector2(startX, startY);
         Time.timeScale = 1f;
 
@@ -88,7 +91,8 @@ public class MenuPause : MonoBehaviour
 
     public void PauseGame()
     {
-        Cursor.SetCursor(cursorMenu, cursorHotspot, CursorMode.Auto);
+        //Cursor.SetCursor(cursorMenu, cursorHotspot, CursorMode.Auto);
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         Hud.SetActive(false);
 
         menuPausa.SetActive(true);

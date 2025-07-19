@@ -22,7 +22,7 @@ public class RadioController : MonoBehaviour
                "Ahora necesitas esperar a que cargue la batería del auto, eso va a tardar y generar mucho ruido, vas a tener que resistir lo suficiente para que arranque.\n" +
                "Te vamos a estar esperando en el punto de extracción. Mucha suerte...";
 
-    [SerializeField] private float duracionDialogo = 23f;
+    [SerializeField] private float duracionDialogo = 20f;
 
     [SerializeField] GameObject radioCom;
 
@@ -121,6 +121,8 @@ public class RadioController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(GameStateRadio.HordaActiva);
+
         if (!GameStateRadio.HordaActiva)
         {
             if (collision.CompareTag("Player"))
@@ -210,7 +212,7 @@ public class RadioController : MonoBehaviour
             StartCoroutine(TypeDialogue(mensajeRadio2, duracionDialogo));
 
 
-        yield return new WaitForSeconds(RadioClip1.length + 1f);
+        yield return new WaitForSeconds(RadioClip1.length + 5f);
 
         IsActive = true;
         radioCom.SetActive(false);
@@ -230,11 +232,11 @@ public class RadioController : MonoBehaviour
 
         StartCoroutine(TypeDialogue(mensajeRadio, duracionDialogo));
 
-        yield return new WaitForSeconds(RadioClip1.length + 1f);
+        yield return new WaitForSeconds(RadioClip1.length + 5f);
         
         radioCom.SetActive(false);
 
-        EndingCanva.SetActive(false);
+        EndingCanva.SetActive(true);
 
     }
 
