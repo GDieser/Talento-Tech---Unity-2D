@@ -9,7 +9,7 @@ public class SoundController : MonoBehaviour
     public static SoundController instance;
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] public Slider miSlider;
+    //[SerializeField] public Slider miSlider;
 
     private void Awake()
     {
@@ -32,8 +32,8 @@ public class SoundController : MonoBehaviour
     void Start()
     {
         float vol = PlayerPrefs.GetFloat("fxVolume", 1f);
-        miSlider.value = vol;
-
+        //miSlider.value = vol;
+        /*
         if (miSlider == null)
         {
             Slider sliderEncontrado = GameObject.Find("SoundSlider")?.GetComponent<Slider>();
@@ -42,12 +42,12 @@ public class SoundController : MonoBehaviour
                 miSlider = sliderEncontrado;
                 miSlider.onValueChanged.AddListener(delegate { CambiarVolumen(); });
             }
-        }
-
+        }*/
+        /*
         if (miSlider != null)
         {
             miSlider.value = vol;
-        }
+        }*/
     }
 
     public void DetenerFX()
@@ -57,13 +57,13 @@ public class SoundController : MonoBehaviour
             audioSource.Stop();
         }
     }
-
+    /*
     public void CambiarVolumen()
     {
         audioSource.volume = miSlider.value;
         PlayerPrefs.SetFloat("fxVolume", miSlider.value);
     }
-
+    */
 
     public void PlaySound(AudioClip audio, float volumenRelativo = 1f)
     {
@@ -81,7 +81,7 @@ public class SoundController : MonoBehaviour
     {
         if (instance != null)
         {
-            instance.miSlider = null;
+            //instance.miSlider = null;
             instance.audioSource = null;
 
             Destroy(instance.gameObject);

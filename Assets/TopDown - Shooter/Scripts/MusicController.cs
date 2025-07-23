@@ -12,7 +12,7 @@ public class MusicController : MonoBehaviour
     public static MusicController instance;
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private Slider miSlider;
+    //[SerializeField] private Slider miSlider;
 
     [SerializeField] private AudioClip audioIntro;
     [SerializeField] private AudioClip MusicHorde;
@@ -42,7 +42,7 @@ public class MusicController : MonoBehaviour
     {
         float vol = PlayerPrefs.GetFloat("fxVolume", 1f);
 
-        if (miSlider == null)
+        /*if (miSlider == null)
         {
             Slider sliderEncontrado = GameObject.Find("MusicSlider")?.GetComponent<Slider>();
             if (sliderEncontrado != null)
@@ -54,7 +54,7 @@ public class MusicController : MonoBehaviour
 
         if (miSlider != null)
             miSlider.value = vol;
-
+        */
        
 
         if (intro)
@@ -72,11 +72,13 @@ public class MusicController : MonoBehaviour
 
     }
 
+    /*
     public void CambiarVolumen()
     {
         audioSource.volume = miSlider.value;
         PlayerPrefs.SetFloat("fxVolume", miSlider.value);
     }
+    */
 
     private void Update()
     {
@@ -163,7 +165,7 @@ public class MusicController : MonoBehaviour
 
     public void PlaySound(AudioClip audio, float volumen = 0.5f)
     {
-        float volumenFinal = volumen * miSlider.value;
+        float volumenFinal = volumen; //* miSlider.value;
         audioSource.volume = volumenFinal;
         audioSource.loop = true;
         audioSource.PlayOneShot(audio);
@@ -186,17 +188,15 @@ public class MusicController : MonoBehaviour
     {
         if (audioSource == null)
         {
-            Debug.LogWarning("AudioSource no asignado");
             return;
         }
 
         if (audio == null)
         {
-            Debug.LogWarning("AudioClip de sirena no asignado");
             return;
         }
 
-        float volumenFinal = volumen * (miSlider != null ? miSlider.value : 1f);
+        float volumenFinal = volumen;// * (miSlider != null ? miSlider.value : 1f);
         audioSource.clip = audio;
         audioSource.volume = volumenFinal;
         audioSource.loop = loop;
@@ -208,11 +208,10 @@ public class MusicController : MonoBehaviour
     {
         if (audioSource == null || audio == null)
         {
-            Debug.LogWarning("Audio o AudioSource faltante en FX");
             return;
         }
         audioSource.clip = audio;
-        float volumenFinal = volumen * miSlider.value;
+        float volumenFinal = volumen;// * miSlider.value;
         audioSource.volume = volumenFinal;
         audioSource.loop = loop;
         audioSource.Play();
@@ -223,10 +222,18 @@ public class MusicController : MonoBehaviour
     {
         if (audioSource == null || audio == null)
         {
-            Debug.LogWarning("Audio o AudioSource faltante en FX");
+            Debug.LogWarning("AudioSource o AudioClip es null");
             return;
         }
-        float volumenFinal = volumen * miSlider.value;
+
+        /*
+        if (miSlider == null)
+        {
+            Debug.LogWarning("miSlider es null");
+            return;
+        }
+        */
+        float volumenFinal = volumen;// * miSlider.value;
         audioSource.volume = volumenFinal;
         audioSource.PlayOneShot(audio);
     }

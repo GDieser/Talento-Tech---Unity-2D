@@ -138,7 +138,7 @@ public class GeneratorController : MonoBehaviour
         if (level2)
         {
             yield return new WaitForSeconds(1f);
-            instrucciones.text = "Conecta la betería del auto";
+            instrucciones.text = "Conecta la batería del auto";
         }
 
     }
