@@ -50,7 +50,7 @@ public class MenuPause : MonoBehaviour
             GameState.startPosition = new Vector2(-8, -0.5f);
         else if (level2 && GameState.SecondSpawnLevel2 && !GameState.SecondSpawnAltLevel2)
         {
-            GameState.startPosition = new Vector2(-9, -38f);
+            GameState.startPosition = new Vector2(5, -37f);
             missionHud.SetActive(false);
         }
         else if (level2 && GameState.SecondSpawnAltLevel2)

@@ -25,6 +25,7 @@ public class MusicController : MonoBehaviour
 
     private float timer = 0;
     private float timerFX = 0;
+
     public bool isHorde = false;
 
     public bool isHordeTension1 = true;
@@ -112,6 +113,7 @@ public class MusicController : MonoBehaviour
 
         if (isHorde)
         {
+            //Debug.Log("Horda");
             ChangeMusic();
         }
     }
@@ -154,6 +156,7 @@ public class MusicController : MonoBehaviour
 
         if (Timer())
         {
+           // Debug.Log("entro");
             PlaySound(MusicHorde, 0.3f);
             isHorde = false;
             GameStateHorde.esHorda = true;
@@ -165,8 +168,8 @@ public class MusicController : MonoBehaviour
 
     public void PlaySound(AudioClip audio, float volumen = 0.5f)
     {
-        float volumenFinal = volumen; //* miSlider.value;
-        audioSource.volume = volumenFinal;
+        //float volumenFinal = volumen; //* miSlider.value;
+        audioSource.volume = volumen;
         audioSource.loop = true;
         audioSource.PlayOneShot(audio);
     }

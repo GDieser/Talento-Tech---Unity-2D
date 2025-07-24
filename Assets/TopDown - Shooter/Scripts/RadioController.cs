@@ -28,6 +28,7 @@ public class RadioController : MonoBehaviour
 
     [SerializeField] private MenuPause menu;
     [SerializeField] private MusicController music;
+
     [SerializeField] private HordeController horde;
 
     public bool IsActive = false;
@@ -46,7 +47,7 @@ public class RadioController : MonoBehaviour
 
     void Start()
     {
-
+        music = FindObjectOfType<MusicController>();
     }
 
     // Update is called once per frame
@@ -60,7 +61,14 @@ public class RadioController : MonoBehaviour
                 if (GameStateRadio.HordaActiva && !reinicio)
                 {
                     textMesh.text = "";
-                    music.isHorde = true;
+                    
+                    if(!GameStateRadio.MetalMusic)
+                    {
+                        music.isHorde = true;
+                        GameStateRadio.MetalMusic = true;
+                    }
+
+
                     horde.enabled = true;
                     activo = true;
 
@@ -79,7 +87,13 @@ public class RadioController : MonoBehaviour
 
                     if (play && Timer() && !activo)
                     {
-                        music.isHorde = true;
+
+                        if (!GameStateRadio.MetalMusic)
+                        {
+                            music.isHorde = true;
+                            GameStateRadio.MetalMusic = true;
+                        }
+
                         horde.enabled = true;
                         activo = true;
                     }
@@ -121,7 +135,7 @@ public class RadioController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(GameStateRadio.HordaActiva);
+        //Debug.Log(GameStateRadio.HordaActiva);
 
         if (!GameStateRadio.HordaActiva)
         {
@@ -233,8 +247,10 @@ public class RadioController : MonoBehaviour
         StartCoroutine(TypeDialogue(mensajeRadio, duracionDialogo));
 
         yield return new WaitForSeconds(RadioClip1.length + 5f);
-        
+
         radioCom.SetActive(false);
+
+        GameStateRadio.MetalMusic = false;
 
         EndingCanva.SetActive(true);
 
@@ -244,11 +260,13 @@ public class RadioController : MonoBehaviour
     {
         public static bool HordaActiva = false;
         public static bool bateriaConectada = false;
+        public static bool MetalMusic = false;
 
         public static void ResetAll()
         {
             HordaActiva = false;
             bateriaConectada = false;
+            MetalMusic = false;
         }
 
     }

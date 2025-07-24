@@ -54,9 +54,11 @@ public class EndingCanva : MonoBehaviour
         GameManager.instance.hablo = GameStateStory.hablo;
         GameManager.instance.sirena1 = false;
         GameManager.instance.sirena2 = false;
+        GameStateRadio.MetalMusic = false;
+        GameStateRadio.HordaActiva = false;
+        GameStateGenerator.HordaActiva = false;
 
-        
-        
+
     }
 
 
@@ -80,6 +82,9 @@ public class EndingCanva : MonoBehaviour
 
                     GameStateStory.sirena1 = false;
                     GameStateStory.sirena2 = false;
+                    GameStateRadio.MetalMusic = false;
+                    GameStateRadio.HordaActiva = false;
+                    GameStateGenerator.HordaActiva = false;
 
                     SceneManager.LoadScene("IntroHospital");
                 }

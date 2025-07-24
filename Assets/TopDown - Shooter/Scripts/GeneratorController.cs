@@ -62,7 +62,7 @@ public class GeneratorController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(GameStateGenerator.HordaActiva);
+        //Debug.Log(GameStateGenerator.HordaActiva);
         if (!GameStateGenerator.HordaActiva)
         {
             if (collision.CompareTag("Player") && !IsActive)
